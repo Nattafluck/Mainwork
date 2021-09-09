@@ -85,15 +85,63 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-grid.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-grid.min.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-grid.rtl.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-grid.rtl.min.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-reboot.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-reboot.min.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-reboot.rtl.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-reboot.rtl.min.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-utilities.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-utilities.min.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-utilities.rtl.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-utilities.rtl.min.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap.min.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap.rtl.css" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap.rtl.min.css" />
+    <Content Include="bootstrap-5.1.1-dist\js\bootstrap.bundle.js" />
+    <Content Include="bootstrap-5.1.1-dist\js\bootstrap.bundle.min.js" />
+    <Content Include="bootstrap-5.1.1-dist\js\bootstrap.esm.js" />
+    <Content Include="bootstrap-5.1.1-dist\js\bootstrap.esm.min.js" />
+    <Content Include="bootstrap-5.1.1-dist\js\bootstrap.js" />
+    <Content Include="bootstrap-5.1.1-dist\js\bootstrap.min.js" />
+    <Content Include="css\loginpage.css" />
     <Content Include="css\main.css" />
+    <Content Include="css\page.css" />
     <Content Include="css\style.css" />
+    <Content Include="css\button.css" />
     <Content Include="js\main.js" />
+    <Content Include="Photo\logo.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-grid.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-grid.min.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-grid.rtl.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-reboot.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-reboot.min.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-reboot.rtl.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-utilities.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-utilities.min.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-utilities.rtl.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap.min.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap.rtl.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\css\bootstrap.rtl.min.css.map" />
+    <Content Include="bootstrap-5.1.1-dist\js\bootstrap.bundle.js.map" />
+    <Content Include="bootstrap-5.1.1-dist\js\bootstrap.bundle.min.js.map" />
+    <Content Include="bootstrap-5.1.1-dist\js\bootstrap.esm.js.map" />
+    <Content Include="bootstrap-5.1.1-dist\js\bootstrap.esm.min.js.map" />
+    <Content Include="bootstrap-5.1.1-dist\js\bootstrap.js.map" />
+    <Content Include="bootstrap-5.1.1-dist\js\bootstrap.min.js.map" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

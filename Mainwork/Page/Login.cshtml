@@ -1,32 +1,64 @@
-﻿<html>
-                         <!--Login-->
+﻿<!DOCTYPE>
+<html>
+<!--Login-->
 <head>
     <link rel="stylesheet" href="~/css/main.css" />
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/js/main.js" />
+    <link rel="stylesheet" href="~/css/button.css" />
+    <link rel="stylesheet" href="~/css/page.css" />
+    <link rel="stylesheet" href="~/css/loginpage.css" />
+    <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/js/bootstrap.min.js" />
 
+    <style>
+        }
 
+        .backgroundlg {
+            background-color: white;
+            padding: 30px;
+        }
+    </style>
 
+    <body>
+        <div align="center">
+           <!-- <img style="margin-top:10px" src="~/Photo/logo.png" /> -->
+        </div>
 
-    <bod>
+        <div class="sidenav">
+            
+            <div class="login-main-text">
+                <button class="buttongreen" style="padding-left:40px" onclick="" type="button">ค้นหางานวิจัย</button>
 
-        <section class="padding" align="center">
-            <form>
-                <h1 align="center"><font color="#000000">เข้าสู่ระบบ</font></h1>
-                ID<br><input type="id"><br>
-                PASSWORD<br><input name="password" type="password"><br><br>
-                <span>
-                    <button onclick="" type="button">Login</button>
-                    <input type="button" onclick="location.href='https://localhost:44361/Page/Register.cshtml';" value="Register" />
-                </span>
-                <br>
-                <a href="https://localhost:44361/Page/forget.cshtml" style="font-size:15px">Forgetpassword</a>
-                <script>
-                </script>
-</section>
+            </div>
+        </div>
+        <div class="main">
+            <div>
+                <div align="center">
+                    <form>
+                       <div class="col-md-6 col-sm-12">
 
-        </form>
-        </body>
+                            <img style="margin-top:30px" src="~/Photo/logo.png" />
+                            <h3>เข้าสู่ระบบ</h3>
+                            <label for="username" class="form-label"> Username </label><br>
+                            <input tpye="text" class="form-control" placeholder="Username" /><br>
+                            <label for="password" class="form-label"> Password </label><br>
+                            <input tpye="password" class="form-control" placeholder="Password" /><br>
+                            <span>
+                                <button class="buttongreen" onclick="" type="button">Login</button>
+                                <input class="buttonblue" type="button" onclick="location.href='https://localhost:44361/Page/Register.cshtml';" value="Register" />
+
+                            </span><br>
+                    
+                            <a href="https://localhost:44361/Page/forget.cshtml" style="font-size:15px">Forgetpassword?</a>
+
+                            
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 
 
