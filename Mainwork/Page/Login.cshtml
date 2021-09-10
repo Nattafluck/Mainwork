@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="~/css/popuplogin.css" />
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Taviraj:wght600&display=swap">
+</head>
     <style>
         body {
             font-family: 'Taviraj', serif;
@@ -32,10 +33,14 @@
 
             <div class="login-main-text">
                 <div align="center">
-                    <h2> ระบบจองสอบวิจัย</h2>
-                    <p>มหาวิทยาลัยราชภัฏจันทรเกษม</p>
-                    <button class="buttonyellow" onclick="" type="button">ค้นหางานวิจัย</button><br />
-                    <button class="buttonyellow" onclick="" type="button">ผลการลงทะเบียน</button>
+                    <div>
+                        <font color="#FCFAD9">
+                        <h2> ระบบจองสอบวิจัย</h2>
+                        <p>มหาวิทยาลัยราชภัฏจันทรเกษม</p>
+                        </font>
+                    </div>
+                    <button class="buttonyellow button2" onclick="" type="button">ค้นหางานวิจัย</button><br />
+                    <button class="buttonyellow button2" onclick="" type="button">ผลการลงทะเบียน</button>
 
                 </div>
 
@@ -58,16 +63,16 @@
 
                                         <h3>เข้าสู่ระบบ</h3>
                                         <div align="left">
-                                            <font size="5"><label for="username" class="form-label"> Username </label><br></font>
-                                            <input type="text" class="form-control" placeholder="Username" />
+                                            <font size="5"><label for="username" class="form-label"> ชื่อผู้ใช้ </label><br></font>
+                                            <input type="text" class="form-control" placeholder="ชื่อผู้ใช้" />
 
-                                            <font size="5"><label for="password" class="form-label"> Password </label><br></font>
-                                            <input type="password" class="form-control" placeholder="Password" /><br>
+                                            <font size="5"><label for="password" class="form-label"> รหัสผ่าน </label><br></font>
+                                            <input type="password" class="form-control" placeholder="รหัสผ่าน" /><br>
                                         </div>
 
                                         <span>
-                                            <button class="buttongreen" onclick="" type="button">Login</button>
-                                            <input class="buttonblue" type="button" onclick="location.href='https://localhost:44361/Page/Register.cshtml';" value="Register" />
+                                            <button class="buttongreen button1" onclick="" type="button">เข้าสู่ระบบ</button>
+                                            <input class="buttonblue button1" type="button" onclick="location.href='https://localhost:44361/Page/Register.cshtml';" value="สมัครสมาชิก" />
 
                                         </span>
 
@@ -76,7 +81,7 @@
                                 </div>
                             </form>
                             <div id="formFooter">
-                                <font size="3"><a class="underlineHover" href="https://localhost:44361/Page/forget.cshtml">Forgot Password?</a></font>
+                                <font size="3"><a class="underlineHover" href="https://localhost:44361/Page/forget.cshtml">ลืมรหัสผ่าน?</a></font>
 
                             </div>
                         </div>

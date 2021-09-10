@@ -10,6 +10,12 @@
     margin: 4px 2px;
     cursor: pointer;
 }
+    .button1 {
+    width: 150px;
+    }
+    .button2 {
+        width: 250px;
+    }
 
 .buttonred {
     background-color: #ff6961; /* Red */
@@ -23,6 +29,14 @@
     margin: 4px 2px;
     cursor: pointer;
 }
+    .button1 {
+        width: 150px;
+    }
+    .button2 {
+        width: 250px;
+    }
+
+
 .buttongreen {
     background-color: #CAEEBE; /* green */
     border: none;
@@ -35,6 +49,15 @@
     margin: 4px 2px;
     cursor: pointer;
 }
+    .button1 {
+        width: 150px;
+    }
+    .button2 {
+        width: 250px;
+    }
+
+
+
 .buttonyellow {
     background-color: #FDE49F; /* yellow */
     border: none;
@@ -47,3 +70,9 @@
     margin: 4px 2px;
     cursor: pointer;
 }
+    .button1 {
+        width: 150px;
+    }
+    .button2 {
+        width: 350px;
+    }
