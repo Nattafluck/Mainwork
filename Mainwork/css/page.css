@@ -1,2 +1,6 @@
-﻿.backgroundpage {
-    background-color: #acd9a7;
+﻿.reg {
+    height: 100%;
+    background-color: #B8EBA9;
+    overflow-x: hidden;
+    padding-top: 20px;
+}

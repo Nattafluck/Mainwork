@@ -3,10 +3,65 @@
 <head>
     <link rel="stylesheet" href="~/css/main.css" />
     <link rel="stylesheet" href="~/css/style.css" />
-    <title></title>
+    <link rel="stylesheet" href="~/js/main.js" />
+    <link rel="stylesheet" href="~/css/button.css" />
+    <link rel="stylesheet" href="~/css/page.css" />
+    <link rel="stylesheet" href="~/css/loginpage.css" />
+    <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/js/bootstrap.min.js" />
+    <link rel="stylesheet" href="~/css/popuplogin.css" />
 </head>
 <body>
-    <h1 align ="center"><font color="#000000">สมัครสมาชิก</font></h1>
-
+    <div class="reg">
+    <h1 align="center"><font color="#000000">สมัครสมาชิก</font></h1>
+    <form class="row g-3">
+        <div align="center">
+            <div class="col-md-6">
+                <label for="name" class="form-label">ชื่อจริง</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="col-md-6">
+                <label for="surname" class="form-label">นามสกุล</label>
+                <input type="text" class="form-control" id="surname" required>
+            </div>
+            <div class="col-12">
+                <label for="studentid" class="form-label">รหัสนักศึกษา</label>
+                <input type="text" class="form-control" id="studentid" required>
+            </div>
+            <div class="col-12">
+                <label for="idcard" class="form-label">เลขบัตรประชาชน</label>
+                <input type="text" class="form-control" id="idcard" required>
+            </div>
+            <div class="col-md-6">
+                <label for="paperthai" class="form-label">ชื่องานวิจัยภาษาไทย</label>
+                <input type="text" class="form-control" id="paperthai" required>
+            </div>
+            <div class="col-md-4">
+                <label for="papereng" class="form-label">ชื่องานวิจัยภาษาอังกฤษ</label>
+                <input type="text" class="form-control" id="papereng" required>
+            </div>
+            <div class="col-4">
+                <label for="teacher" class="form-label">ชื่ออาจารย์ที่ปรึกษา</label>
+                <select id="teacher" class="form-select">
+                    <option selected>อาจารย์ที่ปรึกษา</option>
+                    <option></option>
+                </select>
+            </div>
+            <div class="col-4">
+                <label for="phone" class="form-label">เบอร์โทรศัพท์</label>
+                <input type="text" class="form-control" id="phone" required>
+            </div>
+            <div class="col-6">
+                <label for="email" class="form-label">อีเมล์</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+        </div>
+            <div class="col-12">
+                <div align="center">
+                <button type="submit" class="btn btn-primary">Sign in</button>
+            </div>
+    <h2 align="center"><font color="#000000">แนบไฟล์เอกสาร</font></h2>
+    </form>
+    </div>
 </body>
 </html>
