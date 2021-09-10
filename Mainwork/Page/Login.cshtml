@@ -10,9 +10,15 @@
     <link rel="stylesheet" href="~/css/loginpage.css" />
     <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/js/bootstrap.min.js" />
-
+    <link rel="stylesheet" href="~/css/popuplogin.css" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Taviraj:wght600&display=swap">
     <style>
+        body {
+            font-family: 'Taviraj', serif;
+            
         }
+        
 
         .backgroundlg {
             background-color: white;
@@ -20,13 +26,17 @@
         }
     </style>
 
-    <body>
-        
+    <bod>
+
         <div class="sidenav">
-            <h1>hello</h1>
+
             <div class="login-main-text">
                 <div align="center">
-                <button class="buttonyellow" onclick="" type="button">ค้นหางานวิจัย</button>
+                    <h2> ระบบจองสอบวิจัย</h2>
+                    <p>มหาวิทยาลัยราชภัฏจันทรเกษม</p>
+                    <button class="buttonyellow" onclick="" type="button">ค้นหางานวิจัย</button>
+                    <button class="buttonyellow" onclick="" type="button">ผลการลงทะเบียน</button>
+
                 </div>
 
             </div>
@@ -34,27 +44,44 @@
         <div class="main">
             <div>
                 <div align="center">
-                    <form>
-                       <div class="col-md-6 col-sm-12">
+                    <div class="wrapper fadeInDown">
+                        <div id="formContent">
 
-                            <img style="margin-top:30px" src="~/Photo/logo.png" />
-                            <h3>เข้าสู่ระบบ</h3>
-                            <label for="username" class="form-label"> Username </label><br>
-                            <input tpye="text" class="form-control" placeholder="Username" /><br>
-                            <label for="password" class="form-label"> Password </label><br>
-                            <input tpye="password" class="form-control" placeholder="Password" /><br>
-                            <span>
-                                <button class="buttongreen" onclick="" type="button">Login</button>
-                                <input class="buttonblue" type="button" onclick="location.href='https://localhost:44361/Page/Register.cshtml';" value="Register" />
 
-                            </span><br>
-                    
-                            <a href="https://localhost:44361/Page/forget.cshtml" style="font-size:15px">Forgetpassword?</a>
 
-                            
+                            <form>
 
+                                <div class="col-md-6 col-sm-12">
+                                    <div>
+
+                                        <img style="margin-top:20px" src="~/Photo/logo.png" />
+
+                                        <h3>เข้าสู่ระบบ</h3>
+                                        <div align="left">
+                                            <font size="5"><label for="username" class="form-label"> Username </label><br></font>
+                                            <input type="text" class="form-control" placeholder="Username" />
+
+                                            <font size="5"><label for="password" class="form-label"> Password </label><br></font>
+                                            <input type="password" class="form-control" placeholder="Password" /><br>
+                                        </div>
+
+                                        <span>
+                                            <button class="buttongreen" onclick="" type="button">Login</button>
+                                            <input class="buttonblue" type="button" onclick="location.href='https://localhost:44361/Page/Register.cshtml';" value="Register" />
+
+                                        </span>
+
+
+                                    </div>
+                                </div>
+                            </form>
+                            <div id="formFooter">
+                                <font size="3"><a class="underlineHover" href="https://localhost:44361/Page/forget.cshtml">Forgot Password?</a></font>
+
+                            </div>
                         </div>
-                    </form>
+
+                    </div>
                 </div>
             </div>
         </div>

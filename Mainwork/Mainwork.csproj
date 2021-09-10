@@ -110,6 +110,7 @@
     <Content Include="css\loginpage.css" />
     <Content Include="css\main.css" />
     <Content Include="css\page.css" />
+    <Content Include="css\popuplogin.css" />
     <Content Include="css\style.css" />
     <Content Include="css\button.css" />
     <Content Include="js\main.js" />
