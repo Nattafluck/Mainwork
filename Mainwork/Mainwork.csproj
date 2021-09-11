@@ -142,6 +142,7 @@
     <Content Include="bootstrap-5.1.1-dist\js\bootstrap.js.map" />
     <Content Include="bootstrap-5.1.1-dist\js\bootstrap.min.js.map" />
     <None Include="packages.config" />
+    <Content Include="Page\Home.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
