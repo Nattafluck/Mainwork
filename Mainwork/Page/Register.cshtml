@@ -1,67 +1,136 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="~/css/main.css" />
-    <link rel="stylesheet" href="~/css/style.css" />
-    <link rel="stylesheet" href="~/js/main.js" />
-    <link rel="stylesheet" href="~/css/button.css" />
-    <link rel="stylesheet" href="~/css/page.css" />
-    <link rel="stylesheet" href="~/css/loginpage.css" />
     <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/js/bootstrap.min.js" />
-    <link rel="stylesheet" href="~/css/popuplogin.css" />
+    <link rel="stylesheet" href="~/css/page.css" />
+
 </head>
 <body>
-    <div class="reg">
-    <h1 align="center"><font color="#000000">สมัครสมาชิก</font></h1>
-    <form class="row g-3">
-        <div align="center">
-            <div class="col-md-6">
-                <label for="name" class="form-label">ชื่อจริง</label>
-                <input type="text" class="form-control" id="name" required>
-            </div>
-            <div class="col-md-6">
-                <label for="surname" class="form-label">นามสกุล</label>
-                <input type="text" class="form-control" id="surname" required>
-            </div>
-            <div class="col-12">
-                <label for="studentid" class="form-label">รหัสนักศึกษา</label>
-                <input type="text" class="form-control" id="studentid" required>
-            </div>
-            <div class="col-12">
-                <label for="idcard" class="form-label">เลขบัตรประชาชน</label>
-                <input type="text" class="form-control" id="idcard" required>
-            </div>
-            <div class="col-md-6">
-                <label for="paperthai" class="form-label">ชื่องานวิจัยภาษาไทย</label>
-                <input type="text" class="form-control" id="paperthai" required>
-            </div>
-            <div class="col-md-4">
-                <label for="papereng" class="form-label">ชื่องานวิจัยภาษาอังกฤษ</label>
-                <input type="text" class="form-control" id="papereng" required>
-            </div>
-            <div class="col-4">
-                <label for="teacher" class="form-label">ชื่ออาจารย์ที่ปรึกษา</label>
-                <select id="teacher" class="form-select">
-                    <option selected>อาจารย์ที่ปรึกษา</option>
-                    <option></option>
-                </select>
-            </div>
-            <div class="col-4">
-                <label for="phone" class="form-label">เบอร์โทรศัพท์</label>
-                <input type="text" class="form-control" id="phone" required>
-            </div>
-            <div class="col-6">
-                <label for="email" class="form-label">อีเมล์</label>
-                <input type="email" class="form-control" id="email" required>
+    <section class="vh-100 reg">
+        <div class="container py-5 h-100">
+            <div class="row justify-content-center align-items-center h-100">
+                <div class="col-12 col-lg-9 col-xl-7">
+                    <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                        <div class="card-body p-4 p-md-5">
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">สมัครสมาชิก</h3>
+                            <form>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+
+                                        <div class="form-outline">
+                                            <input type="text" id="firstname" class="form-control form-control-lg" required />
+                                            <label class="form-label" for="firstname">ชื่อจริง</label>
+                                           
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+
+                                        <div class="form-outline">
+                                            <input type="text" id="lastName" class="form-control form-control-lg" required />
+                                            <label class="form-label" for="lastName">นามสกุล</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+
+                                        <div class="form-outline">
+                                            <input type="text" id="idcard" class="form-control form-control-lg" required />
+                                            <label class="form-label" for="idcard">เลขบัตรประชาชน</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+
+                                        <div class="form-outline">
+                                            <input type="email" id="emailAddress" class="form-control form-control-lg" required />
+                                            <label class="form-label" for="emailAddress">Email</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4 pb-2">
+
+                                        <div class="form-outline">
+                                            <input type="text" id="paperThai" class="form-control form-control-lg" required />
+                                            <label class="form-label" for="paperThai">ชื่องานวิจัย (ภาษาไทย)</label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 mb-4 pb-2">
+
+                                        <div class="form-outline">
+                                            <input type="text" id="paperEng" class="form-control form-control-lg" required />
+                                            <label class="form-label" for="paperEng">ชื่องานวิจัย (ภาษาอังกฤษ)</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-mb-12 mb-4 pb-2">
+
+                                        <select class="select form-control form-control-lg" required>
+                                            <option value="1">รายการ</option>
+                                            <option value="2">อ.</option>
+                                            <option value="3">อ.</option>
+                                            <option value="4">อ.</option>
+                                        </select>
+                                        <label class="form-label select-label">อาจารย์ที่ปรึกษา</label>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-mb-18 mb-4 pb-2">
+
+                                        <div class="form-outline">
+                                            <input type="tel" id="phoneNumber" class="form-control form-control-lg" required />
+                                            <label class="form-label" for="phoneNumber">หมายเลขโทรศัพท์</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <h4 class="mb-4 pb-2 pb-md-0 mb-md-5">กรุณาแนบเอกสาร</h4>
+
+                                    <div class="col-mb-24 mb-4 pb-2">
+
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="customFile">
+                                            <label class="custom-file-label" for="customFile">เอกสาร IT1</label>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-mb-24 mb-4 pb-2">
+
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="customFile">
+                                            <label class="custom-file-label" for="customFile">เอกสารการลงทะเบียนเรียนวิชาวิจัย</label>
+                                        </div>
+
+                                    </div>
+
+                                <div class="mt-4 pt-2">
+                                    <button class="btn btn-primary btn-lg" type="submit" onclick="";>ยืนยัน</button>
+                                    <button class="btn btn-danger btn-lg" type="button" onclick="location.href='https://localhost:44361/Page/Login.cshtml';">ย้อนกลับ</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-            <div class="col-12">
-                <div align="center">
-                <button type="submit" class="btn btn-primary">Sign in</button>
-            </div>
-    <h2 align="center"><font color="#000000">แนบไฟล์เอกสาร</font></h2>
-    </form>
-    </div>
+    </section>
 </body>
 </html>
