@@ -141,7 +141,9 @@
     <Content Include="bootstrap-5.1.1-dist\js\bootstrap.js.map" />
     <Content Include="bootstrap-5.1.1-dist\js\bootstrap.min.js.map" />
     <None Include="packages.config" />
-    <Content Include="Page\Home.cshtml" />
+    <Content Include="Page\Student\Home.cshtml" />
+    <Content Include="Page\Admin\Admin approve.cshtml" />
+    <Content Include="Page\Admin\Admin Home.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -152,7 +154,9 @@
     <Content Include="Page\Register.cshtml" />
     <Content Include="Page\forget.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Page\Teachers\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

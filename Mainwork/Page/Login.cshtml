@@ -4,7 +4,6 @@
 
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="~/css/main.css" />
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/js/main.js" />
     <link rel="stylesheet" href="~/css/button.css" />
@@ -15,7 +14,7 @@
     <link rel="stylesheet" href="~/css/popuplogin.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Taviraj:wght600&display=swap">
+          href="https://fonts.googleapis.com/css2?family=Taviraj:wght600&display=swap">  <!--font หลัก-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
@@ -23,7 +22,19 @@
         body {
             font-family: 'Taviraj', serif;  
         }
-        
+        button {
+            width: 50%;
+            
+            border: none;
+            color: black;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 70%;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
 
     </style>
 
@@ -35,14 +46,18 @@
                 <div align="center">
                     <div>
                         <font color="#FCFAD9">
-                            <h2> ระบบจองสอบวิจัย</h2>
-                            <h2> ค้นหางานวิจัย</h2>
-                            <p>มหาวิทยาลัยราชภัฏจันทรเกษม</p>
+                            <h3>ระบบข้อมูลสารสนเทศวิจัยทาง</h3>
+                            <h3>เทคโนโลยีสารสนเทศ</h3>
+                            <h3>และนวัตกรรมดิจิทัล</h3><br />
+                            
+                            <h5>เทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</h5>
+                            <h6>มหาวิทยาลัยราชภัฏจันทรเกษม</h6>
                         </font>
                     </div>
-                    <button class="buttonyellow button2" onclick="" type="button"><i class="bi bi-search"></i> ค้นหางานวิจัย </button><br />
-                    <button class="buttonyellow button2" onclick="" type="button"><i class="bi bi-check-lg"></i> ผลการลงทะเบียน </button>
-
+                    <div style="margin:30px;">
+                        <button style="background: #FDE49F; height: 5%;" onclick="" type="button"><i class="bi bi-search"></i> ค้นหางานวิจัย </button>
+                        <button style="background: #FDE49F; height: 5%;" onclick="" type="button"><i class="bi bi-check-lg"></i> ผลการลงทะเบียน </button>
+                    </div>
                 </div>
 
             </div>
@@ -73,8 +88,8 @@
                                             <input type="password" class="form-control" placeholder="รหัสผ่าน" /><br>
                                         </div>
                                         <div align="center">
-                                            <button class="buttongreen button1 " type="button" onclick="location.href='https://localhost:44361/Page/Home.cshtml';">เข้าสู่ระบบ</button>
-                                            <button class="buttonblue button1" type="button" onclick="location.href='https://localhost:44361/Page/Register.cshtml';">สมัครสมาชิก</button>
+                                            <button style="background: #CAEEBE;" type="button" onclick="location.href='https://localhost:44361/Page/Home.cshtml';">เข้าสู่ระบบ</button><br />
+                                            <button style="background: #abbdee;" type="button" onclick="location.href='https://localhost:44361/Page/Register.cshtml';">สมัครสมาชิก</button>
                                         </div>
                                     </div>
                                 </div>
