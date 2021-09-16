@@ -106,7 +106,6 @@
     <Content Include="bootstrap-5.1.1-dist\js\bootstrap.js" />
     <Content Include="bootstrap-5.1.1-dist\js\bootstrap.min.js" />
     <Content Include="css\loginpage.css" />
-    <Content Include="css\main.css" />
     <Content Include="css\page.css" />
     <Content Include="css\popuplogin.css" />
     <Content Include="css\style.css" />
