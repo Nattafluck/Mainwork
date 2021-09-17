@@ -144,6 +144,8 @@
     <Content Include="Page\Student\Home.cshtml" />
     <Content Include="Page\Admin\Admin approve.cshtml" />
     <Content Include="Page\Admin\Admin Home.cshtml" />
+    <Content Include="Page\CheckRegis.cshtml" />
+    <Content Include="Page\Admin\Admin Student Detail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
