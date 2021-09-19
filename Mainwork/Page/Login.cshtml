@@ -1,4 +1,26 @@
 ﻿<!DOCTYPE>
+@using WebMatrix.Data;
+@{
+    var db = Database.Open("Researchbooking");
+
+    if (IsPost)
+    {
+        var usr = Request.Form["userName"];
+        var pwd = Request.Form["passWord"];
+        var select = "select * from students where studentID=@0 and password=@1";
+
+        var row = db.QuerySingle(select, usr, pwd);
+        if (row != null)
+        {
+            Session["userName"] = row["studentID"];
+            Response.Redirect("~/Page/Register.cshtml");
+        }
+        else
+        {
+            <script>alert("ไม่พบข้อมูลผู้ใช้")</script>
+        }
+    }
+}
 <html>
 <!--Login-->
 
@@ -18,62 +40,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
-    <style>
-        body {
-            font-family: 'Taviraj', serif;  
-        }
-        button {
-            width: 50%;
-            
-            border: none;
-            color: black;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 70%;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
+<style>
+    body {
+        font-family: 'Taviraj', serif;
+    }
 
-    </style>
+    button {
+        width: 50%;
+        border: none;
+        color: black;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 70%;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+</style>
 
 <body>
 
-        <div class="sidenav">
+    <div class="sidenav">
 
-            <div class="login-main-text">
-                <div align="center">
-                    <div>
-                        <font color="#FCFAD9">
-                            <h3>ระบบข้อมูลสารสนเทศวิจัยทาง</h3>
-                            <h3>เทคโนโลยีสารสนเทศ</h3>
-                            <h3>และนวัตกรรมดิจิทัล</h3><br />
-                            
-                            <h5>เทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</h5>
-                            <h6>มหาวิทยาลัยราชภัฏจันทรเกษม</h6>
-                        </font>
-                    </div>
-                    <div style="margin:30px;">
-                        <button style="background: #FDE49F; height: 5%;" onclick="" type="button"><i class="bi bi-search"></i> ค้นหางานวิจัย </button>
-                        <button style="background: #FDE49F; height: 5%;" onclick="" type="button"><i class="bi bi-check-lg"></i> ผลการลงทะเบียน </button>
-                    </div>
+        <div class="login-main-text">
+            <div align="center">
+                <div>
+
+                    <font color="#FCFAD9">
+                        <h3>ระบบข้อมูลสารสนเทศวิจัยทาง</h3>
+                        <h3>เทคโนโลยีสารสนเทศ</h3>
+                        <h3>และนวัตกรรมดิจิทัล</h3><br />
+
+                        <h5>เทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</h5>
+                        <h6>มหาวิทยาลัยราชภัฏจันทรเกษม</h6>
+                    </font>
                 </div>
-
+                <div style="margin:30px;">
+                    <button style="background: #FDE49F; height: 5%;" onclick="" type="button"><i class="bi bi-search"></i> ค้นหางานวิจัย </button>
+                    <button style="background: #FDE49F; height: 5%;" onclick="" type="button"><i class="bi bi-check-lg"></i> ผลการลงทะเบียน </button>
+                </div>
             </div>
+
         </div>
-        
-        <div class="main">
-            <div>
-                <div align="center">
-                    <div class="wrapper fadeInDown">
-                        <div id="formContent">
+    </div>
+
+    <div class="main">
+        <div>
+            <div align="center">
+                <div class="wrapper fadeInDown">
+                    <div id="formContent">
 
 
 
-                            <form>
-                                
-                                
+                        <form action="" method="post">
+
+
+
                                 <div class="col-md-10">
                                     <div class="mb-5">
 
@@ -82,13 +105,13 @@
                                         <h3>เข้าสู่ระบบ</h3>
                                         <div align="left">
                                             <font size="8"><label for="username" class="form-label"> ชื่อผู้ใช้ </label><br></font>
-                                            <input type="text" class="form-control" width="10" placeholder="ชื่อผู้ใช้" />
+                                            <input type="text" name="userName" class="form-control" width="10" placeholder="ชื่อผู้ใช้" />
 
                                             <font size="8"><label for="password" class="form-label"> รหัสผ่าน </label><br></font>
-                                            <input type="password" class="form-control" placeholder="รหัสผ่าน" /><br>
+                                            <input type="password" name="passWord" class="form-control" placeholder="รหัสผ่าน" /><br>
                                         </div>
                                         <div align="center">
-                                            <button style="background: #CAEEBE;" type="button" onclick="location.href='https://localhost:44361/Page/Home.cshtml';">เข้าสู่ระบบ</button><br />
+                                            <button style="background: #CAEEBE;" type="submit">เข้าสู่ระบบ</button><br />
                                             <button style="background: #abbdee;" type="button" onclick="location.href='https://localhost:44361/Page/Register.cshtml';">สมัครสมาชิก</button>
                                         </div>
                                     </div>
@@ -99,12 +122,12 @@
                                 <font size="3"><a class="underlineHover" href="https://localhost:44361/Page/forget.cshtml">ลืมรหัสผ่าน?</a></font>
 
                             </div>
-                        </div>
+</div>
 
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
 </body>
 
 
