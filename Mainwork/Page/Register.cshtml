@@ -1,6 +1,19 @@
 ﻿<!DOCTYPE html>
+@using WebMatrix.Data;
 <html>
 <head>
+    @{
+        var db = Database.Open("ResearchBooking");
+        if (IsPost)
+        {
+            var user = Request.Form["usr"];
+            var password = Request.Form["pwd"];
+            var name = Request.Form["name"];
+            var insert = "insert into member(username,password,fname) values(@0,@1,@2)";
+            db.Execute(insert, user, password, name);
+            <script>alert("ลงทะเบียนรียบร้อยแล้ว ระบบกำลังดำเนินการ กรุณารอตรวจสอบสถานะการลงทะเบียนที่หน้าเว็บไซต์ในภายหลัง")</script>
+        }
+    }
     <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/js/bootstrap.min.js" />
     <link rel="stylesheet" href="~/css/page.css" />
@@ -28,7 +41,7 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <input type="text" id="firstname" class="form-control form-control-lg" required />
+                                            <input type="text" id="firstname" class="form-control form-control-lg" name="fname" required />
                                             <label class="form-label" for="firstname">ชื่อจริง</label>
                                         </div>
 
@@ -36,7 +49,7 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <input type="text" id="lastName" class="form-control form-control-lg" required />
+                                            <input type="text" id="lastName" class="form-control form-control-lg" name="lname" required />
                                             <label class="form-label" for="lastName">นามสกุล</label>
                                         </div>
 
@@ -47,7 +60,7 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <input type="text" id="idcard" class="form-control form-control-lg" required />
+                                            <input type="text" id="idcard" class="form-control form-control-lg" name="IDcard" required />
                                             <label class="form-label" for="idcard">เลขบัตรประชาชน</label>
                                         </div>
 
@@ -55,7 +68,7 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <input type="email" id="emailAddress" class="form-control form-control-lg" required />
+                                            <input type="email" id="emailAddress" class="form-control form-control-lg" name="email" required />
                                             <label class="form-label" for="emailAddress">อีเมล์</label>
                                         </div>
 
@@ -66,7 +79,7 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <input type="tel" id="phoneNumber" class="form-control form-control-lg" required />
+                                            <input type="tel" id="phoneNumber" class="form-control form-control-lg" name="phoneNumber" required />
                                             <label class="form-label" for="phoneNumber">หมายเลขโทรศัพท์</label>
                                         </div>
 
@@ -74,7 +87,7 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <input type="text" id="year" class="form-control form-control-lg" required />
+                                            <input type="text" id="year" class="form-control form-control-lg" name="year required />
                                             <label class="form-label" for="year">ปีที่เข้าศึกษา</label>
                                         </div>
 
@@ -85,7 +98,7 @@
                                     <div class="col-mb-6 mb-4">
 
                                         <div class="form-outline">
-                                            <input type="text" id="paperThai" class="form-control form-control-lg" required />
+                                            <input type="text" id="paperThai" class="form-control form-control-lg" name="researchNameT" required />
                                             <label class="form-label" for="paperThai">ชื่องานวิจัย (ภาษาไทย)</label>
                                         </div>
 
@@ -93,7 +106,7 @@
                                     <div class="col-mb-6 mb-4">
 
                                         <div class="form-outline">
-                                            <input type="text" id="paperEng" class="form-control form-control-lg" required />
+                                            <input type="text" id="paperEng" class="form-control form-control-lg" name="researchNameE" required />
                                             <label class="form-label" for="paperEng">ชื่องานวิจัย (ภาษาอังกฤษ)</label>
                                         </div>
 
@@ -118,7 +131,7 @@
 
                                     <div class="col-mb-12 mb-4 pb-2">
 
-                                        <select class="select form-control form-control-lg" >
+                                        <select class="select form-control form-control-lg">
                                             <option value="1">ไม่มี</option>
                                             <option value="2">อ.กอบทอง ลาดคุ้ม</option>
                                             <option value="3">อ.ธนทรรศน์ พลเดช</option>
