@@ -60,20 +60,32 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <input type="text" id="idcard" class="form-control form-control-lg" name="IDcard" required />
-                                            <label class="form-label" for="idcard">เลขบัตรประชาชน</label>
+                                            <input type="text" id="idstudent" class="form-control form-control-lg" required />
+                                            <label class="form-label" for="idstudent">รหัสนักศึกษา</label>
                                         </div>
 
                                     </div>
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <input type="email" id="emailAddress" class="form-control form-control-lg" name="email" required />
-                                            <label class="form-label" for="emailAddress">อีเมล์</label>
+                                            <input type="text" id="idcard" class="form-control form-control-lg" required />
+                                            <label class="form-label" for="idcard">เลขบัตรประชาชน</label>
                                         </div>
 
                                     </div>
                                 </div>
+
+
+                                <div class="row">
+                                    <div class="col-mb-6 mb-4">
+                                        <div class="form-outline">
+                                            <input type="email" id="emailAddress" class="form-control form-control-lg" name="email" required />
+                                            <label class="form-label" for="emailAddress">อีเมล์</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
 
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
@@ -117,28 +129,38 @@
                                     <div class="col-mb-12 mb-4 pb-2">
 
                                         <select class="select form-control form-control-lg" required>
-                                            <option value="1">รายการ</option>
-                                            <option value="2">อ.กอบทอง ลาดคุ้ม</option>
-                                            <option value="3">อ.ธนทรรศน์ พลเดช</option>
-                                            <option value="4">อ.ศรีอุดร แซ่อึ้ง</option>
-                                            <option value="5">อ.ปภาดา นาวากาญจน์</option>
-                                            <option value="6">อ.ภัสสราภรณ์ สมบูรณ์ศักดิ์</option>
-                                            <option value="7"></option>
+                                            <option value="0">รายการ</option>
+                                            <option value="1">อาจารย์กอบทอง ลาดคุ้ม</option>
+                                            <option value="2">ผู้ช่วยศาสตราจารย์ธนทรรศน์ พลเดช</option>
+                                            <option value="3">ผู้ช่วยศาสตราจารย์ศรีอุดร แซ่อึ้ง</option>
+                                            <option value="4">รองศาสตราจารย์ ดร.สมชาย ปราการเจริญ</option>
+                                            <option value="5">อาจารย์ปภาดา นาวากาญจน์</option>
+                                            <option value="6">อาจารย์ภัสสราภรณ์ สมบูรณ์ศักดิ์</option>
                                         </select>
-                                        <label class="form-label select-label">อาจารย์ที่ปรึกษา</label>
 
+                                        <label class="form-label select-label">อาจารย์ที่ปรึกษา</label>
                                     </div>
 
                                     <div class="col-mb-12 mb-4 pb-2">
 
                                         <select class="select form-control form-control-lg">
-                                            <option value="1">ไม่มี</option>
-                                            <option value="2">อ.กอบทอง ลาดคุ้ม</option>
-                                            <option value="3">อ.ธนทรรศน์ พลเดช</option>
-                                            <option value="4">อ.ศรีอุดร แซ่อึ้ง</option>
-                                            <option value="5">อ.ปภาดา นาวากาญจน์</option>
-                                            <option value="6">อ.ภัสสราภรณ์ สมบูรณ์ศักดิ์</option>
-                                            <option value="7"></option>
+                                            <option value="0">ไม่มี</option>
+                                            <option value="1">อ.กอบทอง ลาดคุ้ม</option>
+                                            <option value="2">อ.ธนทรรศน์ พลเดช</option>
+                                            <option value="3">อ.ศรีอุดร แซ่อึ้ง</option>
+                                            <option value="4">อ.ปภาดา นาวากาญจน์</option>
+                                            <option value="5">อ.ภัสสราภรณ์ สมบูรณ์ศักดิ์</option>
+                                            <option value="6">อ.สมชาย ปราการเจริญ</option>
+                                            <option value="7">ผู้ช่วยศาสตราจารย์ ดร.จันทรัตน์ กิ่งแสง</option>
+                                            <option value="8">ผู้ช่วยศาสตราจารย์รวินทร์ ไชยสิทธิพร</option>
+                                            <option value="9">ผู้ช่วยศาสตราจารย์ ดร.ภาคภูมิ มุกดาสนิท</option>
+                                            <option value="10">อาจารย์นิยม สุทธหลวง</option>
+                                            <option value="11">อาจารย์ชัยศิริ สนิทพลกลาง</option>
+                                            <option value="12">อาจารย์ ดร.ไพโรจน์ สมุทรักษ์</option>
+                                            <option value="13">ผู้ช่วยศาตราจารย์เกิยรติพงษ์ ยอดเยี่ยมแกร</option>
+                                            <option value="14">ผู้ช่วยศาตราจารย์ ดร.อำนาจ สวัสดิ์นะที</option>
+                                            <option value="15">อาจารย์กิตติมศักดิ์ กังวาราวุฒิ</option>
+                                            <option value="16">อาจารย์ศุภรางค์ เรืองวานิช</option>
                                         </select>
                                         <label class="form-label select-label">อาจารย์ที่ปรึกษาร่วม</label>
 
