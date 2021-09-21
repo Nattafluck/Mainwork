@@ -4,13 +4,39 @@
 <head>
     @{
         var db = Database.Open("ResearchBooking");
+
+        var select1 = "SELECT  teacherID,teacherName from Researchbooking.teacher where teacherRole in ('M', 'I')";
+        var select2 = "SELECT  teacherID,teacherName from Researchbooking.teacher";
+
+        var teachar1 = db.Query(select1);
+        var teachar2 = db.Query(select2);
+
+
+
+
         if (IsPost)
         {
-            var user = Request.Form["usr"];
-            var password = Request.Form["pwd"];
-            var name = Request.Form["name"];
-            var insert = "insert into member(username,password,fname) values(@0,@1,@2)";
-            db.Execute(insert, user, password, name);
+            var studentID = Request.Form["studentID"];
+            var fname = Request.Form["fname"];
+            var lname = Request.Form["lname"];
+            var year = Request.Form["year"];
+            var phoneNumber = Request.Form["phoneNumber"];
+            var email = Request.Form["email"];
+            var idcard = Request.Form["idcard"];
+            var name = fname + " " + lname;
+
+            var insert1 = "insert into students(studentID,name,year,phoneNumber,email,idcard,password) values(@0,@1,@2,@3,@4,@5,@6)";
+            db.Execute(insert1, studentID, name, year, phoneNumber, email, idcard, idcard);
+
+            var researchNameT = Request.Form["researchNameT"];
+            var researchNameE = Request.Form["researchNameE"];
+            var teacherID1 = Request.Form["teacherID1"];
+            var teacherID2 = Request.Form["teacherID2"];
+
+
+            var insert2 = "insert into research(researchNameT,researchNameE,studentID,teacherID1,teacherID2) values(@0,@1,@2,@3,@4)";
+            db.Execute(insert2, researchNameT, researchNameE, studentID, teacherID1, teacherID2);
+
             <script>alert("ลงทะเบียนรียบร้อยแล้ว ระบบกำลังดำเนินการ กรุณารอตรวจสอบสถานะการลงทะเบียนที่หน้าเว็บไซต์ในภายหลัง")</script>
         }
     }
@@ -35,7 +61,7 @@
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">สมัครสมาชิก</h3>
-                            <form>
+                            <form method="post">
 
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
@@ -60,7 +86,7 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <input type="text" id="idstudent" class="form-control form-control-lg" required />
+                                            <input type="text" id="idstudent" class="form-control form-control-lg" name="studentID" required />
                                             <label class="form-label" for="idstudent">รหัสนักศึกษา</label>
                                         </div>
 
@@ -68,7 +94,7 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <input type="text" id="idcard" class="form-control form-control-lg" required />
+                                            <input type="text" id="idcard" class="form-control form-control-lg" name="idcard" required />
                                             <label class="form-label" for="idcard">เลขบัตรประชาชน</label>
                                         </div>
 
@@ -99,7 +125,7 @@
                                     <div class="col-md-6 mb-4">
 
                                         <div class="form-outline">
-                                            <input type="text" id="year" class="form-control form-control-lg" name="year required />
+                                            <input type="text" id="year" class="form-control form-control-lg" name="year" required />
                                             <label class="form-label" for="year">ปีที่เข้าศึกษา</label>
                                         </div>
 
@@ -128,14 +154,15 @@
                                 <div class="row">
                                     <div class="col-mb-12 mb-4 pb-2">
 
-                                        <select class="select form-control form-control-lg" required>
-                                            <option value="0">รายการ</option>
-                                            <option value="1">อาจารย์กอบทอง ลาดคุ้ม</option>
-                                            <option value="2">ผู้ช่วยศาสตราจารย์ธนทรรศน์ พลเดช</option>
-                                            <option value="3">ผู้ช่วยศาสตราจารย์ศรีอุดร แซ่อึ้ง</option>
-                                            <option value="4">รองศาสตราจารย์ ดร.สมชาย ปราการเจริญ</option>
-                                            <option value="5">อาจารย์ปภาดา นาวากาญจน์</option>
-                                            <option value="6">อาจารย์ภัสสราภรณ์ สมบูรณ์ศักดิ์</option>
+                                        <select class="select form-control form-control-lg" name="teacherID1" required>
+                                            <option value="0">เลือกอาจารย์ที่ปรึกษา</option>
+                                            @foreach (var row in teachar1)
+                                            {
+                                                <option value="@row["teacherID"]">@row["teacherName"]</option>
+
+                                            }
+
+
                                         </select>
 
                                         <label class="form-label select-label">อาจารย์ที่ปรึกษา</label>
@@ -143,24 +170,14 @@
 
                                     <div class="col-mb-12 mb-4 pb-2">
 
-                                        <select class="select form-control form-control-lg">
+                                        <select class="select form-control form-control-lg"  name="teacherID2">
                                             <option value="0">ไม่มี</option>
-                                            <option value="1">อ.กอบทอง ลาดคุ้ม</option>
-                                            <option value="2">อ.ธนทรรศน์ พลเดช</option>
-                                            <option value="3">อ.ศรีอุดร แซ่อึ้ง</option>
-                                            <option value="4">อ.ปภาดา นาวากาญจน์</option>
-                                            <option value="5">อ.ภัสสราภรณ์ สมบูรณ์ศักดิ์</option>
-                                            <option value="6">อ.สมชาย ปราการเจริญ</option>
-                                            <option value="7">ผู้ช่วยศาสตราจารย์ ดร.จันทรัตน์ กิ่งแสง</option>
-                                            <option value="8">ผู้ช่วยศาสตราจารย์รวินทร์ ไชยสิทธิพร</option>
-                                            <option value="9">ผู้ช่วยศาสตราจารย์ ดร.ภาคภูมิ มุกดาสนิท</option>
-                                            <option value="10">อาจารย์นิยม สุทธหลวง</option>
-                                            <option value="11">อาจารย์ชัยศิริ สนิทพลกลาง</option>
-                                            <option value="12">อาจารย์ ดร.ไพโรจน์ สมุทรักษ์</option>
-                                            <option value="13">ผู้ช่วยศาตราจารย์เกิยรติพงษ์ ยอดเยี่ยมแกร</option>
-                                            <option value="14">ผู้ช่วยศาตราจารย์ ดร.อำนาจ สวัสดิ์นะที</option>
-                                            <option value="15">อาจารย์กิตติมศักดิ์ กังวาราวุฒิ</option>
-                                            <option value="16">อาจารย์ศุภรางค์ เรืองวานิช</option>
+                                            @foreach (var row in teachar2)
+                                            {
+                                                <option value="@row["teacherID"]">@row["teacherName"]</option>
+
+                                            }
+
                                         </select>
                                         <label class="form-label select-label">อาจารย์ที่ปรึกษาร่วม</label>
 
