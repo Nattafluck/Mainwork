@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE>
 @using WebMatrix.Data;
-@{
-    var db = Database.Open("Researchbooking");
+@{ var db = Database.Open("Researchbooking");
 
     if (IsPost)
     {
@@ -18,9 +17,8 @@
         else
         {
             <script>alert("ไม่พบข้อมูลผู้ใช้")</script>
-        }
-    }
-}
+ }
+    } }
 <html>
 <!--Login-->
 
@@ -77,8 +75,8 @@
                     </font>
                 </div>
                 <div style="margin:30px;">
-                    <button style="background: #FDE49F; height: 5%;" onclick="" type="button"><i class="bi bi-search"></i> ค้นหางานวิจัย </button>
-                    <button style="background: #FDE49F; height: 5%;" onclick="" type="button"><i class="bi bi-check-lg"></i> ผลการลงทะเบียน </button>
+                    <button style="background: #FDE49F; " onclick="" type="button"><i class="bi bi-search"></i> ค้นหางานวิจัย </button>
+                    <button style="background: #FDE49F; " onclick="" type="button"><i class="bi bi-check-lg"></i> ผลการลงทะเบียน </button>
                 </div>
             </div>
 
@@ -97,32 +95,32 @@
 
 
 
-                                <div class="col-md-10">
-                                    <div class="mb-5">
+                            <div class="col-md-10">
+                                <div class="mb-5">
 
-                                        <img style="margin-top:20px" src="~/Photo/logo.png" />
+                                    <img style="margin-top:20px" src="~/Photo/logo.png" />
 
-                                        <h3>เข้าสู่ระบบ</h3>
-                                        <div align="left">
-                                            <font size="8"><label for="username" class="form-label"> ชื่อผู้ใช้ </label><br></font>
-                                            <input type="text" name="userName" class="form-control" width="10" placeholder="ชื่อผู้ใช้" />
+                                    <h3>เข้าสู่ระบบ</h3>
+                                    <div align="left">
+                                        <font size="8"><label for="username" class="form-label"> ชื่อผู้ใช้ </label><br></font>
+                                        <input type="text" name="userName" class="form-control" width="10" placeholder="ชื่อผู้ใช้" />
 
-                                            <font size="8"><label for="password" class="form-label"> รหัสผ่าน </label><br></font>
-                                            <input type="password" name="passWord" class="form-control" placeholder="รหัสผ่าน" /><br>
-                                        </div>
-                                        <div align="center">
-                                            <button style="background: #CAEEBE;" type="submit">เข้าสู่ระบบ</button><br />
-                                            <button style="background: #abbdee;" type="button" onclick="location.href='https://localhost:44361/Page/Register.cshtml';">สมัครสมาชิก</button>
-                                        </div>
+                                        <font size="8"><label for="password" class="form-label"> รหัสผ่าน </label><br></font>
+                                        <input type="password" name="passWord" class="form-control" placeholder="รหัสผ่าน" /><br>
+                                    </div>
+                                    <div align="center">
+                                        <button style="background: #CAEEBE;" type="submit">เข้าสู่ระบบ</button><br />
+                                        <button style="background: #abbdee;" type="button" onclick="location.href='https://localhost:44361/Page/Register.cshtml';">สมัครสมาชิก</button>
                                     </div>
                                 </div>
-                            </form>
-
-                            <div id="formFooter">
-                                <font size="3"><a class="underlineHover" href="https://localhost:44361/Page/forget.cshtml">ลืมรหัสผ่าน?</a></font>
-
                             </div>
-</div>
+                        </form>
+
+                        <div id="formFooter">
+                            <font size="3"><a class="underlineHover" href="https://localhost:44361/Page/forget.cshtml">ลืมรหัสผ่าน?</a></font>
+
+                        </div>
+                    </div>
 
                 </div>
             </div>
