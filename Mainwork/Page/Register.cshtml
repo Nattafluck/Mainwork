@@ -11,12 +11,37 @@
         var teachar1 = db.Query(select1);
         var teachar2 = db.Query(select2);
 
+        var fileName1 = "";
+        var fileName2 = "";
+        var path1 = "";
+        var path2 = "";
 
 
 
-        if (IsPost)
-        {
+        if (IsPost) {
+
             var studentID = Request.Form["studentID"];
+            if (Request.Files.Count > 0)
+            {
+                var file11 = Request.Files[0];
+                if(file11!=null&&file11.ContentLength>0)
+                {
+                    //var fileName = Path.GetFileName(file.FileName);
+                    fileName1 = studentID + "_IT1.pdf";
+                    path1 = @"\documentResearch\IT1\" + fileName1;
+                    file11.SaveAs(path1);
+                }
+
+                var file22 = Request.Files[0];
+                if (file22 != null && file22.ContentLength > 0)
+                {
+                    //var fileName = Path.GetFileName(file.FileName);
+                    fileName2 = studentID + "_timeTable.pdf";
+                    path2 = @"\documentResearch\timeTable\" + fileName2;
+                    file22.SaveAs(path2);
+                }
+            }
+
             var fname = Request.Form["fname"];
             var lname = Request.Form["lname"];
             var year = Request.Form["year"];
@@ -36,6 +61,20 @@
 
             var insert2 = "insert into research(researchNameT,researchNameE,studentID,teacherID1,teacherID2) values(@0,@1,@2,@3,@4)";
             db.Execute(insert2, researchNameT, researchNameE, studentID, teacherID1, teacherID2);
+
+
+            var file1 = Request.Form["file1"];
+            var documentType1 = "IT1";
+
+            var insert3 = "insert into document(documentName,storage,documentType,studentID) values(@0,@1,@2,@3)";
+            db.Execute(insert3, fileName1, path1, documentType1, studentID);
+
+           
+            var file2 = Request.Form["file2"];
+            var documentType2 = "timeTable";
+
+            var insert4 = "insert into document(documentName,storage,documentType,studentID) values(@0,@1,@2,@3)";
+            db.Execute(insert4, fileName2, path2, documentType2, studentID);
 
             <script>alert("ลงทะเบียนรียบร้อยแล้ว ระบบกำลังดำเนินการ กรุณารอตรวจสอบสถานะการลงทะเบียนที่หน้าเว็บไซต์ในภายหลัง")</script>
         }
@@ -61,7 +100,9 @@
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">สมัครสมาชิก</h3>
-                            <form method="post">
+                            <form method="post" enctype="multipart/form-data">
+                                <!--method="post" เป็นการบอกว่าฟอร์มนี้เราจะ submit ข้อมูลจากฟอร์ม-->
+                                <!--enctype="multipart/form-data หากต้องการอัพโหลดไฟล์ต้องใช้คำสั่งนี้-->
 
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
@@ -110,7 +151,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
 
 
                                 <div class="row">
@@ -170,7 +211,7 @@
 
                                     <div class="col-mb-12 mb-4 pb-2">
 
-                                        <select class="select form-control form-control-lg"  name="teacherID2">
+                                        <select class="select form-control form-control-lg" name="teacherID2">
                                             <option value="0">ไม่มี</option>
                                             @foreach (var row in teachar2)
                                             {
@@ -191,7 +232,7 @@
                                     <div class="col-mb-24 mb-4 pb-2">
 
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile">
+                                            <input type="file" class="custom-file-input" name="file1" id="customFile">
                                             <label class="custom-file-label" for="customFile">เอกสาร IT1 (PDF)</label>
                                         </div>
 
@@ -200,7 +241,7 @@
                                     <div class="col-mb-24 mb-4 pb-2">
 
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile">
+                                            <input type="file" class="custom-file-input" name="file2" id="customFile">
                                             <label class="custom-file-label" for="customFile">เอกสารการลงทะเบียนเรียนวิชาวิจัย (PDF)</label>
                                         </div>
 
