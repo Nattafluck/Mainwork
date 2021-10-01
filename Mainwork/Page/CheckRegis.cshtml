@@ -1,6 +1,18 @@
 ﻿<!DOCTYPE html>
+@using WebMatrix.Data;
+<!--คำสั่งการเชื่อมต่อดาต้าเบท-->
 <html>
 <head>
+    @{
+        var db = Database.Open("ResearchBooking");
+        <!--คำสั่งเปิดการเชื่อมต่อดาต้าเบท-->
+
+        var select = "SELECT studentID , studentName , registrationStatus , note FROM Researchbooking.students";
+        <!--คิวลี่ตารางดาต้าเบท-->
+
+        var listStudent = db.Query(select);
+        <!--พารามิเตอร์ เก็บข้อมูลที่ได้จากการคิวลี่-->
+    }
     <title>CheckRegis</title>
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/js/main.js" />
@@ -56,8 +68,6 @@
         border: 3px solid;
         border-collapse: collapse;
     }
-
-
 </style>
 
 <body>
@@ -72,7 +82,7 @@
         </div>
     </div>
 
-    <div style="padding-top:50px;" align="center" >
+    <div style="padding-top:50px;" align="center">
         <table>
             <tr>
                 <th colspan="4">สถานะการลงทะเบียน</th>
@@ -83,13 +93,23 @@
                 <th style="width:10%">สถานะ</th>
                 <th style="width:40%">หมายเหตุ</th>
             </tr>
-            <tr>
-                <td style="text-align:center;">6111502438</td>
-                <td style="padding-left:20px;">นายทนงศักดิ์ สุวรรณโชติ</td>
-                <td style="text-align:center;">ผ่าน</td>
-                <td style="padding-left:20px;">ส่งทั้งหมด</td>
-            </tr>
-        </table>
+            @foreach (var row in listStudent)//listStudent คือตัวแปรที่เก็บข้อมูลที่คิวลี่จากดาต้าเบทมา
+            {
+        <tr>
+            <td style="text-align:center;">@row["studentID"]</td>
+            <td style="padding-left:20px;">@row["studentName"]</td>
+        <td style="text-align:center;">
+            @if (row["registrationStatus"] == "A")
+            {<p>ผ่าน</p>}
+            @if (row["registrationStatus"] == "D")
+            {<p>ไม่ผ่าน</p>}
+            @if (row["registrationStatus"] == "P")
+            {<p>รอดำเนินการ</p>}
+        </td>
+            <td style="padding-left:20px;">@row["note"]</td>
+        </tr>
+            }
+            </table>
 
     </div>
 

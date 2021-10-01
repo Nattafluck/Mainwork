@@ -1,6 +1,18 @@
 ﻿<!DOCTYPE html>
+@using WebMatrix.Data;
+<!--คำสั่งการเชื่อมต่อดาต้าเบท-->
 <html>
 <head>
+    @{
+        var db = Database.Open("ResearchBooking");
+        <!--คำสั่งเปิดการเชื่อมต่อดาต้าเบท-->
+
+        var select = "SELECT studentID , studentName FROM Researchbooking.students where registrationStatus='P'";
+        <!--คิวลี่ตารางดาต้าเบท-->
+
+        var listStudent = db.Query(select);
+        <!--พารามิเตอร์ เก็บข้อมูลที่ได้จากการคิวลี่-->
+    }
     <title>Admin approve</title>
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/js/main.js" />
@@ -19,6 +31,7 @@
     body {
         font-family: 'Taviraj', serif;
     }
+
     button {
         width: 50%;
         height: 20%;
@@ -78,11 +91,15 @@
                     <th style="width:15%;" text-align="center">รหัสนักศึกษา</th>
                     <th colspan="2" style="width:70%;" text-align="center">ชื่อ-นามสกุล</th>
                 </tr>
-                <tr>
-                    <td style="text-align:center;">6111502479</td>
-                    <td style="padding-left:20px;">นาย ณัฏฐชัย ดีประสิทธิ์</td>
-                    <td style="max-width:70px;"><button style="width: 90%; background-color: #cec1e7; margin: 10px; ">ทำรายการ</button></td>
-                </tr>
+                @foreach (var row in listStudent)//listStudent คือตัวแปรที่เก็บข้อมูลที่คิวลี่จากดาต้าเบทมา
+                {
+                    <tr>
+                        <td style="text-align:center;">@row["studentID"]</td>
+                        <td style="padding-left:20px;">@row["studentName"]</td>
+                        <td style="max-width:70px;"><button style="width: 90%; background-color: #cec1e7; margin: 10px; "><a href="~/Page/Admin/Admin Student Detail.cshtml?studentID=@row["studentID"]">ทำรายการ</a> </button></td>
+                    </tr>
+                }
+                
 
             </table>
 

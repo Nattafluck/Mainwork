@@ -1,6 +1,62 @@
 ﻿<!DOCTYPE html>
+@using WebMatrix.Data;
+<!--คำสั่งการเชื่อมต่อดาต้าเบท-->
 <html>
 <head>
+    @{
+        var db = Database.Open("ResearchBooking");
+        <!--คำสั่งเปิดการเชื่อมต่อดาต้าเบท-->
+
+        var studentID = Request.Params["studentID"];
+
+        var select = "SELECT * FROM Researchbooking.students st inner join Researchbooking.research re on st.studentID=re.studentID inner join Researchbooking.document dc on dc.studentID=st.studentID where st.studentID = '" + studentID + "'";
+
+        var teacher1 = "SELECT * FROM Researchbooking.research re INNER JOIN Researchbooking.teacher te on re.teacherID1 = te.teacherID WHERE re.studentID = '" + studentID + "'";
+
+        var teacher2 = "SELECT * FROM Researchbooking.research re INNER JOIN Researchbooking.teacher te on re.teacherID2 = te.teacherID WHERE re.studentID = '" + studentID + "'";
+        <!--คิวลี่ตารางดาต้าเบท-->
+
+        var listStudent = db.Query(select);
+        var studentName = "";
+        var idcard = "";
+        var email = "";
+        var phoneNumber = "";
+        var year = 0;
+        var researchNameT = "";
+        var researchNameE = "";
+
+        foreach (var row in listStudent)
+        {
+            studentName = row["studentName"];
+            idcard = row["idcard"];
+            email = row["email"];
+            phoneNumber = row["phoneNumber"];
+            year = row["year"];
+            researchNameT = row["researchNameT"];
+            researchNameE = row["researchNameE"];
+        }
+
+        var teacherID1 = db.QuerySingle(teacher1);
+        var teacherName1 = teacherID1["teacherName"];
+        var teacherID2 = db.QuerySingle(teacher2);
+        var teacherName2 = "ไม่มีที่ปรึกษาร่วม";
+        if (teacherID2 != null)
+        {
+            teacherName2 = teacherID2["teacherName"];
+        }
+
+        var docit1 = "C:/documentResearch/IT1/6111504178_IT1.pdf";
+        <!--พารามิเตอร์ เก็บข้อมูลที่ได้จากการคิวลี่ db.QuerySingle ได้ข้อมูลแบบเป็น row เดียว-->
+        if(IsPost)
+        {
+            var registrationStatus = Request.Form["registrationStatus"];
+            var note = Request.Form["note"];
+
+            var update1 = "UPDATE Researchbooking.students set registrationStatus = '" + registrationStatus + "' , note = '" + note + "' where studentID = '" + studentID + "'";
+            db.Execute(update1);
+        }
+
+    }
     <title>Admin Student Detail</title>
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/js/main.js" />
@@ -49,12 +105,11 @@
     }
 
     td {
-        padding-left:5px;
+        padding-left: 5px;
         text-align: left;
         border: 3px solid;
         border-collapse: collapse;
     }
-
 </style>
 <body>
 
@@ -74,46 +129,47 @@
                 <th colspan="2">ข้อมูลนักศึกษา</th>
             </tr>
             <tr>
-                <td style="width:50%;">รหัสนักศึกษา :</td>
-                <td style="width:50%;">ชื่อ-นามสกุล :</td>
+                <td style="width:50%;">รหัสนักศึกษา : @studentID</td>
+                <td style="width:50%;">ชื่อ-นามสกุล : @studentName</td>
             </tr>
             <tr>
-                <td style="width:50%;">เลขบัตรประชาชน :</td>
-                <td style="width:50%;">อีเมล :</td>
+                <td style="width:50%;">เลขบัตรประชาชน : @idcard</td>
+                <td style="width:50%;">อีเมล : @email</td>
             </tr>
             <tr>
-                <td style="width:50%;">หมายเลขโทรศัพท์ :</td>
-                <td style="width:50%;">ปีที่เข้าศึกษา :</td>
+                <td style="width:50%;">หมายเลขโทรศัพท์ : @phoneNumber</td>
+                <td style="width:50%;">ปีที่เข้าศึกษา : @year</td>
             </tr>
             <tr>
-                <td style="width:50%;">ชื่องานวิจัย (ภาษาไทย) :</td>
-                <td style="width:50%;">ชื่องานวิจัย (ภาษาอังกฤษ) :</td>
+                <td style="width:50%;">ชื่องานวิจัย (ภาษาไทย) : @researchNameT</td>
+                <td style="width:50%;">ชื่องานวิจัย (ภาษาอังกฤษ) : @researchNameE</td>
             </tr>
             <tr>
-                <td style="width:50%;">อาจารย์ที่ปรึกษา :</td>
-                <td style="width:50%;">อาจารย์ที่ปรึกษาร่วม :</td>
+                <td style="width:50%;">อาจารย์ที่ปรึกษา : @teacherName1</td>
+                <td style="width:50%;">อาจารย์ที่ปรึกษาร่วม : @teacherName2</td>
             </tr>
             <tr>
-                <td style="width:50%;">เอกสาร IT1 :</td>
+                <td style="width:50%;">เอกสาร IT1 : <a href="~/Page/download.cshtml?fileName=6111504178_IT1.pdf" download="test">download</a></td>
                 <td style="width:50%;">เอกสารการลงทะเบียนเรียนวิชาวิจัย :</td>
             </tr>
         </table>
-        <div class="form-floating col-md-6 mb-4" style="padding-top:20px;">
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 200px"></textarea>
-            <label for="floatingTextarea">หมายเหตุ</label>
-        </div>
+        <form method="post">
+            <div class="form-floating col-md-6 mb-4" style="padding-top:20px;">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="note" style="height: 200px"></textarea>
+                <label for="floatingTextarea">หมายเหตุ</label>
+            </div>
 
-        <div class="form-check form-check-inline" style="padding-top:20px; font-size:25px">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" required>
-            <label class="form-check-label" for="inlineRadio1">อนุมัติ</label>
-        </div>
-        <div class="form-check form-check-inline" style="padding-bottom:20px; font-size: 25px">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" required>
-            <label class="form-check-label" for="inlineRadio2">ไม่อนุมัติ</label>
-        </div>
+            <div class="form-check form-check-inline" style="padding-top:20px; font-size:25px">
+                <input class="form-check-input" type="radio" name="registrationStatus" id="inlineRadio1" value="A" required>
+                <label class="form-check-label" for="inlineRadio1">อนุมัติ</label>
+            </div>
+            <div class="form-check form-check-inline" style="padding-bottom:20px; font-size: 25px">
+                <input class="form-check-input" type="radio" name="registrationStatus" id="inlineRadio2" value="D" required>
+                <label class="form-check-label" for="inlineRadio2">ไม่อนุมัติ</label>
+            </div>
 
-        <div align="center"><button type="submit" style="background:#abbdee; width: 10%;"><font size="5px;"> ยืนยัน</font></button></div>
-
+            <div align="center"><button type="submit" style="background:#abbdee; width: 10%;"><font size="5px;"> ยืนยัน</font></button></div>
+        </form>
     </div>
 
 </body>

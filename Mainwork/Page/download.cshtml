@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @{ 
+        if(!Request["fileName"].IsEmpty())
+        {
+            var fileName = Request["fileName"];
+            Response.AddHeader("content-disposition", "attachment; filename=" + "test.csv");
+            Response.ContentType = "application/csv";
+            Response.TransmitFile(@"C:\documentResearch\IT1\" + "test.csv");
+        }
+    }
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,15 +1,19 @@
 ﻿<!DOCTYPE html>
 @using WebMatrix.Data;
+<!--คำสั่งการเชื่อมต่อดาต้าเบท-->
 <html>
 <head>
     @{
         var db = Database.Open("ResearchBooking");
+        <!--คำสั่งเปิดการเชื่อมต่อดาต้าเบท-->
 
         var select1 = "SELECT  teacherID,teacherName from Researchbooking.teacher where teacherRole in ('M', 'I')";
         var select2 = "SELECT  teacherID,teacherName from Researchbooking.teacher";
+        <!--คิวลี่ตารางดาต้าเบท-->
 
         var teachar1 = db.Query(select1);
         var teachar2 = db.Query(select2);
+        <!--พารามิเตอร์ เก็บข้อมูลที่ได้จากการคิวลี่ db.Query ได้ข้อมูลแบบเป็น list-->
 
         var fileName1 = "";
         var fileName2 = "";
@@ -18,13 +22,16 @@
 
 
 
-        if (IsPost) {
+        if (IsPost)
+        //เอาไว้เช็คว่าฟอร์มของหน้าจอ submit มาแบบไหน
+        {
 
             var studentID = Request.Form["studentID"];
             if (Request.Files.Count > 0)
+            //เช็คว่าไฟล์อัพโหลดมารึป่าว
             {
                 var file11 = Request.Files[0];
-                if(file11!=null&&file11.ContentLength>0)
+                if (file11 != null && file11.ContentLength > 0)
                 {
                     //var fileName = Path.GetFileName(file.FileName);
                     fileName1 = studentID + "_IT1.pdf";
@@ -49,9 +56,11 @@
             var email = Request.Form["email"];
             var idcard = Request.Form["idcard"];
             var name = fname + " " + lname;
+            //เก็บช้อมูลจากหน้าจอมาใส่ตัวแปร
 
-            var insert1 = "insert into students(studentID,name,year,phoneNumber,email,idcard,password) values(@0,@1,@2,@3,@4,@5,@6)";
+            var insert1 = "insert into students(studentID,studentName,year,phoneNumber,email,idcard,password) values(@0,@1,@2,@3,@4,@5,@6)";
             db.Execute(insert1, studentID, name, year, phoneNumber, email, idcard, idcard);
+            //เอาข้อมูลที่ได้จากหน้าจอไปใส่ในดาต้าเบท
 
             var researchNameT = Request.Form["researchNameT"];
             var researchNameE = Request.Form["researchNameE"];
@@ -69,7 +78,7 @@
             var insert3 = "insert into document(documentName,storage,documentType,studentID) values(@0,@1,@2,@3)";
             db.Execute(insert3, fileName1, path1, documentType1, studentID);
 
-           
+
             var file2 = Request.Form["file2"];
             var documentType2 = "timeTable";
 
@@ -121,7 +130,7 @@
 
                                         <div class="form-outline">
                                             <input type="text" id="firstname" class="form-control form-control-lg" name="fname" required />
-                                            <label class="form-label" for="firstname">ชื่อจริง</label>
+                                            <label class="form-label" for="firstname">ชื่อ (*ตัวอย่าง นางสาวสมพร/นายสมคิด)</label>
                                         </div>
 
                                     </div>
@@ -212,6 +221,10 @@
                                             @foreach (var row in teachar1)
                                             {
                                                 <option value="@row["teacherID"]">@row["teacherName"]</option>
+                                                //เป็นการวนลูปเพื่อแสดงชื่ออาจารย์ใน option โดยส่วนแรกเป็น value ส่วนที่สองเป็น description 
+                                                //เราจะมองเห็นแค่ description ในหน้าจอเท่านั้น
+                                                //@row["teacherName"] เป็นคำสั่งแสดงผลแบบวนลูป โดยชื่อใน[]ต้องเป็นชื่อเดียวกับชื่อคอลัมน์ในตารางดาต้าเบทที่เราคิวลี่มา
+                                                
 
                                             }
 
