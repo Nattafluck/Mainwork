@@ -14,15 +14,26 @@
         var row = db.QuerySingle(select, usr, pwd);
         if (row != null)
         {
-            Session["userName"] = row["studentID"];
-            Response.Redirect("~/Page/Register.cshtml");
+            if (row["registrationStatus"] == "A")
+            {
+                Session["userName"] = row["studentID"];
+                Response.Redirect("~/Page/Student/Home.cshtml");
+            }
+            else if (row["registrationStatus"] == "P")
+            {
+                <script>alert("ข้อมูลกำลังอยู่ระหว่างรอดำเนินการ")</script>
+            }
+            else
+            {
+                <script>alert("ไม่อนุมัติ")</script>
+            }
         }
         else if (row2 != null)
         {
             Session["userName"] = row2["teacherID"];
             Response.Redirect("~/Page/Admin/Admin Home.cshtml");
         }
-        else if(row3 != null)
+        else if (row3 != null)
         {
             Session["userName"] = row3["adminID"];
             Response.Redirect("~/Page/Admin/Admin Home.cshtml");
@@ -30,7 +41,7 @@
         else
         {
             <script>alert("ไม่พบข้อมูลผู้ใช้")</script>
- }
+        }
     } }
 <html>
 <!--Login-->
