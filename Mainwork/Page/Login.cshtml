@@ -125,13 +125,17 @@
                                     <img style="margin-top:20px" src="~/Photo/logo.png" />
 
                                     <h3>เข้าสู่ระบบ</h3>
-                                    <div align="left">
+                                    <div align="left" style="padding-bottom:10px;">
                                         <font size="8"><label for="username" class="form-label"> ชื่อผู้ใช้ </label><br></font>
                                         <input type="text" name="userName" class="form-control" width="10" placeholder="ชื่อผู้ใช้" />
 
                                         <font size="8"><label for="password" class="form-label"> รหัสผ่าน </label><br></font>
                                         <input type="password" name="passWord" class="form-control" placeholder="รหัสผ่าน" /><br>
+                                        <div align="right">
+                                            <font size="3"><a  href="https://localhost:44361/Page/forget.cshtml">ลืมรหัสผ่าน?</a></font>
+                                        </div>
                                     </div>
+                                   
                                     <div align="center">
                                         <button style="background: #CAEEBE;" type="submit">เข้าสู่ระบบ</button><br />
                                         <button style="background: #abbdee;" type="button" onclick="location.href='https://localhost:44361/Page/Register.cshtml';">สมัครสมาชิก</button>
@@ -140,10 +144,7 @@
                             </div>
                         </form>
 
-                        <div id="formFooter">
-                            <font size="3"><a class="underlineHover" href="https://localhost:44361/Page/forget.cshtml">ลืมรหัสผ่าน?</a></font>
-
-                        </div>
+                      
                     </div>
 
                 </div>
