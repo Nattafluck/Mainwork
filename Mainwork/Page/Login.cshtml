@@ -7,12 +7,25 @@
         var usr = Request.Form["userName"];
         var pwd = Request.Form["passWord"];
         var select = "select * from students where studentID=@0 and password=@1";
-
+        var select2 = "select * from teacher where teacherID=@0 and password=@1";
+        var select3 = "select * from admin where adminID=@0 and password=@1";
+        var row2 = db.QuerySingle(select2, usr, pwd);
+        var row3 = db.QuerySingle(select3, usr, pwd);
         var row = db.QuerySingle(select, usr, pwd);
         if (row != null)
         {
             Session["userName"] = row["studentID"];
             Response.Redirect("~/Page/Register.cshtml");
+        }
+        else if (row2 != null)
+        {
+            Session["userName"] = row2["teacherID"];
+            Response.Redirect("~/Page/Admin/Admin Home.cshtml");
+        }
+        else if(row3 != null)
+        {
+            Session["userName"] = row3["adminID"];
+            Response.Redirect("~/Page/Admin/Admin Home.cshtml");
         }
         else
         {
