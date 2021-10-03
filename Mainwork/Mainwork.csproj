@@ -224,6 +224,7 @@
     <Content Include="css\style.css" />
     <Content Include="css\button.css" />
     <Content Include="js\main.js" />
+    <Content Include="Photo\logo it.png" />
     <Content Include="Photo\logo.png" />
     <Content Include="Web.config" />
   </ItemGroup>
