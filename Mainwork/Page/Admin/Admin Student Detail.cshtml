@@ -113,12 +113,23 @@
 </style>
 <body>
 
-    <div class="navbar navbar-dark reg shadow-sm">
-        <div class="container" style="width:100%;">
-            <a href="#" class="navbar-brand d-flex align-items-center">
-                <strong>ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong><p></p>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-            </a>
+    <div class="navbar navbar-dark reg shadow-sm">
+        <div class=" navbar-brand d-flex align-items-center" style="width:100%;">
+
+            <div style="padding-left:7%;">
+                <img style="width:100px; height:100px;" src="~/Photo/logo it.png" />
+            </div>
+            <div style="padding-left:8%;">
+                <strong>ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong>
+            </div>
+            <div style="padding-left:5%">
+                <buttonjs type="button" class="buttonjs">
+                    <span class="button__text">ออกจากระบบ</span>
+                </buttonjs>
+            </div>
 
         </div>
     </div>
@@ -168,7 +179,10 @@
                 <label class="form-check-label" for="inlineRadio2">ไม่อนุมัติ</label>
             </div>
 
-            <div align="center"><button type="submit" style="background:#abbdee; width: 10%;"><font size="5px;"> ยืนยัน</font></button></div>
+            <div align="center">
+                <button type="submit" style="background:#abbdee; width: 10%;"><font size="5px;"> ยืนยัน</font></button>
+                <button type="reset" style="background:#ffd1dc; width: 10%; padding-left: 20px;"><font size="5px;"> รีเซ็ต</font></button>
+            </div>
         </form>
     </div>
 

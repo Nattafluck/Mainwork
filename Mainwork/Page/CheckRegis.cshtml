@@ -68,16 +68,24 @@
         border: 3px solid;
         border-collapse: collapse;
     }
+    p {
+        display: block;
+        margin: auto;
+    }
+
 </style>
 
 <body>
 
     <div class="navbar navbar-dark reg shadow-sm">
-        <div class="container" style="width:100%;">
-            <a href="#" class="navbar-brand d-flex align-items-center">
-                <strong>ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong><p></p>
+        <div class=" navbar-brand d-flex align-items-center" style="width:100%;">
 
-            </a>
+            <div style="padding-left:7%;">
+                <img style="width:100px; height:100px;" src="~/Photo/logo it.png" />
+            </div>
+            <div style="padding-left:8%;">
+                <strong>ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong>
+            </div>
 
         </div>
     </div>
@@ -98,14 +106,14 @@
         <tr>
             <td style="text-align:center;">@row["studentID"]</td>
             <td style="padding-left:20px;">@row["studentName"]</td>
-        <td style="text-align:center;">
-            @if (row["registrationStatus"] == "A")
-            {<p>ผ่าน</p>}
-            @if (row["registrationStatus"] == "D")
-            {<p>ไม่ผ่าน</p>}
-            @if (row["registrationStatus"] == "P")
-            {<p>รอดำเนินการ</p>}
-        </td>
+            <td style="text-align:center;">
+                @if (row["registrationStatus"] == "A")
+                {<p>ผ่าน</p>}
+                @if (row["registrationStatus"] == "D")
+                {<p>ไม่ผ่าน</p>}
+                @if (row["registrationStatus"] == "P")
+                {<p>รอดำเนินการ</p>}
+            </td>
             <td style="padding-left:20px;">@row["note"]</td>
         </tr>
             }

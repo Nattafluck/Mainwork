@@ -254,24 +254,25 @@
     <Content Include="bootstrap-5.1.1-dist\js\bootstrap.js.map" />
     <Content Include="bootstrap-5.1.1-dist\js\bootstrap.min.js.map" />
     <None Include="packages.config" />
-    <Content Include="Page\Student\Home.cshtml" />
     <Content Include="Page\Admin\Admin approve.cshtml" />
     <Content Include="Page\Admin\Admin Home.cshtml" />
-    <Content Include="Page\CheckRegis.cshtml" />
     <Content Include="Page\Admin\Admin Student Detail.cshtml" />
+    <Content Include="Page\Change password.cshtml" />
+    <Content Include="Page\CheckRegis.cshtml" />
+    <Content Include="Page\download.cshtml" />
+    <Content Include="Page\forget.cshtml" />
+    <Content Include="Page\Login.cshtml" />
+    <Content Include="Page\Register.cshtml" />
+    <Content Include="Page\Student\Home.cshtml" />
+    <Content Include="Page\Teacher\Teacher Home.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="Page\Login.cshtml" />
-    <Content Include="Page\Register.cshtml" />
-    <Content Include="Page\forget.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Page\Teachers\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
