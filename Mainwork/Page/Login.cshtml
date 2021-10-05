@@ -7,17 +7,41 @@
         var usr = Request.Form["userName"];
         var pwd = Request.Form["passWord"];
         var select = "select * from students where studentID=@0 and password=@1";
-
+        var select2 = "select * from teacher where teacherID=@0 and password=@1";
+        var select3 = "select * from admin where adminID=@0 and password=@1";
+        var row2 = db.QuerySingle(select2, usr, pwd);
+        var row3 = db.QuerySingle(select3, usr, pwd);
         var row = db.QuerySingle(select, usr, pwd);
         if (row != null)
         {
-            Session["userName"] = row["studentID"];
-            Response.Redirect("~/Page/Register.cshtml");
+            if (row["registrationStatus"] == "A" )
+            {
+                Session["userName"] = row["studentID"];
+                Response.Redirect("~/Page/Student/Home.cshtml");
+            }
+            else if (row["registrationStatus"] == "P")
+            {
+                <script>alert("ข้อมูลกำลังอยู่ระหว่างรอดำเนินการ")</script>
+            }
+            else
+            {
+                <script>alert("ไม่อนุมัติ")</script>
+            }
+        }
+        else if (row2 != null)
+        {
+            Session["userName"] = row2["teacherID"];
+            Response.Redirect("~/Page/Admin/Admin Home.cshtml");
+        }
+        else if (row3 != null)
+        {
+            Session["userName"] = row3["adminID"];
+            Response.Redirect("~/Page/Admin/Admin Home.cshtml");
         }
         else
         {
             <script>alert("ไม่พบข้อมูลผู้ใช้")</script>
- }
+        }
     } }
 <html>
 <!--Login-->
@@ -101,13 +125,17 @@
                                     <img style="margin-top:20px" src="~/Photo/logo.png" />
 
                                     <h3>เข้าสู่ระบบ</h3>
-                                    <div align="left">
+                                    <div align="left" style="padding-bottom:10px;">
                                         <font size="8"><label for="username" class="form-label"> ชื่อผู้ใช้ </label><br></font>
                                         <input type="text" name="userName" class="form-control" width="10" placeholder="ชื่อผู้ใช้" />
 
                                         <font size="8"><label for="password" class="form-label"> รหัสผ่าน </label><br></font>
                                         <input type="password" name="passWord" class="form-control" placeholder="รหัสผ่าน" /><br>
+                                        <div align="right">
+                                            <font size="3"><a  href="https://localhost:44361/Page/forget.cshtml">ลืมรหัสผ่าน?</a></font>
+                                        </div>
                                     </div>
+                                   
                                     <div align="center">
                                         <button style="background: #CAEEBE;" type="submit">เข้าสู่ระบบ</button><br />
                                         <button style="background: #abbdee;" type="button" onclick="location.href='https://localhost:44361/Page/Register.cshtml';">สมัครสมาชิก</button>
@@ -116,10 +144,7 @@
                             </div>
                         </form>
 
-                        <div id="formFooter">
-                            <font size="3"><a class="underlineHover" href="https://localhost:44361/Page/forget.cshtml">ลืมรหัสผ่าน?</a></font>
-
-                        </div>
+                      
                     </div>
 
                 </div>
