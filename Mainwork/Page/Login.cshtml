@@ -14,7 +14,7 @@
         var row = db.QuerySingle(select, usr, pwd);
         if (row != null)
         {
-            if (row["registrationStatus"] == "A")
+            if (row["registrationStatus"] == "A" )
             {
                 Session["userName"] = row["studentID"];
                 Response.Redirect("~/Page/Student/Home.cshtml");
