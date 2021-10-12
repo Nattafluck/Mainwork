@@ -84,7 +84,7 @@
                 <img style="width:100px; height:100px;" src="~/Photo/logo it.png" />
             </div>
             <div style="padding-left:8%;">
-                <strong>ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong>
+                <strong style="color:black;">ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong>
             </div>
 
         </div>
@@ -108,11 +108,11 @@
             <td style="padding-left:20px;">@row["studentName"]</td>
             <td style="text-align:center;">
                 @if (row["registrationStatus"] == "A")
-                {<p>ผ่าน</p>}
+                {<p style="color:green;">ผ่าน</p>}
                 @if (row["registrationStatus"] == "D")
-                {<p>ไม่ผ่าน</p>}
+                {<p style="color:red;">ไม่ผ่าน</p>}
                 @if (row["registrationStatus"] == "P")
-                {<p>รอดำเนินการ</p>}
+                {<p style="color:blue;">รอดำเนินการ</p>}
             </td>
             <td style="padding-left:20px;">@row["note"]</td>
         </tr>

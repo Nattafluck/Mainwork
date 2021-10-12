@@ -5,7 +5,53 @@
 
     @{ var db = Database.Open("Researchbooking");
         var studentid = Session["userName"];
+        var fileName1 = "";
+        var fileName2 = "";
+        var path1 = "";
+        var path2 = "";
+        if (IsPost)
+        {
+            if (Request.Files.Count > 0)
+            //เช็คว่าไฟล์อัพโหลดมารึป่าว
+            {
+                var file11 = Request.Files[0];
+                if (file11 != null && file11.ContentLength > 0)
+                {
+                    //var fileName = Path.GetFileName(file.FileName);
+                    fileName1 = studentid + "_IT2.pdf";
+                    path1 = @"\documentResearch\IT2\" + fileName1;
+                    file11.SaveAs(path1);
+                }
 
+                var file22 = Request.Files[0];
+                if (file22 != null && file22.ContentLength > 0)
+                {
+                    //var fileName = Path.GetFileName(file.FileName);
+                    fileName2 = studentid + "_IT3.pdf";
+                    path2 = @"\documentResearch\IT3\" + fileName2;
+                    file22.SaveAs(path2);
+                }
+            }
+            db.Execute(insertexam, Tt, studentid, teacherID2);
+        }
+
+
+        var file1 = Request.Form["file1"];
+        var documentType1 = "IT2";
+        var insert3 = "insert into document(documentName,storage,documentType,studentID) values(@0,@1,@2,@3)";
+        db.Execute(insert3, fileName1, path1, documentType1, studentid);
+
+
+        var file2 = Request.Form["file2"];
+        var documentType2 = "IT3";
+        var insert4 = "insert into document(documentName,storage,documentType,studentID) values(@0,@1,@2,@3)";
+        db.Execute(insert4, fileName2, path2, documentType2, studentid);
+
+
+
+        var select1 = "SELECT  teacherID,teacherName from Researchbooking.teacher where teacherRole in ('M', 'I')";
+        var teachar2 = db.Query(select1);
+        //เรียกใช้ตารางอาจารย์ที่เป็นในสาขา
 
         var select = "SELECT teacherID2, teacherID1  FROM Researchbooking.research where studentID = '" + studentid + "'";
         var row = db.QuerySingle(select);
@@ -15,6 +61,10 @@
         //เก็บค่ารหัสอาจารยจากข้างบน
         var selectT = "SELECT teacherName  FROM Researchbooking.teacher where teacherID = '" + teacherID1 + "'";
         //ใช้รหัสอาจารย์ในการค้นหาชื่อาจารยที่ตารางอาจาร์
+
+
+        var teacherID11 = Request.Form["teacherid11"];
+
 
         var rowT = db.QuerySingle(selectT);
         var teacherName1 = rowT["teacherName"];
@@ -31,9 +81,10 @@
         }
         else
         {
-           teacherName2 = "ไม่มีอาจารย์ที่ปรึกษาร่วม";
+            teacherName2 = "N/A";
         }
-
+        var Tt = Request.Form["time"];
+        var insertexam = "insert into exam(examDateStart,studentID,teacherID) values(@0,@1,@2)";
 
     }
 
@@ -132,7 +183,7 @@
                 <img style="width:100px; height:100px;" src="~/Photo/logo it.png" />
             </div>
             <div style="padding-left:8%;">
-                <strong>ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong>
+                <strong style="color:black;">ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong>
             </div>
             <div style="padding-left:5%">
                 <button type="button" class="buttonjs">
@@ -145,52 +196,57 @@
         </div>
     </div>
     <div class="container" align="center">
-        <form>
-            <div class="col-md-8 mb-4" style="padding-top:5%;">
-                <div class="form-outline" align="left">
-                    <label class="form-label" for="nameteacher1">อาจารย์ที่ปรึกษา : @teacherName1</label><br />
-                    <label class="form-label" for="nameteacher2">อาจารย์ที่ปรึกษาร่วม :@teacherName2 </label>
-                    <select class="select form-control form-control-lg" name="teacherID1" required>
-                        <option value="0">เลือกอาจารย์กรรมการสอบ</option>
+        
+            <form method="post" enctype="multipart/form-data">
+                <div class="col-md-8 mb-4" style="padding-top:5%;">
+                    <div class="form-outline" align="left">
+                        <label class="form-label" for="nameteacher1">อาจารย์ที่ปรึกษา : @teacherName1</label><br />
+                        <label class="form-label" for="nameteacher2">อาจารย์ที่ปรึกษาร่วม : @teacherName2 </label><br />
+                        <label>อาจารย์กรรมการ :</label>
+                        <select class="select form-control-sm col-md-8 mb-5" name="teacherid11" required>
+                            <option value="0">เลือกอาจารย์กรรมการสอบ</option>
+                            @foreach (var rowdf in teachar2)
+                            {
+                                <option value="@rowdf["teacherID"]">@rowdf["teacherName"]</option>
+                                //เป็นการวนลูปเพื่อแสดงชื่ออาจารย์ใน option โดยส่วนแรกเป็น value ส่วนที่สองเป็น description
+                                //เราจะมองเห็นแค่ description ในหน้าจอเท่านั้น
+                                //@rowdf["teacherName"] เป็นคำสั่งแสดงผลแบบวนลูป โดยชื่อใน[]ต้องเป็นชื่อเดียวกับชื่อคอลัมน์ในตารางดาต้าเบทที่เราคิวลี่มา
 
-                        }
 
+                            }
+                        </select>
+                        <label for="reservedate">วันที่จอง :</label>
+                        <input style="text-align:center" type="date" data-date="" data-date-format="DD MMMM YYYY" value="2021-01-01">
 
-                    </select>
+                        <label>เวลาที่จอง :</label>
+                        <select class="select form-control-sm" name="time" required>
+                            <option value="0">เลือก</option>
+                            <option value="09:00">09:00 - 10:00</option>
+                            <option value="10:00">10:00 - 11:00</option>
+                            <option value="11:00">11:00 - 12:00</option>
+                            <option value="13:00">13:00 - 14:00</option>
+                            <option value="14:00">14:00 - 15:00</option>
+                            <option value="15:00">15:00 - 16:00</option>
+
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-8 mb-2">
-                <div align="left">
-                    <label for="reservedate">วันที่จอง :</label>
-                    <input type="date" id="reserve" name="reserve">
-                    <label>เวลาที่จอง :</label>
-                    <select class="select form-control-sm" name="time" required>
-                        <option value="0">เลือก</option>
-                        <option value="09:00">09:00 - 10:00</option>
-                        <option value="10:00">10:00 - 11:00</option>
-                        <option value="11:00">11:00 - 12:00</option>
-                        <option value="13:00">13:00 - 14:00</option>
-                        <option value="14:00">14:00 - 15:00</option>
-                        <option value="15:00">15:00 - 16:00</option>
 
-                    </select>
+                <div style="padding-top:20px;">
+                    <h6>กรุณาแนบเอกสาร</h6>
+                    <input type="file" class="custom-file-input" name="file1" id="customFile">
+                    <label class="custom-file-label" for="customFile">เอกสาร IT2 (PDF)</label><br />
+                    <input style="padding-top:10px;" type="file" class="custom-file-input" name="file2" id="customFile">
+                    <label class="custom-file-label" for="customFile">เอกสาร IT3 (PDF)</label>
                 </div>
-
-
-            </div>
-            <div style="padding-top:20px;">
-                <h6>กรุณาแนบเอกสาร</h6>
-                <input type="file" class="custom-file-input" name="file1" id="customFile">
-                <label class="custom-file-label" for="customFile">เอกสาร IT3 (PDF)</label>
-            </div>
-            <div style="padding-top:5%;">
-                <span>
-                    <button style="background:#abbdee; max-width:200px;" type="submit" onclick="" ;>ยืนยัน</button>
-                    <button style="background:#ffd1dc; max-width:200px;" type="reset">รีเซ็ต</button>
-                </span>
-            </div>
-        </form>
-    </div>
+                <div style="padding-top:5%;">
+                    <span>
+                        <button style="background:#abbdee; max-width:200px;" type="submit" onclick="" ;>ยืนยัน</button>
+                        <button style="background:#ffd1dc; max-width:200px;" type="reset">ยกเลิก</button>
+                    </span>
+                </div>
+            </form>
+</div>
 
 </body>
 </html>
