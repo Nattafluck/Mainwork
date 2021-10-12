@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+@using WebMatrix.Data;
+<html>
+<head>
+    @{
+        var db = Database.Open("ResearchBooking");
+        <!--คำสั่งเปิดการเชื่อมต่อดาต้าเบท-->
+
+        var studentID = Request.Params["studentID"];
+    }
+    <title>Reserve</title>
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/js/main.js" />
+    <link rel="stylesheet" href="~/css/button.css" />
+    <link rel="stylesheet" href="~/css/page.css" />
+    <link rel="stylesheet" href="~/css/loginpage.css" />
+    <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/js/bootstrap.min.js" />
+    <link rel="stylesheet" href="~/css/popuplogin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href=""
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Taviraj:wght600&display=swap"> <!--font หลัก-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<style>
+
+    body {
+        font-family: 'Taviraj', serif;
+    }
+
+    button {
+        width: 100%;
+        height: 20%;
+        border: none;
+        color: black;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 70%;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .buttonjs {
+        display: flex;
+        height: 50px;
+        padding: 0;
+        background: #009578;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        overflow: hidden;
+        font-family: "Quicksand", sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        background: #008168;
+    }
+
+    .button:active {
+        background: #006e58;
+    }
+
+    .button__icon,
+    .button__text {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 15px;
+        color: #fff;
+        height: 100%;
+    }
+
+    .button__icon {
+        font-size: 1.5em;
+        background: rgba(0, 0, 0, 0.08);
+    }
+
+    table, th, td {
+        width: 30%;
+        font-size: 20px;
+        border: 3px solid;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    td {
+        text-align: left;
+    }
+</style>
+<body>
+    <div class="navbar navbar-dark reg shadow-sm">
+        <div class=" navbar-brand d-flex align-items-center" style="width:100%;">
+
+            <div style="padding-left:7%;">
+                <img style="width:100px; height:100px;" src="~/Photo/logo it.png" />
+            </div>
+            <div style="padding-left:8%;">
+                <strong>ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong>
+            </div>
+            <div style="padding-left:5%">
+                <button type="button" class="buttonjs">
+                    <span class="button__text">ออกจากระบบ</span>
+                </button>
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="container" align="center">
+        <form>
+            <div class="col-md-8 mb-4" style="padding-top:5%;">
+                <div class="form-outline" align="left">
+                    <label class="form-label" for="nameteacher1">อาจารย์ที่ปรึกษา : อาจารย์ ศรีอุดร แซ่อึ้ง</label><br />
+                    <label class="form-label" for="nameteacher2">อาจารย์ที่ปรึกษาร่วม : </label>
+                    <select class="select form-control form-control-lg" name="teacherID1" required>
+                        <option value="0">เลือกอาจารย์กรรมการสอบ</option>
+
+                        }
+
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-8 mb-2">
+                <div align="left">
+                    <label for="reservedate">วันที่จอง :</label>
+                    <input type="date" id="reserve" name="reserve">
+                    <label>เวลาที่จอง :</label>
+                    <select class="select form-control-sm" name="time" required>
+                        <option value="0">เลือก</option>
+                        <option value="09:00">09:00 - 10:00</option>
+                        <option value="10:00">10:00 - 11:00</option>
+                        <option value="11:00">11:00 - 12:00</option>
+                        <option value="13:00">13:00 - 14:00</option>
+                        <option value="14:00">14:00 - 15:00</option>
+                        <option value="15:00">15:00 - 16:00</option>
+
+                    </select>
+                </div>
+
+
+            </div>
+            <div style="padding-top:20px;">
+                <h6>กรุณาแนบเอกสาร</h6>
+                <input type="file" class="custom-file-input" name="file1" id="customFile">
+                <label class="custom-file-label" for="customFile">เอกสาร IT3 (PDF)</label>
+            </div>
+            <div style="padding-top:5%;">
+                <span>
+                    <button style="background:#abbdee; max-width:200px;" type="submit" onclick="" ;>ยืนยัน</button>
+                    <button style="background:#ffd1dc; max-width:200px;" type="reset">รีเซ็ต</button>
+                </span>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
