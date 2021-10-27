@@ -31,16 +31,20 @@
             //เช็คว่าไฟล์อัพโหลดมารึป่าว
             {
                 var file11 = Request.Files[0];
+                //ไฟล์เวลา submit เข้ามา จะเป็น Array ตรงนี้เลือกตำแหน่งแรกตือตำแหน่งที่ 0
                 if (file11 != null && file11.ContentLength > 0)
+                //เช็คว่าไฟล์อัพโหลดมารึป่าว
                 {
-                    //var fileName = Path.GetFileName(file.FileName);
+
                     fileName1 = studentID + "_IT1.pdf";
+                    //การตั้งชื่อไฟล์
                     path1 = @"\documentResearch\IT1\" + fileName1;
                     file11.SaveAs(path1);
                 }
 
-                var file22 = Request.Files[0];
+                var file22 = Request.Files[1];
                 if (file22 != null && file22.ContentLength > 0)
+                //ไฟล์เวลา submit เข้ามา จะเป็น Array ตรงนี้เลือกตำแหน่งที่สองตือตำแหน่งที่ 1
                 {
                     //var fileName = Path.GetFileName(file.FileName);
                     fileName2 = studentID + "_timeTable.pdf";
@@ -86,6 +90,7 @@
             db.Execute(insert4, fileName2, path2, documentType2, studentID);
 
             <script>alert("ลงทะเบียนรียบร้อยแล้ว ระบบกำลังดำเนินการ กรุณารอตรวจสอบสถานะการลงทะเบียนที่หน้าเว็บไซต์ในภายหลัง")</script>
+            <script>location.href = "https://localhost:44361/Page/Register.cshtml";</script>
         }
     }
     <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/css/bootstrap.min.css" />
