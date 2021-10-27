@@ -47,13 +47,15 @@
 
         var docit1 = "C:/documentResearch/IT1/6111504178_IT1.pdf";
         <!--พารามิเตอร์ เก็บข้อมูลที่ได้จากการคิวลี่ db.QuerySingle ได้ข้อมูลแบบเป็น row เดียว-->
-        if(IsPost)
+        if (IsPost)
         {
             var registrationStatus = Request.Form["registrationStatus"];
             var note = Request.Form["note"];
 
             var update1 = "UPDATE Researchbooking.students set registrationStatus = '" + registrationStatus + "' , note = '" + note + "' where studentID = '" + studentID + "'";
             db.Execute(update1);
+            <script>alert("ทำรายการสำเร็จ")</script>
+            <script>location.href = "https://localhost:44361/Page/Admin/Admin%20approve.cshtml";</script>
         }
 
     }
@@ -160,7 +162,7 @@
                 <td style="width:50%;">อาจารย์ที่ปรึกษาร่วม : @teacherName2</td>
             </tr>
             <tr>
-                <td style="width:50%;">เอกสาร IT1 : <a href="~/Page/download.cshtml?fileName=6111504178_IT1.pdf" download="test">download</a></td>
+                <td style="width:50%;">เอกสาร IT1 : <a href="/Class1/Download?file=C:\documentResearch\IT1\6111504178_IT1.pdf" target="_blank">download</a></td>
                 <td style="width:50%;">เอกสารการลงทะเบียนเรียนวิชาวิจัย :</td>
             </tr>
         </table>
