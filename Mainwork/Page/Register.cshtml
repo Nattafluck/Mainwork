@@ -31,20 +31,16 @@
             //เช็คว่าไฟล์อัพโหลดมารึป่าว
             {
                 var file11 = Request.Files[0];
-                //ไฟล์เวลา submit เข้ามา จะเป็น Array ตรงนี้เลือกตำแหน่งแรกตือตำแหน่งที่ 0
                 if (file11 != null && file11.ContentLength > 0)
-                //เช็คว่าไฟล์อัพโหลดมารึป่าว
                 {
-
+                    //var fileName = Path.GetFileName(file.FileName);
                     fileName1 = studentID + "_IT1.pdf";
-                    //การตั้งชื่อไฟล์
                     path1 = @"\documentResearch\IT1\" + fileName1;
                     file11.SaveAs(path1);
                 }
 
-                var file22 = Request.Files[1];
+                var file22 = Request.Files[0];
                 if (file22 != null && file22.ContentLength > 0)
-                //ไฟล์เวลา submit เข้ามา จะเป็น Array ตรงนี้เลือกตำแหน่งที่สองตือตำแหน่งที่ 1
                 {
                     //var fileName = Path.GetFileName(file.FileName);
                     fileName2 = studentID + "_timeTable.pdf";

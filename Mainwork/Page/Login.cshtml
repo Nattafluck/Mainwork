@@ -14,7 +14,7 @@
         var row = db.QuerySingle(select, usr, pwd);
         if (row != null)
         {
-            if (row["registrationStatus"] == "A" )
+            if (row["registrationStatus"] == "A")
             {
                 Session["userName"] = row["studentID"];
                 Response.Redirect("~/Page/Student/Home.cshtml");
@@ -31,7 +31,7 @@
         else if (row2 != null)
         {
             Session["userName"] = row2["teacherID"];
-            Response.Redirect("~/Page/Admin/Admin Home.cshtml");
+            Response.Redirect("~/Page/Teacher/Teacher Home.cshtml");
         }
         else if (row3 != null)
         {
@@ -40,7 +40,10 @@
         }
         else
         {
-            <script>alert("ไม่พบข้อมูลผู้ใช้");</script>
+            <script>
+                alert('ไม่พบข้อมูลผู้ใช้');
+            </script>
+                        //<script>alert("ไม่พบข้อมูลผู้ใช้");</script>
         }
     } }
 <html>
@@ -132,19 +135,21 @@
                                         <font size="8"><label for="password" class="form-label"> รหัสผ่าน </label><br></font>
                                         <input type="password" name="passWord" class="form-control" placeholder="รหัสผ่าน" /><br>
                                         <div align="right">
-                                            <font size="3"><a  href="https://localhost:44361/Page/forget.cshtml">ลืมรหัสผ่าน?</a></font>
+                                            <font size="3"><a href="https://localhost:44361/Page/forget.cshtml">ลืมรหัสผ่าน?</a></font>
                                         </div>
                                     </div>
-                                   
+
                                     <div align="center">
+
                                         <button style="background: #CAEEBE;" type="submit">เข้าสู่ระบบ</button><br />
+                                        
                                         <button style="background: #abbdee;" type="button" onclick="location.href='https://localhost:44361/Page/Register.cshtml';">สมัครสมาชิก</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
 
-                      
+
                     </div>
 
                 </div>

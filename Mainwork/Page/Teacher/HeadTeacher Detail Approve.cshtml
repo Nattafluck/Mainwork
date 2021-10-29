@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>HeadTeacher</title>
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/js/main.js" />
+    <link rel="stylesheet" href="~/css/button.css" />
+    <link rel="stylesheet" href="~/css/page.css" />
+    <link rel="stylesheet" href="~/css/loginpage.css" />
+    <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/js/bootstrap.min.js" />
+    <link rel="stylesheet" href="~/css/popuplogin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href=""
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Taviraj:wght600&display=swap"> <!--font หลัก-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<style>
+
+    body {
+        font-family: 'Taviraj', serif;
+    }
+
+    button {
+        width: 100%;
+        height: 20%;
+        border: none;
+        color: black;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 70%;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .buttonjs {
+        display: flex;
+        height: 50px;
+        padding: 0;
+        background: #009578;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        overflow: hidden;
+        font-family: "Quicksand", sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        background: #008168;
+    }
+
+    .button:active {
+        background: #006e58;
+    }
+
+    .button__icon,
+    .button__text {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 15px;
+        color: #fff;
+        height: 100%;
+    }
+
+    .button__icon {
+        font-size: 1.5em;
+        background: rgba(0, 0, 0, 0.08);
+    }
+
+    table, th, td {
+        width: 30%;
+        font-size: 20px;
+        border: 3px solid;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    td {
+        text-align: left;
+    }
+</style>
+<body>
+    <div class="navbar navbar-dark reg shadow-sm">
+        <div class=" navbar-brand d-flex align-items-center" style="width:100%;">
+
+            <div style="padding-left:7%;">
+                <img style="width:100px; height:100px;" src="~/Photo/logo it.png" />
+            </div>
+            <div style="padding-left:8%;">
+                <strong style="color:black;">ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong>
+            </div>
+            <div style="padding-left:5%">
+                <button type="button" class="buttonjs">
+                    <span class="button__text" onclick="location.href='https://localhost:44361/Page/Login.cshtml'">ออกจากระบบ</span>
+                </button>
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="container" align="center">
+        <form>
+            <div class="col-md-8 mb-4" style="padding-top:5%;">
+                <div class="form-outline" align="left">
+                    <label class="form-label" for="studentid">รหัสนักศึกษา : </label><br />
+                    <label class="form-label" for="namestudent">ชื่อนักศึกษา : </label><br />
+                    <label class="form-label" for="nameteacher1">อาจารย์ที่ปรึกษา : </label><br />
+                    <label class="form-label" for="nameteacher2">อาจารย์ที่ปรึกษาร่วม : </label><br />
+                    <label class="form-label" for="nameteacher2">อาจารย์กรรมการสอบ : </label><br />
+                    <label>อาจารย์ประธานกรรมการ :</label>
+                    <select class="select form-control-sm col-md-6 mb-2 " name="director" required>
+                        <option value="0">เลือกอาจารย์ประธานกรรมการสอบ</option>
+                        <option value="1">ทดสอบ</option>
+                    </select>
+                    <label class="form-label">วันเวลาที่จอง : </label><br />
+                    <label class="form-label" for="customFile">รูปเล่มวิจัย :</label><br />
+                    <label class="form-label" for="customFile">เอกสาร IT2 (PDF) :</label><br />
+                    <label class="form-label" for="customFile">เอกสาร IT3 (PDF) :</label>
+
+                </div>
+            </div>
+
+            <div style="padding-top:20px;">
+                <h6>กรุณาแนบเอกสาร</h6>
+                <input type="file" class="custom-file-input" name="file1" id="customFile">
+                <label class="custom-file-label" for="customFile">เอกสาร IT3 (PDF)</label><br />
+            </div>
+            <div style="padding-top:40px;">
+                <div class="form-floating col-md-6 mb-4" style="padding-top:20px;">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="note" style="height: 200px"></textarea>
+                    <label for="floatingTextarea">หมายเหตุ</label>
+                </div>
+                <div class="form-check form-check-inline" style="padding-top:20px; font-size:25px">
+                    <input class="form-check-input" type="radio" name="registrationStatus" id="inlineRadio1" value="A" required>
+                    <label class="form-check-label" for="inlineRadio1">อนุมัติ</label>
+                </div>
+                <div class="form-check form-check-inline" style="padding-bottom:20px; font-size: 25px">
+                    <input class="form-check-input" type="radio" name="registrationStatus" id="inlineRadio2" value="D" required>
+                    <label class="form-check-label" for="inlineRadio2">ไม่อนุมัติ</label>
+                </div>
+
+                <div style="padding-top:5%; padding-bottom:5%;">
+                    <span>
+                        <button style="background:#abbdee; max-width:200px;" type="submit" onclick="" ;>ยืนยัน</button>
+                        <button style="background:#ffd1dc; max-width:200px;" type="reset">ยกเลิก</button>
+                    </span>
+                </div>
+        </form>
+    </div>
+</body>
+</html>

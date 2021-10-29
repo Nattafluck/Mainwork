@@ -6,14 +6,27 @@
         var studentid = Session["userName"];
         var fileName1 = "";
         var fileName2 = "";
+        var fileName3 = "";
         var path1 = "";
         var path2 = "";
+        var path3 = "";
+        var teacherIDC = Request.Form["teacheridC"];
+
+        var file1 = Request.Form["file1"];
+        var documentType1 = "IT2";
+
+
+        var file2 = Request.Form["file2"];
+        var documentType2 = "IT3";
+        var file3 = Request.Form["file3"];
+        var documentType3 = "Research";
         if (IsPost)
         {
             if (Request.Files.Count > 0)
             //เช็คว่าไฟล์อัพโหลดมารึป่าว
             {
                 var file11 = Request.Files[0];
+
                 if (file11 != null && file11.ContentLength > 0)
                 {
                     //var fileName = Path.GetFileName(file.FileName);
@@ -22,7 +35,7 @@
                     file11.SaveAs(path1);
                 }
 
-                var file22 = Request.Files[0];
+                var file22 = Request.Files[1];
                 if (file22 != null && file22.ContentLength > 0)
                 {
                     //var fileName = Path.GetFileName(file.FileName);
@@ -30,26 +43,69 @@
                     path2 = @"\documentResearch\IT3\" + fileName2;
                     file22.SaveAs(path2);
                 }
+                var file33 = Request.Files[2];
+                if (file33 != null && file33.ContentLength > 0)
+                {
+                    //var fileName = Path.GetFileName(file.FileName);
+                    fileName3 = studentid + "_Research.pdf";
+                    path3 = @"\documentResearch\Research\" + fileName3;
+                    file33.SaveAs(path3);
+                }
             }
-            //db.Execute(insertexam, Tt, studentid, teacherID2);
-            var rsdate = Request.Form["rsdate"];
+
+
             // ข้อมูล rsdate จะได้มาในรูปแบบ 28/10/2564 (dd/MM/yyyy)
+            var rsdate = Request.Form["rsdate"];
             var rstime = Request.Form["rstime"];
-            // ข้อมูล rstime จะได้มาในรูปแบบ 09:00:00 (hh:mm:ss)
-            // ต้องเอามาบวกกัน แล้วแปลงเป็นรูปแบบ 2021-10-28 09:00:00 ลงใน database
+            var Sconcat = string.Concat(rsdate + " " + rstime);
+
+
+
+            //เช็คค่าวันเวลาว่าซ้ำไหม
+            var checkSD = "select * from exam where studentID = @0 and examResultStatus <>'N' ";
+            var checkDT = "select * from exam where examDateStart = @0";
+            var CheckDateTime = db.QuerySingle(checkDT, Sconcat);
+            var CheckStudentID = db.QuerySingle(checkSD, studentid);
+
+
+            if (CheckStudentID != null)
+            {
+                <script>alert("รหัสผู้ใช้งานนี้ทำการจองสอบไปเเล้ว");</script>
+            }
+            else
+            {
+                if (CheckDateTime != null)
+                {
+                    <script>alert("วันเวลานี้ถูกเลือกไปแล้ว");</script>
+                }
+                else
+                {
+                    var insertexam = "insert into exam(examDateStart,examResultStatus,studentID,teacherID) values(@0,@1,@2,@3)";
+                    db.Execute(insertexam, Sconcat, 'P', studentid, teacherIDC);
+                    var insert3 = "insert into document(documentName,storage,documentType,studentID) values(@0,@1,@2,@3)";
+                    db.Execute(insert3, fileName1, path1, documentType1, studentid);
+
+                    var insert4 = "insert into document(documentName,storage,documentType,studentID) values(@0,@1,@2,@3)";
+                    db.Execute(insert4, fileName2, path2, documentType2, studentid);
+
+                    var Updatedoc = "update research set researcDocument = @0 where studentID = @1 ";
+                    db.Execute(Updatedoc, path3, studentid);
+                    <script>alert("ทำรายการสำเร็จ")</script>
+                    <script>location.href = "https://localhost:44361/Page/Student/Home.cshtml";</script>
+
+                }
+            }
+
+
+
+
         }
 
 
-        var file1 = Request.Form["file1"];
-        var documentType1 = "IT2";
-        var insert3 = "insert into document(documentName,storage,documentType,studentID) values(@0,@1,@2,@3)";
-        db.Execute(insert3, fileName1, path1, documentType1, studentid);
 
 
-        var file2 = Request.Form["file2"];
-        var documentType2 = "IT3";
-        var insert4 = "insert into document(documentName,storage,documentType,studentID) values(@0,@1,@2,@3)";
-        db.Execute(insert4, fileName2, path2, documentType2, studentid);
+
+
 
 
 
@@ -67,7 +123,6 @@
         //ใช้รหัสอาจารย์ในการค้นหาชื่อาจารยที่ตารางอาจาร์
 
 
-        var teacherID11 = Request.Form["teacherid11"];
 
 
         var rowT = db.QuerySingle(selectT);
@@ -87,8 +142,7 @@
         {
             teacherName2 = "N/A";
         }
-        var Tt = Request.Form["time"];
-        //var insertexam = "insert into exam(examDateStart,studentID,teacherID) values(@0,@1,@2)";
+
 
     }
 
@@ -111,13 +165,11 @@
     <script type="text/javascript">
         $(function () {
             var d = new Date();
-            var toDay = d.getDate() + '/'
-                + (d.getMonth() + 1) + '/'
-                + (d.getFullYear() + 543);
+            var toDay = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
 
             // Datepicker
             $("#datepicker-th").datepicker({
-                dateFormat: 'dd/mm/yy', isBuddhist: true, defaultDate: toDay, dayNames: ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'],
+                dateFormat: 'yy/mm/dd', isBuddhist: true, defaultDate: toDay, dayNames: ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'],
                 dayNamesMin: ['อา.', 'จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.'],
                 monthNames: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
                 monthNamesShort: ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.']
@@ -128,8 +180,8 @@
                 monthNames: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
                 monthNamesShort: ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.']
             });
-            $("#datepicker-en").datepicker({ dateFormat: 'dd/mm/yy' });
-            $("#inline").datepicker({ dateFormat: 'dd/mm/yy', inline: true });
+            $("#datepicker-en").datepicker({ dateFormat: 'yy/mm/dd' });
+            $("#inline").datepicker({ dateFormat: 'yy/mm/dd', inline: true });
         });
     </script>
 </head>
@@ -226,58 +278,64 @@
         </div>
     </div>
     <div class="container" align="center">
-        
-            <form method="post" enctype="multipart/form-data">
-                <div class="col-md-8 mb-4" style="padding-top:5%;">
-                    <div class="form-outline" align="left">
-                        <label class="form-label" for="nameteacher1">อาจารย์ที่ปรึกษา : @teacherName1</label><br />
-                        <label class="form-label" for="nameteacher2">อาจารย์ที่ปรึกษาร่วม : @teacherName2 </label><br />
-                        <label>อาจารย์กรรมการ :</label>
-                        <select class="select form-control-sm col-md-8 mb-5" name="teacherid11" required>
-                            <option value="0">เลือกอาจารย์กรรมการสอบ</option>
-                            @foreach (var rowdf in teachar2)
-                            {
-                                <option value="@rowdf["teacherID"]">@rowdf["teacherName"]</option>
-                                //เป็นการวนลูปเพื่อแสดงชื่ออาจารย์ใน option โดยส่วนแรกเป็น value ส่วนที่สองเป็น description
-                                //เราจะมองเห็นแค่ description ในหน้าจอเท่านั้น
-                                //@rowdf["teacherName"] เป็นคำสั่งแสดงผลแบบวนลูป โดยชื่อใน[]ต้องเป็นชื่อเดียวกับชื่อคอลัมน์ในตารางดาต้าเบทที่เราคิวลี่มา
 
 
-                            }
-                        </select>
-                        <label for="reservedate">วันที่จอง :</label>
-                        @*<input style="text-align:center" name="rsdate" type="date" data-date="" value=@rsdate>*@
-                        <input type="text" name="rsdate" id="datepicker-th" value="">
+        <form method="post" enctype="multipart/form-data">
+            <div class="col-md-8 mb-4" style="padding-top:5%;">
+                <div class="form-outline" align="left">
+                    <label class="form-label" for="nameteacher1">อาจารย์ที่ปรึกษา : @teacherName1</label><br />
+                    <label class="form-label" for="nameteacher2">อาจารย์ที่ปรึกษาร่วม : @teacherName2 </label><br />
+                    <label>อาจารย์กรรมการ :</label>
+                    <select class="select form-control-sm col-md-8 mb-5" name="teacheridC" required>
+                        <option value="0">เลือกอาจารย์กรรมการสอบ</option>
+                        @foreach (var rowdf in teachar2)
+                        {
+                            <option value="@rowdf["teacherID"]">@rowdf["teacherName"]</option>
+                            //เป็นการวนลูปเพื่อแสดงชื่ออาจารย์ใน option โดยส่วนแรกเป็น value ส่วนที่สองเป็น description
+                            //เราจะมองเห็นแค่ description ในหน้าจอเท่านั้น
+                            //@rowdf["teacherName"] เป็นคำสั่งแสดงผลแบบวนลูป โดยชื่อใน[]ต้องเป็นชื่อเดียวกับชื่อคอลัมน์ในตารางดาต้าเบทที่เราคิวลี่มา
 
-                        <label>เวลาที่จอง :</label>
-                        <select class="select form-control-sm" name="rstime" required>
-                            <option value="0">เลือก</option>
-                            <option value="09:00:00">09:00 - 10:00</option>
-                            <option value="10:00:00">10:00 - 11:00</option>
-                            <option value="11:00:00">11:00 - 12:00</option>
-                            <option value="13:00:00">13:00 - 14:00</option>
-                            <option value="14:00:00">14:00 - 15:00</option>
-                            <option value="15:00:00">15:00 - 16:00</option>
 
-                        </select>
-                    </div>
+                        }
+                    </select>
+                    <label for="reservedate">วันที่จอง :</label>
+                    @*<input style="text-align:center" name="rsdate" type="date" data-date="" value=@rsdate>*@
+                    <input class="col-md-4 form-control-sm" type="text" name="rsdate" id="datepicker-th" value="">
+
+                    <label>เวลาที่จอง :</label>
+                    <select class="select form-control-sm" name="rstime" required>
+                        <option value="0">เลือก</option>
+                        <option value="09:00:00">09:00 - 10:00</option>
+                        <option value="10:00:00">10:00 - 11:00</option>
+                        <option value="11:00:00">11:00 - 12:00</option>
+                        <option value="13:00:00">13:00 - 14:00</option>
+                        <option value="14:00:00">14:00 - 15:00</option>
+                        <option value="15:00:00">15:00 - 16:00</option>
+
+                    </select>
                 </div>
+            </div>
 
-                <div style="padding-top:20px;">
-                    <h6>กรุณาแนบเอกสาร</h6>
-                    <input type="file" class="custom-file-input" name="file1" id="customFile">
+            <div style="padding-top:20px;">
+                <h6>กรุณาแนบเอกสาร</h6>
+                <div align="center">
+                    <input type="file" class="custom-file-input" name="file3" id="customFile">
+                    <label class="custom-file-label" for="customFile">รูปเล่มวิจัย (PDF)</label>
+                    <input style="padding-top:10px;" type="file" class="custom-file-input" name="file1" id="customFile">
                     <label class="custom-file-label" for="customFile">เอกสาร IT2 (PDF)</label><br />
                     <input style="padding-top:10px;" type="file" class="custom-file-input" name="file2" id="customFile">
                     <label class="custom-file-label" for="customFile">เอกสาร IT3 (PDF)</label>
+
                 </div>
-                <div style="padding-top:5%;">
-                    <span>
-                        <button style="background:#abbdee; max-width:200px;" type="submit">ยืนยัน</button>
-                        <button style="background:#ffd1dc; max-width:200px;" type="reset">ยกเลิก</button>
-                    </span>
-                </div>
-            </form>
-</div>
+            </div>
+            <div style="padding-top:5%;">
+                <span>
+                    <button style="background:#abbdee; max-width:200px;" type="submit">ยืนยัน</button>
+                    <button style="background:#ffd1dc; max-width:200px;" type="reset">ยกเลิก</button>
+                </span>
+            </div>
+        </form>
+    </div>
 
 </body>
 </html>

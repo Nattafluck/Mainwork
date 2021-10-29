@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>ChangePassword</title>
+    <title>Teacher Detail Approve</title>
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/js/main.js" />
     <link rel="stylesheet" href="~/css/button.css" />
@@ -15,7 +15,6 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Taviraj:wght600&display=swap"> <!--font หลัก-->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
 </head>
 <style>
 
@@ -89,10 +88,7 @@
         text-align: left;
     }
 </style>
-
 <body>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <div class="navbar navbar-dark reg shadow-sm">
         <div class=" navbar-brand d-flex align-items-center" style="width:100%;">
 
@@ -108,34 +104,54 @@
                 </button>
 
             </div>
+
+
         </div>
     </div>
-    <div align="center" class="container">
+    <div class="container" align="center">
         <form>
-            <div class="col-md-6 mb-4" style="padding-top:5%;">
+            <div class="col-md-8 mb-4" style="padding-top:5%;">
                 <div class="form-outline" align="left">
-                    <label class="form-label" for="oldpassword">รหัสผ่านเดิม</label>
-                    <input type="password" id="oldpassword" class="form-control form-control-md" name="oldpassword" required />
-                </div>
-            </div>
-            <div class="col-md-6 mb-4" style="padding-top:3%;">
-                <div class="form-outline" align="left">
-                    <label class="form-label" for="newpassword">รหัสผ่านใหม่</label>
-                    <input type="password" id="newpassword" class="form-control form-control-md" name="newpassword" required />
-                    <label class="form-label" for="newpassword">ยืนยันรหัสผ่าน</label>
-                    <input type="password" id="newpassword" class="form-control form-control-md" name="newpassword" required />
-                </div>
-            </div>
-            <div align="center">
-                <span style="margin:200px;">
-                    <button style="background:#abbdee; max-width:200px;" type="submit" onclick="" ;>ยืนยัน</button>
-                    <button style="background:#ffd1dc; max-width:200px;" type="reset">ยกเลิก</button>
-                </span>
+                    <label style="padding-left:25%" class="form-label" for="status">ตำแหน่ง : </label><br />
+                    <label class="form-label" for="studentid">รหัสนักศึกษา : </label><br />
+                    <label class="form-label" for="namestudent">ชื่อนักศึกษา : </label><br />
+                    <label class="form-label">วันเวลาที่จอง : </label><br />
+                    <label class="form-label" for="customFile">รูปเล่มวิจัย :</label><br />
+                    <label class="form-label" for="customFile">เอกสาร IT2 :</label><br />
+                    <label class="form-label" for="customFile">เอกสาร IT3 :</label><br />
 
+                </div>
             </div>
+
+            <div style="padding-top:20px;">
+                <h6>กรุณาแนบเอกสาร</h6>
+                <input type="file" class="custom-file-input" name="file1" id="customFile">
+                <label class="custom-file-label" for="customFile">เอกสาร IT2 (PDF)</label><br />
+                <input style="padding-top:10px;" type="file" class="custom-file-input" name="file2" id="customFile">
+                <label class="custom-file-label" for="customFile">เอกสาร IT3 (PDF)</label>
+            </div>
+            <div style="padding-top:40px;">
+                <div class="form-floating col-md-6 mb-4" style="padding-top:20px;">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="note" style="height: 200px"></textarea>
+                    <label for="floatingTextarea">หมายเหตุ</label>
+                </div>
+                <div class="form-check form-check-inline" style="padding-top:20px; font-size:25px">
+                    <input class="form-check-input" type="radio" name="registrationStatus" id="inlineRadio1" value="A" required>
+                    <label class="form-check-label" for="inlineRadio1">อนุมัติ</label>
+                </div>
+                <div class="form-check form-check-inline" style="padding-bottom:20px; font-size: 25px">
+                    <input class="form-check-input" type="radio" name="registrationStatus" id="inlineRadio2" value="D" required>
+                    <label class="form-check-label" for="inlineRadio2">ไม่อนุมัติ</label>
+                </div>
+
+                <div style="padding-top:5%; padding-bottom:5%;">
+                    <span>
+                        <button style="background:#abbdee; max-width:200px;" type="submit" onclick="" ;>ยืนยัน</button>
+                        <button style="background:#ffd1dc; max-width:200px;" type="reset">ยกเลิก</button>
+                    </span>
+                </div>
         </form>
     </div>
-
 
 </body>
 </html>

@@ -56,6 +56,7 @@
             db.Execute(update1);
             <script>alert("ทำรายการสำเร็จ")</script>
             <script>location.href = "https://localhost:44361/Page/Admin/Admin%20approve.cshtml";</script>
+
         }
 
     }
@@ -128,7 +129,7 @@
                 <strong style="color:black;">ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong>
             </div>
             <div style="padding-left:5%">
-                <buttonjs type="button" class="buttonjs">
+                <buttonjs type="button" class="buttonjs" onclick="location.href='https://localhost:44361/Page/Login.cshtml'">
                     <span class="button__text">ออกจากระบบ</span>
                 </buttonjs>
             </div>
@@ -162,8 +163,8 @@
                 <td style="width:30%;">อาจารย์ที่ปรึกษาร่วม : @teacherName2</td>
             </tr>
             <tr>
-                <td style="width:50%;">เอกสาร IT1 : <a href="/Class1/Download?file=C:\documentResearch\IT1\6111504178_IT1.pdf" target="_blank">download</a></td>
-                <td style="width:50%;">เอกสารการลงทะเบียนเรียนวิชาวิจัย :</td>
+                <td style="width:30%;">เอกสาร IT1 : <a href="~/Page/download.cshtml?fileName=6111504178_IT1.pdf" download="test">download</a></td>
+                <td style="width:30%;">เอกสารการลงทะเบียนเรียนวิชาวิจัย :</td>
             </tr>
         </table>
         <form method="post">

@@ -1,19 +1,7 @@
 ﻿<!DOCTYPE html>
-@using WebMatrix.Data;
-<!--คำสั่งการเชื่อมต่อดาต้าเบท-->
 <html>
 <head>
-    @{
-        var db = Database.Open("ResearchBooking");
-        <!--คำสั่งเปิดการเชื่อมต่อดาต้าเบท-->
-
-        var select = "SELECT studentID , studentName FROM Researchbooking.students where registrationStatus='P'";
-        <!--คิวลี่ตารางดาต้าเบท-->
-
-        var listStudent = db.Query(select);
-        <!--พารามิเตอร์ เก็บข้อมูลที่ได้จากการคิวลี่-->
-    }
-    <title>Admin approve</title>
+    <title>HeadTeacherApprove</title>
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/js/main.js" />
     <link rel="stylesheet" href="~/css/button.css" />
@@ -77,11 +65,11 @@
                 <img style="width:100px; height:100px;" src="~/Photo/logo it.png" />
             </div>
             <div style="padding-left:8%;">
-                <strong style="color:black;">ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong>
+                <strong>ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong>
             </div>
             <div style="padding-left:5%">
-                <buttonjs type="button" class="buttonjs" onclick="location.href='https://localhost:44361/Page/Login.cshtml'">
-                    <span class="button__text">ออกจากระบบ</span>
+                <buttonjs type="button" class="buttonjs">
+                    <span class="button__text" onclick="location.href='https://localhost:44361/Page/Login.cshtml'">ออกจากระบบ</span>
                 </buttonjs>
             </div>
 
@@ -95,20 +83,17 @@
             <table style="max-width:800px;">
 
                 <tr>
-                    <th colspan="3">รายการนักศึกษาที่สมัครสมาชิก</th>
+                    <th colspan="3">รายการนักศึกษา</th>
                 </tr>
                 <tr>
                     <th style="width:15%;" text-align="center">รหัสนักศึกษา</th>
                     <th colspan="2" style="width:70%;" text-align="center">ชื่อ-นามสกุล</th>
                 </tr>
-                @foreach (var row in listStudent)//listStudent คือตัวแปรที่เก็บข้อมูลที่คิวลี่จากดาต้าเบทมา
-                {
-                    <tr>
-                        <td style="text-align:center;">@row["studentID"]</td>
-                        <td style="padding-left:20px;">@row["studentName"]</td>
-                        <td style="max-width:70px;"><button style="width: 90%; background-color: #cec1e7; margin: 10px;" ><a href="~/Page/Admin/Admin Student Detail.cshtml?studentID=@row["studentID"]">ทำรายการ</a> </button></td>
-                    </tr>
-                }
+                <tr>
+                    <td style="width:20%; max-width:250px; text-align:center;">6111502479</td>
+                    <td style="width:50%; max-width:250px; padding-left: 20px;">นายณัฏฐชัย ดีประสิทธิ์</td>
+                    <td style="width:70px; max-width:70px;"><button style="width: 90%; background-color: #cec1e7; margin: 10px;"><a href="~/Page/Admin/Admin Student Detail.cshtml?studentID=">ทำรายการ</a> </button></td>
+                </tr>
 
 
             </table>
