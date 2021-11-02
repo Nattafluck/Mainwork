@@ -35,16 +35,17 @@
                 {
                     //var fileName = Path.GetFileName(file.FileName);
                     fileName1 = studentID + "_IT1.pdf";
-                    path1 = @"\documentResearch\IT1\" + fileName1;
+                    path1 = Server.MapPath("~/File/documentResearch/IT1/" + fileName1);
                     file11.SaveAs(path1);
                 }
 
-                var file22 = Request.Files[0];
+                var file22 = Request.Files[1];
                 if (file22 != null && file22.ContentLength > 0)
                 {
                     //var fileName = Path.GetFileName(file.FileName);
                     fileName2 = studentID + "_timeTable.pdf";
-                    path2 = @"\documentResearch\timeTable\" + fileName2;
+                    //path2 = @"\documentResearch\timeTable\" + fileName2;
+                    path2 = Server.MapPath("~/File/documentResearch/timeTable/" + fileName2);
                     file22.SaveAs(path2);
                 }
             }
