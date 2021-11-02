@@ -1,6 +1,124 @@
 ﻿<!DOCTYPE html>
+@using WebMatrix.Data;
+<!--คำสั่งการเชื่อมต่อดาต้าเบท-->
 <html>
 <head>
+    @{
+        var db = Database.Open("ResearchBooking");
+        <!--คำสั่งเปิดการเชื่อมต่อดาต้าเบท-->
+
+        var studentID = Request.Params["studentID"];
+        //รับค่าจากหน้าจอก่อนหน้า
+
+        var select = "SELECT * FROM Researchbooking.research rs inner join Researchbooking.exam ex on rs.studentID=ex.studentID inner join Researchbooking.students st on st.studentID=ex.studentID WHERE rs.studentID = @0 and ex.examResultStatus IN ('P','A');";
+        var selectIT2 = "SELECT * FROM Researchbooking.document where documentType = 'IT2' and studentID = @0";
+        var selectIT3 = "SELECT * FROM Researchbooking.document where documentType = 'IT3' and studentID = @0";
+        var selectResearch = "SELECT researcDocument FROM Researchbooking.research WHERE studentID = @0";
+
+        var listStudent = db.Query(select, studentID);
+        var studentid = "";
+        var studentName = "";
+        var datetime = new DateTime();
+        var status = "";
+        var research = "";
+
+        var selectDocIT2 = db.QuerySingle(selectIT2, studentID);
+        var selectDocIT3 = db.QuerySingle(selectIT3, studentID);
+        var selectDocResearch = db.QuerySingle(selectResearch, studentID);
+
+        var it2 = "'/File/documentResearch/IT2/" + selectDocIT2["documentName"] + "'";
+        var it3 = "'/File/documentResearch/IT3/" + selectDocIT3["documentName"] + "'";
+        if (selectResearch != null)
+        {
+            research = "'/File/documentResearch/Research/" + studentID + "_Research.pdf'";
+        }
+
+        foreach (var row in listStudent)
+        {
+            studentid = row["studentID"];
+            studentName = row["studentName"];
+            datetime = row["examDateStart"];
+            status = row["examResultStatus"];
+
+        }
+        if (IsPost) // ถ้าเข้า method post
+        {
+            var appvStatus = Request.Form["registrationStatus"]; // ดึงค่า approve status จาก form
+            var note = Request.Form["note"];
+            if (appvStatus == "A") // ถ้า approve status เป็น A
+            {
+                if (status == "A" && appvStatus == "A")
+                {
+                    appvStatus = "B";
+                }
+                if (Request.Files.Count == 2) // เช็คว่ามีไฟล์มาไหม ทั้ง 2 ไฟล์
+                {
+                    var fileNameIT2 = "";
+                    var pathIT2 = "";
+                    var fileIT2 = Request.Files[0];
+                    if (fileIT2 != null && fileIT2.ContentLength > 0)
+                    {
+                        if (appvStatus == "A")
+                        {
+                            fileNameIT2 = studentID + "_IT2_Signed.pdf";
+                        } else if (appvStatus == "B")
+                        {
+                            fileNameIT2 = studentID + "_IT2_Signed2.pdf";
+                        }
+                        pathIT2 = Server.MapPath("~/File/documentResearch/IT2/" + fileNameIT2);
+                        fileIT2.SaveAs(pathIT2);
+
+                        var updatePathIT2 = " UPDATE Researchbooking.document SET documentName = @0, storage = @1 WHERE documentType = 'IT2' AND studentID = @2 ";
+                        db.Execute(updatePathIT2, fileNameIT2, pathIT2, studentID);
+                    }
+                    var fileNameIT3 = "";
+                    var pathIT3 = "";
+                    var fileIT3 = Request.Files[1];
+                    if (fileIT3 != null && fileIT3.ContentLength > 0)
+                    {
+                        if (appvStatus == "A")
+                        {
+                            fileNameIT3 = studentID + "_IT3_Signed.pdf";
+                        } else if (appvStatus == "B")
+                        {
+                            fileNameIT3 = studentID + "_IT3_Signed2.pdf";
+                        }
+                        pathIT3 = Server.MapPath("~/File/documentResearch/IT3/" + fileNameIT3);
+                        fileIT3.SaveAs(pathIT3);
+
+                        var updatePathIT3 = " UPDATE Researchbooking.document SET documentName = @0, storage = @1 WHERE documentType = 'IT3' AND studentID = @2 ";
+                        db.Execute(updatePathIT3, fileNameIT3, pathIT3, studentID);
+                    }
+                }
+            }
+            var updateStatus = "";
+            if (appvStatus == "A")
+            {
+                updateStatus = " UPDATE Researchbooking.exam SET examResultStatus = @0, noteExam1 = @1 WHERE studentID = @2 ";
+            } else if (appvStatus == "B")
+            {
+                updateStatus = " UPDATE Researchbooking.exam SET examResultStatus = @0, noteExam2 = @1 WHERE studentID = @2 ";
+            } else if (appvStatus == "D")
+            {
+                if (status == "P")
+                {
+                    appvStatus = "D1";
+                    updateStatus = " UPDATE Researchbooking.exam SET examResultStatus = @0, noteExam1 = @1 WHERE studentID = @2 ";
+                } else if (status == "A")
+                {
+                    appvStatus = "D2";
+                    updateStatus = " UPDATE Researchbooking.exam SET examResultStatus = @0, noteExam2 = @1 WHERE studentID = @2 ";
+                }
+
+            }
+            var isUpdate = db.Execute(updateStatus, appvStatus, note, studentID);
+            if (isUpdate == 1)
+            {
+                <script>alert("ทำรายการสำเร็จ")</script>
+                <script>location.href = "https://localhost:44361/Page/Teacher/Teacher%20Approve";</script>
+            }
+        }
+    }
     <title>Teacher Detail Approve</title>
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/js/main.js" />
@@ -13,7 +131,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href=""
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Taviraj:wght600&display=swap"> <!--font หลัก-->
+          href="https://fonts.googleapis.com/css2?family=Taviraj:wght600&display=swap">
+    <!--font หลัก-->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <style>
@@ -109,16 +228,25 @@
         </div>
     </div>
     <div class="container" align="center">
-        <form>
+        <form method="post" enctype="multipart/form-data">
             <div class="col-md-8 mb-4" style="padding-top:5%;">
                 <div class="form-outline" align="left">
-                    <label style="padding-left:25%" class="form-label" for="status">ตำแหน่ง : </label><br />
-                    <label class="form-label" for="studentid">รหัสนักศึกษา : </label><br />
-                    <label class="form-label" for="namestudent">ชื่อนักศึกษา : </label><br />
-                    <label class="form-label">วันเวลาที่จอง : </label><br />
-                    <label class="form-label" for="customFile">รูปเล่มวิจัย :</label><br />
-                    <label class="form-label" for="customFile">เอกสาร IT2 :</label><br />
-                    <label class="form-label" for="customFile">เอกสาร IT3 :</label><br />
+                    @if (status == "P")
+                    {
+                        <label style="padding-left:25%" class="form-label" for="status">ตำแหน่ง : อาจารย์ที่ปรึกษา </label><br />
+                    }
+                    else if (status == "A")
+                    {
+                        <label style="padding-left:25%" class="form-label" for="status">ตำแหน่ง : กรรมการ </label><br />
+                    }
+
+
+                    <label class="form-label" for="studentid">รหัสนักศึกษา : @studentid </label><br />
+                    <label class="form-label" for="namestudent">ชื่อนักศึกษา : @studentName </label><br />
+                    <label class="form-label">วันเวลาที่จอง : @datetime </label><br />
+                    <label class="form-label" for="customFile">รูปเล่มวิจัย : <a href="#" onclick="window.open(@research, '_blank', 'fullscreen=yes'); return false;">Research</a></label><br />
+                    <label class="form-label" for="customFile">เอกสาร IT2 : <a href="#" onclick="window.open(@it2, '_blank', 'fullscreen=yes'); return false;">IT2</a></label><br />
+                    <label class="form-label" for="customFile">เอกสาร IT3 : <a href="#" onclick="window.open(@it3, '_blank', 'fullscreen=yes'); return false;">IT3</a></label><br />
 
                 </div>
             </div>
