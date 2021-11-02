@@ -31,7 +31,8 @@
                 {
                     //var fileName = Path.GetFileName(file.FileName);
                     fileName1 = studentid + "_IT2.pdf";
-                    path1 = @"\documentResearch\IT2\" + fileName1;
+                    //path1 = @"\documentResearch\IT2\" + fileName1;
+                    path1 = Server.MapPath("~/File/documentResearch/IT2/" + fileName1);
                     file11.SaveAs(path1);
                 }
 
@@ -40,7 +41,8 @@
                 {
                     //var fileName = Path.GetFileName(file.FileName);
                     fileName2 = studentid + "_IT3.pdf";
-                    path2 = @"\documentResearch\IT3\" + fileName2;
+                    //path2 = @"\documentResearch\IT3\" + fileName2;
+                    path2 = Server.MapPath("~/File/documentResearch/IT3/" + fileName2);
                     file22.SaveAs(path2);
                 }
                 var file33 = Request.Files[2];
@@ -48,7 +50,8 @@
                 {
                     //var fileName = Path.GetFileName(file.FileName);
                     fileName3 = studentid + "_Research.pdf";
-                    path3 = @"\documentResearch\Research\" + fileName3;
+                    //path3 = @"\documentResearch\Research\" + fileName3;
+                    path3 = Server.MapPath("~/File/documentResearch/Research/" + fileName3);
                     file33.SaveAs(path3);
                 }
             }
@@ -316,7 +319,7 @@
                 </div>
             </div>
 
-            <div style="padding-top:20px;">
+            <div class="col-md-8 mb-4" style="padding-top:20px;">
                 <h6>กรุณาแนบเอกสาร</h6>
                 <div align="center">
                     <input type="file" class="custom-file-input" name="file3" id="customFile">
