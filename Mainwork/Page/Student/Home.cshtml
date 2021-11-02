@@ -1,6 +1,12 @@
 ﻿<!DOCTYPE html>
+@using WebMatrix.Data;
 <html>
 <head>
+    @{ 
+        var db = Database.Open("ResearchBooking");
+        var select = " SELECT * FROM Researchbooking.exam WHERE studentID = @0 ";
+        var exam = db.QuerySingle(select, Session["userName"]);
+    }
     <title>Home</title>
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/js/main.js" />
@@ -22,6 +28,7 @@
     body {
         font-family: 'Taviraj', serif;
     }
+
     button {
         width: 100%;
         height: 20%;
@@ -34,8 +41,8 @@
         font-size: 70%;
         margin: 4px 2px;
         cursor: pointer;
-    
     }
+
     .buttonjs {
         display: flex;
         height: 50px;
@@ -74,22 +81,18 @@
     }
 
     table, th, td {
-        
-        font-size:20px;
+        font-size: 20px;
         border: 3px solid;
         border-collapse: collapse;
     }
 
     th {
-
         text-align: center;
     }
 
     td {
- 
         text-align: left;
     }
-    
 </style>
 
 <body>
@@ -116,40 +119,164 @@
         </div>
     </div>
 
+    @if (exam != null)
+    {
+        <div align="center" style="padding-top: 50px;">
+            <table style="width:70%; max-width:1600px;">
+                <tr>
+                    <th colspan="4">สถานะการจองสอบ</th>
+                </tr>
+                <tr>
+                    <th style="width:20%;">ตำแหน่ง</th>
+                    <th style="width:10%;">สถานะ</th>
+                    <th style="width:45%;">หมายเหตุ</th>
+                    <th style="width:25%;">วันที่จอง</th>
 
-    <div align="center" style="padding-top: 50px;">
-        <table style="width:70%; max-width:1600px;">
-            <tr>
-                <th colspan="4">สถานะการจองสอบ</th>
-            </tr>
-            <tr>
-                <th style="width:20%;">ตำแหน่ง</th>
-                <th style="width:10%;">สถานะ</th>
-                <th style="width:45%;">หมายเหตุ</th>
-                <th style="width:25%;">วันที่จอง</th>
+                </tr>
 
-            </tr>
-            <tr>
-                <td style="text-align:center"> </td>
-                <td style="text-align:center"> N/A </td>
-                <td style="padding-left:5px;"> </td>
-                <td rowspan="3" style="text-align:center"> 01/01/2021 11:00-12:00 </td>
-            </tr>
-            <tr>
-                <td style="text-align:center"> </td>
-                <td style="text-align:center"> N/A </td>
-                <td style="padding-left:5px;"> </td>
+                @if (exam["examResultStatus"] == "P")
+                {
+                    <tr>
+                        <td style="text-align:center">อาจารย์ที่ปรึกษา</td>
+                        <td style="text-align:center">รออนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam1"]</td>
+                        <td rowspan="3" style="text-align:center"> 01/01/2021 11:00-12:00 </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">กรรมการ</td>
+                        <td style="text-align:center">รออนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam2"]</td>
 
-            </tr>
-            <tr>
-                <td style="text-align:center"> </td>
-                <td style="text-align:center"> N/A </td>
-                <td style="padding-left:5px;"> </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">ประธาน</td>
+                        <td style="text-align:center">รออนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam3"]</td>
+                    </tr>
+                }
+                else if (exam["examResultStatus"] == "A")
+                {
+                    <tr>
+                        <td style="text-align:center">อาจารย์ที่ปรึกษา</td>
+                        <td style="text-align:center">อนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam1"]</td>
+                        <td rowspan="3" style="text-align:center"> 01/01/2021 11:00-12:00 </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">กรรมการ</td>
+                        <td style="text-align:center">รออนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam2"]</td>
 
-            </tr>
-        </table>
-    </div>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">ประธาน</td>
+                        <td style="text-align:center">รออนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam3"]</td>
+                    </tr>
+                }
+                else if (exam["examResultStatus"] == "B")
+                {
+                    <tr>
+                        <td style="text-align:center">ที่ปรึกษา</td>
+                        <td style="text-align:center">อนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam1"]</td>
+                        <td rowspan="3" style="text-align:center">@exam["examDateStart"]</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">กรรมการ</td>
+                        <td style="text-align:center">อนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam2"]</td>
 
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">ประธาน</td>
+                        <td style="text-align:center">รออนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam3"]</td>
+                    </tr>
+                }
+                else if (exam["examResultStatus"] == "C")
+                {
+                    <tr>
+                        <td style="text-align:center">ที่ปรึกษา</td>
+                        <td style="text-align:center">อนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam1"]</td>
+                        <td rowspan="3" style="text-align:center"> 01/01/2021 11:00-12:00 </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">กรรมการ</td>
+                        <td style="text-align:center">อนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam2"]</td>
+
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">ประธาน</td>
+                        <td style="text-align:center">อนุม้ติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam3"]</td>
+                    </tr>
+                }
+                else if (exam["examResultStatus"] == "D1")
+                {
+                    <tr>
+                        <td style="text-align:center">ที่ปรึกษา</td>
+                        <td style="text-align:center">ไม่อนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam1"]</td>
+                        <td rowspan="3" style="text-align:center"> 01/01/2021 11:00-12:00 </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">กรรมการ</td>
+                        <td style="text-align:center"> N/A </td>
+                        <td style="padding-left:5px;">@exam["noteExam2"]</td>
+
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">ประธาน</td>
+                        <td style="text-align:center"> N/A </td>
+                        <td style="padding-left:5px;">@exam["noteExam3"]</td>
+                    </tr>
+                }
+                else if (exam["examResultStatus"] == "D2")
+                {
+                    <tr>
+                        <td style="text-align:center">ที่ปรึกษา</td>
+                        <td style="text-align:center">อนุม้ติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam1"]</td>
+                        <td rowspan="3" style="text-align:center"> 01/01/2021 11:00-12:00 </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">กรรมการ</td>
+                        <td style="text-align:center">ไม่อนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam2"]</td>
+
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">ประธาน</td>
+                        <td style="text-align:center"> N/A </td>
+                        <td style="padding-left:5px;">@exam["noteExam3"]</td>
+                    </tr>
+                }
+                else if (exam["examResultStatus"] == "D3")
+                {
+                    <tr>
+                        <td style="text-align:center">ที่ปรึกษา</td>
+                        <td style="text-align:center">ไม่อนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam1"]</td>
+                        <td rowspan="3" style="text-align:center"> 01/01/2021 11:00-12:00 </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">กรรมการ</td>
+                        <td style="text-align:center">ไม่อนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam2"]</td>
+
+                    </tr>
+                    <tr>
+                        <td style="text-align:center">ประธาน</td>
+                        <td style="text-align:center">ไม่อนุมัติ</td>
+                        <td style="padding-left:5px;">@exam["noteExam3"]</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
     <div align="center" style="padding-top: 50px;">
         <table align="center" style="width:100%; max-width:600px">
             <tr>
