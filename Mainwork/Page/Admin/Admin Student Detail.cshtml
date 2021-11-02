@@ -8,44 +8,54 @@
         <!--คำสั่งเปิดการเชื่อมต่อดาต้าเบท-->
 
         var studentID = Request.Params["studentID"];
+        //รับค่าจากหน้าจอก่อนหน้า
 
         var select = "SELECT * FROM Researchbooking.students st inner join Researchbooking.research re on st.studentID=re.studentID inner join Researchbooking.document dc on dc.studentID=st.studentID where st.studentID = '" + studentID + "'";
 
         var teacher1 = "SELECT * FROM Researchbooking.research re INNER JOIN Researchbooking.teacher te on re.teacherID1 = te.teacherID WHERE re.studentID = '" + studentID + "'";
 
         var teacher2 = "SELECT * FROM Researchbooking.research re INNER JOIN Researchbooking.teacher te on re.teacherID2 = te.teacherID WHERE re.studentID = '" + studentID + "'";
+
+        var selectIT1 = "SELECT * FROM Researchbooking.document where documentType = 'IT1' and studentID = @0";
+
+        var selectTimetable = "SELECT * FROM Researchbooking.document where documentType = 'timeTable' and studentID = @0";
         <!--คิวลี่ตารางดาต้าเบท-->
 
-        var listStudent = db.Query(select);
-        var studentName = "";
-        var idcard = "";
-        var email = "";
-        var phoneNumber = "";
-        var year = 0;
-        var researchNameT = "";
-        var researchNameE = "";
+            var listStudent = db.Query(select);
+            var studentName = "";
+            var idcard = "";
+            var email = "";
+            var phoneNumber = "";
+            var year = 0;
+            var researchNameT = "";
+            var researchNameE = "";
+            var it1 = "";
+            var timetable = "";
 
-        foreach (var row in listStudent)
-        {
-            studentName = row["studentName"];
-            idcard = row["idcard"];
-            email = row["email"];
-            phoneNumber = row["phoneNumber"];
-            year = row["year"];
-            researchNameT = row["researchNameT"];
-            researchNameE = row["researchNameE"];
-        }
+            var docIT1 = db.QuerySingle(selectIT1, studentID);
+            var docTimetable = db.QuerySingle(selectTimetable, studentID);
 
-        var teacherID1 = db.QuerySingle(teacher1);
-        var teacherName1 = teacherID1["teacherName"];
-        var teacherID2 = db.QuerySingle(teacher2);
-        var teacherName2 = "ไม่มีที่ปรึกษาร่วม";
-        if (teacherID2 != null)
-        {
-            teacherName2 = teacherID2["teacherName"];
-        }
+            it1 = "'/File/documentResearch/IT1/" + docIT1["documentName"] + "'";
+            timetable = "'/File/documentResearch/timeTable/" + docTimetable["documentName"] + "'";
 
-        var docit1 = "C:/documentResearch/IT1/6111504178_IT1.pdf";
+            foreach (var row in listStudent)
+            {
+                studentName = row["studentName"];
+                idcard = row["idcard"];
+                email = row["email"];
+                phoneNumber = row["phoneNumber"];
+                year = row["year"];
+                researchNameT = row["researchNameT"];
+                researchNameE = row["researchNameE"];
+            }
+            var teacherID1 = db.QuerySingle(teacher1);
+            var teacherName1 = teacherID1["teacherName"];
+            var teacherID2 = db.QuerySingle(teacher2);
+            var teacherName2 = "ไม่มีที่ปรึกษาร่วม";
+            if (teacherID2 != null)
+            {
+                teacherName2 = teacherID2["teacherName"];
+            }
         <!--พารามิเตอร์ เก็บข้อมูลที่ได้จากการคิวลี่ db.QuerySingle ได้ข้อมูลแบบเป็น row เดียว-->
         if (IsPost)
         {
@@ -163,8 +173,8 @@
                 <td style="width:30%;">อาจารย์ที่ปรึกษาร่วม : @teacherName2</td>
             </tr>
             <tr>
-                <td style="width:30%;">เอกสาร IT1 : <a href="~/Page/download.cshtml?fileName=6111504178_IT1.pdf" download="test">download</a></td>
-                <td style="width:30%;">เอกสารการลงทะเบียนเรียนวิชาวิจัย :</td>
+                <td style="width:30%;">เอกสาร IT1 : <a href="#" onclick="window.open(@it1, '_blank', 'fullscreen=yes'); return false;">IT1</a></td>
+                <td style="width:30%;">เอกสารการลงทะเบียนเรียนวิชาวิจัย : <a href="#" onclick="window.open(@timetable, '_blank', 'fullscreen=yes'); return false;">TimeTable</a></td>
             </tr>
         </table>
         <form method="post">
