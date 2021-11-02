@@ -1,6 +1,82 @@
 ﻿<!DOCTYPE html>
+@using WebMatrix.Data;
 <html>
 <head>
+    @{ var db = Database.Open("Researchbooking");
+
+        var errorMessage = "";
+        if (IsPost)
+        {
+            var fromTable = "students"; // เอาไว้เก็บตัวที่จะบอกว่าข้อมูลที่จะอัพเดทรหัสผ่านมาจาก table ไหน ค่าตั้งต้น students เพราะเราจะเช็ค admin เป็นลำดับสุดท้าย
+
+            var email = Request["email"]; // รับค่า email จากหน้าจอ
+            var sqlStudent = "SELECT * FROM students WHERE email =@0 "; // Query สำหรับค้นหาข้อมูลนักศึกษา Where email
+            var result = db.QuerySingle(sqlStudent, email); // ค้นหาข้อจาก query ด้านบน
+            if (result == null) // ถ้าไม่เจอไปหาถังถัดไป
+            {
+                fromTable = "teacher";
+                var sqlTeacher = " SELECT * FROM Researchbooking.teacher WHERE email = @0 ";
+                result = db.QuerySingle(sqlTeacher, email);
+                if (result == null) // ถ้าไม่เจอไปหาถังถัดไป
+                {
+                    fromTable = "admin";
+                    var sqlAdmin = " SELECT * FROM Researchbooking.admin WHERE email = @0 ";
+                    result = db.QuerySingle(sqlAdmin, email);
+                }
+            }
+            if (result != null) // ถ้าเจอให้ไปส่ง email
+            {
+                // เริ่มส่วนสร้าง รหัสผ่าน
+                var newPassword = ""; // ประกาศตัวแปรเก็บรหัสผ่านใหม่
+                var charecters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // ประกาศตัวอักษรทั้งหมด
+                Random ran = new Random(); // เรียกใช้ Class Random
+                while (newPassword.Length < 8) // กำหนดให้ไม่เกิน 8 ตัวอักษร ถ้าครบจะไม่ทำต่อ
+                {
+                    var number = ran.Next(); // ใช้ function ran.next() จะได้ตัวเลขแบบสุ่มมา
+                    if (number < charecters.Length) // เอาตัวเลขที่ได้มาเช็คว่าไม่เกินความยาวของ ตัวอักษรทั้งหมดที่ประกาศไว้ใน charecters
+                    {
+                        newPassword += charecters.Substring(number, 1); // ถ้าเข้าเงื่อนไข เอา ตำแหน่งที่ได้จากด้านบน มาเอาตัวอักษรที่ตำแหน่งนั้น และเก็บไว้ในตัวแปรก newPassword จนกว่าจะครบ 8 ตัวอักษร
+                    }
+                }
+                // จบส่วนสร้างรหัสผ่าน
+                try
+                {
+                    // Initialize WebMail helper
+                    WebMail.SmtpServer = "smtp.gmail.com";
+                    WebMail.SmtpPort = 25;
+                    WebMail.EnableSsl = true;
+                    WebMail.UserName = "itcru.16@gmail.com";
+                    WebMail.Password = "epyhnvanovubnxqp";
+                    WebMail.From = "itcru.16@gmail.com";
+
+                    // Send email
+                    WebMail.Send(to: email,
+                        subject: "รหัสผ่านใหม่จากระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล",
+                        body: "รหัสผ่านใหม่ของคุณคือ " + newPassword + "\n" +
+                        "คุณสามารถทำการเปลี่ยนแปลงรหัสผ่านใหม่ได้ในระบบ"
+                    );
+                }
+                catch (Exception ex)
+                {
+                    errorMessage = ex.Message;
+                }
+                if (errorMessage == "") // เช็คว่าถ้าไม่ error ให้ update รหัสผ่านใหม่ลงฐานข้อมูล
+                {
+                    var sqlUpdate = "UPDATE "+fromTable+" SET password = @0 WHERE email = @1";
+                    var update = db.Execute(sqlUpdate, newPassword, email);
+                    <script>alert("ส่งรหัสผ่านไปทางอีเมลเรียบร้อยแล้ว")</script>
+                }
+                else
+                {
+                    <script>alert("ส่งรหัสผ่านไปทางอีเมลไม่สำเร็จ")</script>
+                }
+            }
+            else
+            {
+                <script>alert("ไม่พบอีเมลในระบบ")</script>
+            }
+        }
+    }
     <title>Forget</title>
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/js/main.js" />
@@ -12,7 +88,8 @@
     <link rel="stylesheet" href="~/css/popuplogin.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Taviraj:wght600&display=swap"> <!--font หลัก-->
+          href="https://fonts.googleapis.com/css2?family=Taviraj:wght600&display=swap">
+    <!--font หลัก-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <style>
@@ -59,35 +136,34 @@
 </style>
 
 <body>
-
     <section class="vh-100 reg">
         <div class="container py-5 h-100">
 
-                    <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-                        <div class="card-body p-4 p-md-5">
-                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">ลืมรหัสผ่าน</h3>
-                            <form>
-                                <div class="row">
-                                    <div class="col-mb-6 mb-4">
-                                        <div class="form-outline">
-                                            <input type="email" id="emailAddress" class="form-control form-control-lg" name="email" placeholder="อีเมล" required />
-                                            
-                                        </div>
-                                    </div>
-                                    <div align="center" >
-                                        <span style="margin:200px;">
-                                            <button style="background:#abbdee;" type="submit" onclick="" ;>ยืนยัน</button>
-                                            <button style="background:#ffd1dc;" btn-lg" type="reset">ยกเลิก</button>
-                                        </span>
+            <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                <div class="card-body p-4 p-md-5">
+                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">ลืมรหัสผ่าน</h3>
+                    <form method="post">
+                        <div class="row">
+                            <div class="col-mb-6 mb-4">
+                                <div class="form-outline">
+                                    <input type="email" id="emailAddress" class="form-control form-control-lg" name="email" placeholder="อีเมล" required />
 
-                                    </div>
                                 </div>
+                            </div>
+                            <div align="center">
+                                <span style="margin:200px;">
+                                    <button style="background:#abbdee;" type="submit" onclick="" ;>ยืนยัน</button>
+                                    <button style="background:#ffd1dc;" btn-lg" type="reset">ยกเลิก</button>
+                                </span>
 
-
-                            </form>
+                            </div>
                         </div>
-                    </div>
+
+
+                    </form>
                 </div>
+            </div>
+        </div>
 
     </section>
 
