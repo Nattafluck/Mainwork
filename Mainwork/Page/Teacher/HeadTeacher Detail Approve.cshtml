@@ -1,6 +1,58 @@
 ﻿<!DOCTYPE html>
+@using WebMatrix.Data;
 <html>
 <head>
+    @{
+
+        var teachername2 = "N/A";
+
+
+        var db = Database.Open("ResearchBooking");
+        <!--คำสั่งเปิดการเชื่อมต่อดาต้าเบท-->
+        var studentID = Request.Params["studentID"];
+
+        var select1 = "SELECT  teacherID,teacherName from Researchbooking.teacher where teacherRole in ('M', 'I')";
+        var teachar2 = db.Query(select1);
+
+        var select = "SELECT * FROM Researchbooking.students st inner join Researchbooking.research rs on st.studentID=rs.studentID inner join Researchbooking.teacher tc on tc.teacherID=rs.teacherID1  where rs.studentID = @0";
+
+        var selectteacher = "SELECT * FROM Researchbooking.exam  where studentID = '" + studentID + "'";
+
+        var rowteacher = db.QuerySingle(selectteacher);
+        <!--var selectTeacher = "SELECT * FROM  Researchbooking.research  where studentID = '" + studentID + "'";-->
+        <!--คิวลี่ตารางดาต้าเบทนักศึกษา-->
+        var row = db.QuerySingle(select, studentID);
+
+        var stname = row["studentName"];
+        var tcname1 = row["teacherName"];
+        var teacherj = rowteacher["teacherID"];
+        var teacherselect = selectteacher = "SELECT * FROM Researchbooking.teacher  where teacherID = '" + teacherj + "'";
+        var rowj = db.QuerySingle(teacherselect);
+        var teacherJ = rowj["teacherName"];
+        var datetime = rowteacher["examDateStart"];
+
+        <!--คิวลี่ตารางดาต้าเบทResearch-->
+        <!--var rowTeacher = db.QuerySingle(selectTeacher);-->
+
+
+
+        <!--var teacherid1 = rowTeacher["teacherID1"];-->
+        <!--พารามิเตอร์ เก็บข้อมูลที่ได้จากการคิวลี่-->
+
+
+        <!-- var selectTeacher1 = "SELECT * FROM Researchbooking.teacher where = '" + teacherid1 + "'";-->
+
+        <!--คิวลี่ตารางดาต้าเบทResearch-->
+        <!--var rowTeacher1 = db.QuerySingle(selectTeacher1);-->
+
+
+
+
+
+
+    }
+
+
     <title>HeadTeacher</title>
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/js/main.js" />
@@ -87,6 +139,13 @@
     td {
         text-align: left;
     }
+
+    .reg {
+        height: 100%;
+        background-color: #83c750;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
 </style>
 <body>
     <div class="navbar navbar-dark reg shadow-sm">
@@ -112,49 +171,42 @@
         <form>
             <div class="col-md-8 mb-4" style="padding-top:5%;">
                 <div class="form-outline" align="left">
-                    <label class="form-label" for="studentid">รหัสนักศึกษา : </label><br />
-                    <label class="form-label" for="namestudent">ชื่อนักศึกษา : </label><br />
-                    <label class="form-label" for="nameteacher1">อาจารย์ที่ปรึกษา : </label><br />
-                    <label class="form-label" for="nameteacher2">อาจารย์ที่ปรึกษาร่วม : </label><br />
-                    <label class="form-label" for="nameteacher2">อาจารย์กรรมการสอบ : </label><br />
-                    <label>อาจารย์ประธานกรรมการ :</label>
+                    <label class="form-label" for="studentid">รหัสนักศึกษา : @studentID </label><br />
+                    <label class="form-label" for="namestudent">ชื่อนักศึกษา :  @stname</label><br />
+                    <label class="form-label" for="nameteacher1">อาจารย์ที่ปรึกษา : @tcname1</label><br />
+                    <label class="form-label" for="nameteacher2">อาจารย์ที่ปรึกษาร่วม : @teachername2 </label><br />
+                    <label class="form-label" for="nameteacher2">กรรมการ : @teacherJ </label><br />
+                    <label>ประธานสอบ :</label>
                     <select class="select form-control-sm col-md-6 mb-2 " name="director" required>
-                        <option value="0">เลือกอาจารย์ประธานกรรมการสอบ</option>
-                        <option value="1">ทดสอบ</option>
+                        <option value="0">เลือกประธานสอบ</option>
+                        @foreach (var rowdf in teachar2)
+                        {
+                            <option value="@rowdf["teacherID"]">@rowdf["teacherName"]</option>
+                            //เป็นการวนลูปเพื่อแสดงชื่ออาจารย์ใน option โดยส่วนแรกเป็น value ส่วนที่สองเป็น description
+                            //เราจะมองเห็นแค่ description ในหน้าจอเท่านั้น
+                            //@rowdf["teacherName"] เป็นคำสั่งแสดงผลแบบวนลูป โดยชื่อใน[]ต้องเป็นชื่อเดียวกับชื่อคอลัมน์ในตารางดาต้าเบทที่เราคิวลี่มา
+
+
+                        }
                     </select>
-                    <label class="form-label">วันเวลาที่จอง : </label><br />
-                    <label class="form-label" for="customFile">รูปเล่มวิจัย :</label><br />
+                    <label class="form-label">วันเวลาที่จอง : @datetime</label><br />
                     <label class="form-label" for="customFile">เอกสาร IT2 (PDF) :</label><br />
                     <label class="form-label" for="customFile">เอกสาร IT3 (PDF) :</label>
 
                 </div>
             </div>
-
-            <div style="padding-top:20px;">
+            <div style="padding-top:10px;">
                 <h6>กรุณาแนบเอกสาร</h6>
                 <input type="file" class="custom-file-input" name="file1" id="customFile">
                 <label class="custom-file-label" for="customFile">เอกสาร IT3 (PDF)</label><br />
             </div>
-            <div style="padding-top:40px;">
-                <div class="form-floating col-md-6 mb-4" style="padding-top:20px;">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="note" style="height: 200px"></textarea>
-                    <label for="floatingTextarea">หมายเหตุ</label>
-                </div>
-                <div class="form-check form-check-inline" style="padding-top:20px; font-size:25px">
-                    <input class="form-check-input" type="radio" name="registrationStatus" id="inlineRadio1" value="A" required>
-                    <label class="form-check-label" for="inlineRadio1">อนุมัติ</label>
-                </div>
-                <div class="form-check form-check-inline" style="padding-bottom:20px; font-size: 25px">
-                    <input class="form-check-input" type="radio" name="registrationStatus" id="inlineRadio2" value="D" required>
-                    <label class="form-check-label" for="inlineRadio2">ไม่อนุมัติ</label>
-                </div>
+            <div style="padding-top:3%; padding-bottom:5%;">
+                <span>
+                    <button style="background:#abbdee; max-width:200px;" type="submit" onclick="" ;>ยืนยัน</button>
+                    <button style="background:#ffd1dc; max-width:200px;" type="reset">ยกเลิก</button>
+                </span>
+            </div>
 
-                <div style="padding-top:5%; padding-bottom:5%;">
-                    <span>
-                        <button style="background:#abbdee; max-width:200px;" type="submit" onclick="" ;>ยืนยัน</button>
-                        <button style="background:#ffd1dc; max-width:200px;" type="reset">ยกเลิก</button>
-                    </span>
-                </div>
         </form>
     </div>
 </body>

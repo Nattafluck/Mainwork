@@ -1,6 +1,19 @@
 ﻿<!DOCTYPE html>
+@using WebMatrix.Data;
 <html>
 <head>
+    @{
+        var db = Database.Open("ResearchBooking");
+        <!--คำสั่งเปิดการเชื่อมต่อดาต้าเบท-->
+
+        var select = "SELECT * FROM Researchbooking.exam  ex inner join Researchbooking.students st on ex.studentID=st.studentID AND examResultStatus = 'B';";
+        <!--คิวลี่ตารางดาต้าเบท-->
+        var listStudent = db.Query(select);
+        <!--พารามิเตอร์ เก็บข้อมูลที่ได้จากการคิวลี่-->
+
+
+
+    }
     <title>HeadTeacherApprove</title>
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/js/main.js" />
@@ -53,6 +66,12 @@
         border: 2px solid;
         border-collapse: collapse;
     }
+    .reg {
+        height: 100%;
+        background-color: #83c750;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
 </style>
 <body>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -89,12 +108,14 @@
                     <th style="width:15%;" text-align="center">รหัสนักศึกษา</th>
                     <th colspan="2" style="width:70%;" text-align="center">ชื่อ-นามสกุล</th>
                 </tr>
-                <tr>
-                    <td style="width:20%; max-width:250px; text-align:center;">6111502479</td>
-                    <td style="width:50%; max-width:250px; padding-left: 20px;">นายณัฏฐชัย ดีประสิทธิ์</td>
-                    <td style="width:70px; max-width:70px;"><button onclick="location.href='https://localhost:44361/Page/Teacher/HeadTeacher%20Detail%20Approve.cshtml'" style="width: 90%; background-color: #cec1e7; margin: 10px;"> ทำรายการ </button></td>
-                </tr>
-
+                @foreach (var row in listStudent)
+                {
+            <tr>
+                <td style="width:20%; max-width:250px; text-align:center;">@row["studentID"]</td>
+                <td style="width:50%; max-width:250px; padding-left: 20px;">@row["studentName"]</td>
+                <td style="width:70px; max-width:70px;"><button  style="width: 90%; background-color: #cec1e7; margin: 10px;"><a href="~/Page/Teacher/HeadTeacher Detail Approve.cshtml?studentID=@row["studentID"]">ทำรายการ</a></button></td>
+            </tr>
+                }
 
             </table>
 

@@ -58,6 +58,10 @@
                 {
                     appvStatus = "B";
                 }
+                else if (status == "B" && appvStatus == "A")
+                {
+                    appvStatus = "C";
+                }
                 if (Request.Files.Count == 2) // เช็คว่ามีไฟล์มาไหม ทั้ง 2 ไฟล์
                 {
                     var fileNameIT2 = "";
@@ -108,6 +112,7 @@
                     }
                 }
             }
+
             var updateStatus = "";
             if (appvStatus == "A")
             {
@@ -235,6 +240,12 @@
 
     td {
         text-align: left;
+    }
+    .reg {
+        height: 100%;
+        background-color: #83c750;
+        overflow-x: hidden;
+        padding-top: 20px;
     }
 </style>
 <body>

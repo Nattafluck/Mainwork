@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>SearchResearchAward</title>
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/js/main.js" />
+    <link rel="stylesheet" href="~/css/button.css" />
+    <link rel="stylesheet" href="~/css/page.css" />
+    <link rel="stylesheet" href="~/css/loginpage.css" />
+    <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/js/bootstrap.min.js" />
+    <link rel="stylesheet" href="~/css/popuplogin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Taviraj:wght600&display=swap"> <!--font หลัก-->
+</head>
+<style>
+
+    body {
+        font-family: 'Taviraj', serif;
+    }
+
+    button {
+        width: 100%;
+        height: 20%;
+        border: none;
+        color: black;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 70%;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .buttonjs {
+        display: flex;
+        height: 50px;
+        padding: 0;
+        background: #009578;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        overflow: hidden;
+        font-family: "Quicksand", sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        background: #008168;
+    }
+
+    .button:active {
+        background: #006e58;
+    }
+
+    .button__icon,
+    .button__text {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 15px;
+        color: #fff;
+        height: 100%;
+    }
+
+    .button__icon {
+        font-size: 1.5em;
+        background: rgba(0, 0, 0, 0.08);
+    }
+
+    div.t {
+        border-radius: 20px;
+        background-color: #f2f2f2;
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    div.tt {
+        border-radius: 20px;
+        background-color: #e3e3e3;
+        padding-top: 20px;
+        max-width: 80%;
+    }
+
+    .reg {
+        height: 100%;
+        background-color: #83c750;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+</style>
+<body>
+    <div class="navbar navbar-dark reg shadow-sm">
+        <div class=" navbar-brand d-flex align-items-center" style="width:100%;">
+
+            <div style="padding-left:7%;">
+                <img style="width:100px; height:100px;" src="~/Photo/logo it.png" />
+            </div>
+            <div style="padding-left:8%;">
+                <strong style="color:black;">ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" align="center">
+        <form>
+            <div class="col-md-10 mb-4" style="padding-top:5%;">
+                <div class="t" align="center">
+                    <h6>ค้นหางานวิจัยที่ได้รับรางวัล</h6>
+                </div>
+
+                <div class="row" style="padding-top:10%;">
+                    <div class="col-md-7">
+                        <div class="t">
+                            <select class="select form-control form-control-sm" name="meeting" required>
+                                <option value="0">ชื่องานประชุม</option>
+                                <option value="1">งานประชุมวิชาการ</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="t">
+                            <select class="select form-control form-control-sm" name="year" required>
+                                <option value="0">ปีการศึกษา</option>
+                                <option value="1">2561</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="t" align="left">
+                            <select class="select form-control form-control-sm" name="number" required>
+                                <option value="0">ครั้งที่</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="t" align="left">
+                    <h6>ระดับงานประชุม</h6>
+                </div>
+                <div class="t">
+                    <div class="form-check form-check-inline" style="padding-top:20px; font-size:25px">
+                        <input class="form-check-input" type="radio" name="registrationStatus" id="inlineRadio1" value="" required>
+                        <label class="form-check-label" for="inlineRadio1">ระดับชาติ</label>
+                    </div>
+                    <div class="form-check form-check-inline" style="padding-bottom:20px; font-size: 25px">
+                        <input class="form-check-input" type="radio" name="registrationStatus" id="inlineRadio2" value="" required>
+                        <label class="form-check-label" for="inlineRadio2">ระดับนานาชาติ</label>
+                    </div>
+                </div>
+
+                <div style="padding-top:10%;">
+                    <span>
+                        <button style="background:#abbdee; max-width:200px;" type="submit">ยืนยัน</button>
+                        <button style="background:#ffd1dc; max-width:200px;" type="reset">ยกเลิก</button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
