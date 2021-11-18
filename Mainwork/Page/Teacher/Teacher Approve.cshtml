@@ -8,9 +8,9 @@
         <!--คำสั่งเปิดการเชื่อมต่อดาต้าเบท-->
         var teacherID = Session["userName"];
 
-        var select = "SELECT st.studentID, st.studentName FROM Researchbooking.research rs inner join Researchbooking.exam ex on rs.studentID=ex.studentID inner join Researchbooking.students st on st.studentID=ex.studentID WHERE (rs.teacherID1 = @0 AND ex.examResultStatus = 'P') OR (ex.teacherID = @1 AND ex.examResultStatus = 'A');";
+        var select = "SELECT st.studentID, st.studentName FROM Researchbooking.research rs inner join Researchbooking.exam ex on rs.studentID=ex.studentID inner join Researchbooking.students st on st.studentID=ex.studentID WHERE (rs.teacherID1 = @0 AND ex.examResultStatus = 'P') OR (ex.teacherID = @1 AND ex.examResultStatus = 'A') OR (ex.teacherID2 = @2 AND ex.examResultStatus = 'B');";
         <!--คิวลี่ตารางดาต้าเบท-->
-        var listStudent = db.Query(select, teacherID, teacherID);
+        var listStudent = db.Query(select, teacherID, teacherID,teacherID);
         <!--พารามิเตอร์ เก็บข้อมูลที่ได้จากการคิวลี่-->
                
 
@@ -67,6 +67,12 @@
         text-align: left;
         border: 2px solid;
         border-collapse: collapse;
+    }
+    .reg {
+        height: 100%;
+        background-color: #83c750;
+        overflow-x: hidden;
+        padding-top: 20px;
     }
 </style>
 <body>

@@ -15,7 +15,10 @@
         var selectIT3 = "SELECT * FROM Researchbooking.document where documentType = 'IT3' and studentID = @0";
         var selectResearch = "SELECT researcDocument FROM Researchbooking.research WHERE studentID = @0";
 
+
         var listStudent = db.Query(select, studentID);
+
+
         var studentid = "";
         var studentName = "";
         var datetime = new DateTime();
@@ -25,6 +28,7 @@
         var selectDocIT2 = db.QuerySingle(selectIT2, studentID);
         var selectDocIT3 = db.QuerySingle(selectIT3, studentID);
         var selectDocResearch = db.QuerySingle(selectResearch, studentID);
+
 
         var it2 = "'/File/documentResearch/IT2/" + selectDocIT2["documentName"] + "'";
         var it3 = "'/File/documentResearch/IT3/" + selectDocIT3["documentName"] + "'";
@@ -41,6 +45,9 @@
             status = row["examResultStatus"];
 
         }
+
+
+
         if (IsPost) // ถ้าเข้า method post
         {
             var appvStatus = Request.Form["registrationStatus"]; // ดึงค่า approve status จาก form
@@ -50,6 +57,10 @@
                 if (status == "A" && appvStatus == "A")
                 {
                     appvStatus = "B";
+                }
+                else if (status == "B" && appvStatus == "A")
+                {
+                    appvStatus = "C";
                 }
                 if (Request.Files.Count == 2) // เช็คว่ามีไฟล์มาไหม ทั้ง 2 ไฟล์
                 {
@@ -61,9 +72,14 @@
                         if (appvStatus == "A")
                         {
                             fileNameIT2 = studentID + "_IT2_Signed.pdf";
-                        } else if (appvStatus == "B")
+                        }
+                        else if (appvStatus == "B")
                         {
                             fileNameIT2 = studentID + "_IT2_Signed2.pdf";
+                        }
+                        else if (appvStatus == "C")
+                        {
+                            fileNameIT2 = studentID + "_IT2_Signed3.pdf";
                         }
                         pathIT2 = Server.MapPath("~/File/documentResearch/IT2/" + fileNameIT2);
                         fileIT2.SaveAs(pathIT2);
@@ -79,9 +95,14 @@
                         if (appvStatus == "A")
                         {
                             fileNameIT3 = studentID + "_IT3_Signed.pdf";
-                        } else if (appvStatus == "B")
+                        }
+                        else if (appvStatus == "B")
                         {
                             fileNameIT3 = studentID + "_IT3_Signed2.pdf";
+                        }
+                        else if (appvStatus == "C")
+                        {
+                            fileNameIT3 = studentID + "_IT3_Signed3.pdf";
                         }
                         pathIT3 = Server.MapPath("~/File/documentResearch/IT3/" + fileNameIT3);
                         fileIT3.SaveAs(pathIT3);
@@ -91,23 +112,37 @@
                     }
                 }
             }
+
             var updateStatus = "";
             if (appvStatus == "A")
             {
                 updateStatus = " UPDATE Researchbooking.exam SET examResultStatus = @0, noteExam1 = @1 WHERE studentID = @2 ";
-            } else if (appvStatus == "B")
+            }
+            else if (appvStatus == "B")
             {
                 updateStatus = " UPDATE Researchbooking.exam SET examResultStatus = @0, noteExam2 = @1 WHERE studentID = @2 ";
-            } else if (appvStatus == "D")
+            }
+            else if (appvStatus == "C")
+            {
+                updateStatus = " UPDATE Researchbooking.exam SET examResultStatus = @0, noteExam3 = @1 WHERE studentID = @2 ";
+            }
+
+            else if (appvStatus == "D")
             {
                 if (status == "P")
                 {
                     appvStatus = "D1";
                     updateStatus = " UPDATE Researchbooking.exam SET examResultStatus = @0, noteExam1 = @1 WHERE studentID = @2 ";
-                } else if (status == "A")
+                }
+                else if (status == "A")
                 {
                     appvStatus = "D2";
                     updateStatus = " UPDATE Researchbooking.exam SET examResultStatus = @0, noteExam2 = @1 WHERE studentID = @2 ";
+                }
+                else if (status == "B")
+                {
+                    appvStatus = "D3";
+                    updateStatus = " UPDATE Researchbooking.exam SET examResultStatus = @0, noteExam3 = @1 WHERE studentID = @2 ";
                 }
 
             }
@@ -205,6 +240,12 @@
 
     td {
         text-align: left;
+    }
+    .reg {
+        height: 100%;
+        background-color: #83c750;
+        overflow-x: hidden;
+        padding-top: 20px;
     }
 </style>
 <body>

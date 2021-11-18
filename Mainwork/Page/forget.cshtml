@@ -62,9 +62,10 @@
                 }
                 if (errorMessage == "") // เช็คว่าถ้าไม่ error ให้ update รหัสผ่านใหม่ลงฐานข้อมูล
                 {
-                    var sqlUpdate = "UPDATE "+fromTable+" SET password = @0 WHERE email = @1";
+                    var sqlUpdate = "UPDATE " + fromTable + " SET password = @0 WHERE email = @1";
                     var update = db.Execute(sqlUpdate, newPassword, email);
                     <script>alert("ส่งรหัสผ่านไปทางอีเมลเรียบร้อยแล้ว")</script>
+                    <script>location.href = "https://localhost:44361/Page/Login.cshtml";</script>
                 }
                 else
                 {

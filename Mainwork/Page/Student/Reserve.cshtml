@@ -259,6 +259,14 @@
     td {
         text-align: left;
     }
+
+    .reg {
+        height: 100%;
+        background-color: #83c750;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+
 </style>
 <body>
     <div class="navbar navbar-dark reg shadow-sm">
@@ -288,9 +296,9 @@
                 <div class="form-outline" align="left">
                     <label class="form-label" for="nameteacher1">อาจารย์ที่ปรึกษา : @teacherName1</label><br />
                     <label class="form-label" for="nameteacher2">อาจารย์ที่ปรึกษาร่วม : @teacherName2 </label><br />
-                    <label>อาจารย์กรรมการ :</label>
+                    <label>กรรมการ :</label>
                     <select class="select form-control-sm col-md-8 mb-5" name="teacheridC" required>
-                        <option value="0">เลือกอาจารย์กรรมการสอบ</option>
+                        <option value="0">เลือกกรรมการ</option>
                         @foreach (var rowdf in teachar2)
                         {
                             <option value="@rowdf["teacherID"]">@rowdf["teacherName"]</option>
@@ -319,7 +327,7 @@
                 </div>
             </div>
 
-            <div class="col-md-8 mb-4" style="padding-top:20px;">
+            <div class="col-md-8 mb-lg-5" style="padding-top:20px;">
                 <h6>กรุณาแนบเอกสาร</h6>
                 <div align="center">
                     <input type="file" class="custom-file-input" name="file3" id="customFile">
