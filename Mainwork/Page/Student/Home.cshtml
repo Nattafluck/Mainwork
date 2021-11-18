@@ -155,7 +155,7 @@
 
                     </tr>
                     <tr>
-                        <td style="text-align:center">ประธาน</td>
+                        <td style="text-align:center">ประธานหลักสูตร</td>
                         <td style="text-align:center">รออนุมัติ</td>
                         <td style="padding-left:5px;">@exam["noteExam3"]</td>
                     </tr>
@@ -175,7 +175,7 @@
 
                     </tr>
                     <tr>
-                        <td style="text-align:center">ประธาน</td>
+                        <td style="text-align:center">ประธานหลักสูตร</td>
                         <td style="text-align:center">รออนุมัติ</td>
                         <td style="padding-left:5px;">@exam["noteExam3"]</td>
                     </tr>
@@ -195,7 +195,7 @@
 
                     </tr>
                     <tr>
-                        <td style="text-align:center">ประธาน</td>
+                        <td style="text-align:center">ประธานหลักสูตร</td>
                         <td style="text-align:center">รออนุมัติ</td>
                         <td style="padding-left:5px;">@exam["noteExam3"]</td>
                     </tr>
@@ -215,7 +215,7 @@
 
                     </tr>
                     <tr>
-                        <td style="text-align:center">ประธาน</td>
+                        <td style="text-align:center">ประธานหลักสูตร</td>
                         <td style="text-align:center">อนุม้ติ</td>
                         <td style="padding-left:5px;">@exam["noteExam3"]</td>
                     </tr>
@@ -235,7 +235,7 @@
 
                     </tr>
                     <tr>
-                        <td style="text-align:center">ประธาน</td>
+                        <td style="text-align:center">ประธานหลักสูตร</td>
                         <td style="text-align:center"> N/A </td>
                         <td style="padding-left:5px;">@exam["noteExam3"]</td>
                     </tr>
@@ -255,7 +255,7 @@
 
                     </tr>
                     <tr>
-                        <td style="text-align:center">ประธาน</td>
+                        <td style="text-align:center">ประธานหลักสูตร</td>
                         <td style="text-align:center"> N/A </td>
                         <td style="padding-left:5px;">@exam["noteExam3"]</td>
                     </tr>
@@ -275,36 +275,44 @@
 
                     </tr>
                     <tr>
-                        <td style="text-align:center">ประธาน</td>
+                        <td style="text-align:center">ประธานหลักสูตร</td>
                         <td style="text-align:center">ไม่อนุมัติ</td>
                         <td style="padding-left:5px;">@exam["noteExam3"]</td>
                     </tr>
                 }
+                <tr>
+                    <th colspan="2" style="text-align:center">ประธานสอบ</th>
+                    <td colspan="2" style="text-align:left; padding-left:10px;">ผู้ช่วยศาสตราจารย์ธนทรรศน์  พลเดช</td>
+                </tr>
             </table>
         </div>
     }
-    <div align="center" style="padding-top: 50px;">
-        <table align="center" style="width:100%; max-width:600px">
-            <tr>
-                <th colspan="2">สถานะการสอบ</th>
-            </tr>
-            <tr>
-                <th style="width:20%;">สถานะ</th>
-                <th style="width:80%;">หมายเหตุ</th>
-            </tr>
-            <tr>
-                <td style="padding-left: 5px; text-align:center;"> N/A </td>
-                <td style="padding-left:5px;"> </td>
-            </tr>
-        </table>
-    </div>
+<div align="center" style="padding-top: 50px;">
+    <table align="center" style="width:100%; max-width:600px">
+        <tr>
+            <th colspan="2">สถานะการสอบ</th>
+        </tr>
+        <tr>
+            <th style="width:20%;">สถานะ</th>
+            <th style="width:80%;">หมายเหตุ</th>
+        </tr>
+        <tr>
+            <td style="padding-left: 5px; text-align:center;"> N/A </td>
+            <td style="padding-left:5px;"> </td>
+        </tr>
+    </table>
+
+</div>
 
     <div align="center" style="margin:2%">
         <div style="margin:20px; width:50%;">
             <button style="background: #FDE49F; " onclick="location.href='https://localhost:44361/Page/Student/Reserve.cshtml'" type="button"><i class="bi bi-calendar-check"></i> จองวันเวลาสอบ </button><br />
         </div>
         <div style="margin: 20px; width: 50%;">
-            <button style=" background: #F8C8DC;" onclick="" type="button"><font color="black"><i class="bi bi-upload"></i> อัปโหลดงานวิจัย </font></button><br />
+            <button style=" background: #F7D07A;" onclick="location.href='https://localhost:44361/Page/DateTimeExam.cshtml'" type="button"><font color="black"><i class="bi bi-table"></i> ตารางเวลาสอบวิจัย </font></button><br />
+        </div>
+        <div style="margin: 20px; width: 50%;">
+            <button style=" background: #F8C8DC;" onclick="location.href='https://localhost:44361/Page/Student/Upload.cshtml'" type="button"><font color="black"><i class="bi bi-upload"></i> อัปโหลดงานวิจัย </font></button><br />
         </div>
         <div style="margin: 20px; width: 50%;">
             <button style="background: #abbdee;" onclick="location.href='https://localhost:44361/Page/Change%20Password.cshtml'" type="button"><i class="bi bi-key-fill"></i> แก้ไขรหัสผ่าน </button><br />

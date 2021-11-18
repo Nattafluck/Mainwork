@@ -254,18 +254,30 @@
     <Content Include="bootstrap-5.1.1-dist\js\bootstrap.esm.min.js.map" />
     <Content Include="bootstrap-5.1.1-dist\js\bootstrap.js.map" />
     <Content Include="bootstrap-5.1.1-dist\js\bootstrap.min.js.map" />
-    <None Include="packages.config" />
-    <Content Include="Page\Admin\Admin approve.cshtml" />
+    <Content Include="Page\Teacher\HeadTeacher Detail Approve.cshtml" />
+    <Content Include="Page\Teacher\HeadTeacherApprove.cshtml" />
+    <Content Include="Page\Teacher\IT4.cshtml" />
+    <Content Include="Page\Teacher\IT5.cshtml" />
+    <Content Include="Page\Teacher\Teacher Approve.cshtml" />
+    <Content Include="Page\Teacher\Teacher Check Status.cshtml" />
+    <Content Include="Page\Teacher\Teacher Detail Approve.cshtml" />
+    <Content Include="Page\Teacher\Teacher Home.cshtml" />
+    <Content Include="Page\Admin\Admin Approve.cshtml" />
     <Content Include="Page\Admin\Admin Home.cshtml" />
     <Content Include="Page\Admin\Admin Student Detail.cshtml" />
-    <Content Include="Page\Change password.cshtml" />
+    <Content Include="Page\Change Password.cshtml" />
     <Content Include="Page\CheckRegis.cshtml" />
+    <Content Include="Page\DateTimeExam.cshtml" />
     <Content Include="Page\forget.cshtml" />
     <Content Include="Page\Login.cshtml" />
     <Content Include="Page\Register.cshtml" />
+    <Content Include="Page\SearchResearch.cshtml" />
+    <Content Include="Page\SearchResearchAward.cshtml" />
+    <Content Include="Page\Show Research Award.cshtml" />
+    <Content Include="Page\Show Research.cshtml" />
     <Content Include="Page\Student\Home.cshtml" />
     <Content Include="Page\Student\Reserve.cshtml" />
-    <Content Include="Page\Teacher\Teacher Home.cshtml" />
+    <Content Include="Page\Student\Upload.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
