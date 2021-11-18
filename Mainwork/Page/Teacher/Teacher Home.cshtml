@@ -114,22 +114,28 @@
     <div align="center" style="margin:10%">
 
         <div style="margin:20px;">
-            <button style="background: #DAE795 " onclick="location.href='https://localhost:44361/Page/Teacher/Teacher%20Approve.cshtml'" type="button" ><i class="bi bi-calendar-check"></i> อนุมัติวันเวลาสอบ </button><br />
+            <button style="background: #DAE795 " onclick="location.href='https://localhost:44361/Page/Teacher/Teacher%20Approve.cshtml'" type="button"><i class="bi bi-calendar-check"></i> อนุมัติวันเวลาสอบ </button><br />
         </div>
         @if (checkStatusTeacher["teacherRole"] == "M")
         {
             <div style="margin:20px;">
-                <button style="background: #DAE795 "  onclick="location.href='https://localhost:44361/Page/Teacher/HeadTeacherApprove.cshtml'" type="button"><i class="bi bi-calendar-check"></i> อนุมัติประธานกรรมการสอบ </button><br /> <!--สำหรับประหลักสูตร-->
+                <button style="background: #DAE795 " onclick="location.href='https://localhost:44361/Page/Teacher/HeadTeacherApprove.cshtml'" type="button"><i class="bi bi-calendar-check"></i> อนุมัติประธานกรรมการสอบ </button><br /> <!--สำหรับประหลักสูตร-->
             </div>
         }
         <div style="margin:20px;">
-            <button style=" background: #F8C8DC;" onclick="" type="button"><font color="black"><i class="bi bi-upload"></i> อัปโหลดงานวิจัย </font></button><br />
+            <button style=" background: #F7D07A;" onclick="location.href='https://localhost:44361/Page/DateTimeExam.cshtml'" type="button"><font color="black"><i class="bi bi-table"></i> ตารางเวลาสอบวิจัย </font></button><br />
         </div>
         <div style="margin:20px;">
-            <button style=" background: #F7D07A;" onclick="" type="button"><font color="black"><i class="bi bi-book"></i> แก้ไขข้อมูลงานวิจัย </font></button><br />
+            <button style=" background: #F8C8DC;" onclick="location.href='https://localhost:44361/Page/Teacher/Teacher%20Check%20Status.cshtml'" type="button"><font color="black"><i class="bi bi-person-check-fill"></i> ตรวจสอบสถานะและวันเวลาสอบอาจารย์ </font></button><br />
         </div>
+        <!--<div style="margin:20px;">
+        <button style=" background: #F8C8DC;" onclick="" type="button"><font color="black"><i class="bi bi-upload"></i> อัปโหลดงานวิจัย </font></button><br />
+    </div>
+    <div style="margin:20px;">
+        <button style=" background: #F7D07A;" onclick="" type="button"><font color="black"><i class="bi bi-book"></i> แก้ไขข้อมูลงานวิจัย </font></button><br />
+    </div>-->
         <div style="margin: 20px;">
-            <button style="background: #abbdee;" onclick="" type="button"><i class="bi bi-key-fill"></i> แก้ไขรหัสผ่าน </button><br />
+            <button style="background: #abbdee;" onclick="location.href='https://localhost:44361/Page/Change%20Password.cshtml'" type="button"><i class="bi bi-key-fill"></i> แก้ไขรหัสผ่าน </button><br />
         </div>
 
     </div>
