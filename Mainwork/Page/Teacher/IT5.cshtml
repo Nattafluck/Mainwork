@@ -1,6 +1,54 @@
 ﻿<!DOCTYPE html>
+@using WebMatrix.Data;
 <html>
 <head>
+    @{ 
+        var userName = Session["userName"];
+        var studentID = Request.Params["studentID"];
+        var db = Database.Open("ResearchBooking");
+        var sqlSelect = " SELECT RR.researchNameT, EE.examID, EE.examDateStart, RR.studentID, SS.studentName, " +
+                    " RR.teacherID1 AS teacherA, EE.teacherID AS teacherB, EE.teacherID2 AS teacherC, " +
+                    " SE.score1, SE.score2, SE.score3, (SE.score1+SE.score2+SE.score3)/3 AS scoreTotal, " +
+                    " CASE " +
+                    " WHEN(SE.score1 + SE.score2 + SE.score3) / 3 >= 80 THEN 'A' " +
+                    " WHEN(SE.score1 + SE.score2 + SE.score3) / 3 >= 75 THEN 'B+' " +
+                    " WHEN(SE.score1 + SE.score2 + SE.score3) / 3 >= 70 THEN 'B' " +
+                    " WHEN(SE.score1 + SE.score2 + SE.score3) / 3 >= 65 THEN 'C+' " +
+                    " WHEN(SE.score1 + SE.score2 + SE.score3) / 3 >= 60 THEN 'C' " +
+                    " WHEN(SE.score1 + SE.score2 + SE.score3) / 3 >= 55 THEN 'D+' " +
+                    " WHEN(SE.score1 + SE.score2 + SE.score3) / 3 >= 50 THEN 'D' " +
+                    " ELSE 'F' END AS grade " +
+                    " FROM research RR INNER JOIN exam EE ON RR.studentID = EE.studentID " +
+                    " INNER JOIN students SS ON SS.studentID = RR.studentID " +
+                    " INNER JOIN scoreExam SE ON SS.studentID = SE.studentID " +
+                    " WHERE RR.studentID = @0 ";
+        var result = db.QuerySingle(sqlSelect, studentID);
+
+        // อาจารย์ที่ปรึกษา
+        var sqlTeacherA = " SELECT * FROM teacher WHERE teacherID = @0 ";
+        var teacherA = db.QuerySingle(sqlTeacherA, result["teacherA"]);
+
+        var sqlTeacherB = " SELECT * FROM teacher WHERE teacherID = @0 ";
+        var teacherB = db.QuerySingle(sqlTeacherB, result["teacherB"]);
+
+        var sqlTeacherC = " SELECT * FROM teacher WHERE teacherID = @0 ";
+        var teacherC = db.QuerySingle(sqlTeacherC, result["teacherC"]);
+
+        if (IsPost)
+        {
+            int status = 0;
+            var note = Request.Form["note"];
+            var sqlUpdate = " UPDATE scoreExam SET totalScore = @0, grade = @1, noteIT5 = @2 WHERE studentID = @3 ";
+            status = db.Execute(sqlUpdate, result["scoreTotal"], result["grade"], note, studentID);
+            if (status > 0)
+            {
+                <script>
+                    alert("บันทึกคะแนนเรียบร้อยแล้ว");
+                    location.href = "https://localhost:44361/Page/Teacher/ListIT5.cshtml";
+                </script>
+            }
+        }
+    }
     <title>IT5</title>
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/js/main.js" />
@@ -134,6 +182,7 @@
     input {
         display: inline-block;
     }
+
     table, th, td {
         font-size: 25px;
         border: 3px solid;
@@ -147,6 +196,7 @@
     td {
         text-align: left;
     }
+
     .reg {
         height: 100%;
         background-color: #83c750;
@@ -183,17 +233,17 @@
         </div>
 
 
-        <form>
+        <form method="post">
             <div class="col-md-8 mb-4" style="padding-top:5%;">
                 <div class="form-outline" align="left">
-                    <label class="form-label" for="researchname">งานวิจัยเรื่อง : </label><br />
-                    <label class="form-label" for="namestudent">ชื่อนักศึกษา : </label><br />
-                    <label class="form-label" for="studentid">รหัสนักศึกษา : </label><br />
-                    <label class="form-label" for="examDateStart">วันที่สอบ : </label><br />
-                    <label class="form-label" for="nameteacher1">ประธานสอบ : </label><br />
-                    <label class="form-label" for="nameteacher2">อาจารย์ที่ปรึกษา : </label><br />
-                    <label class="form-label" for="nameteacher3">กรรมการสอบ : </label><br />
-                    <label class="form-label" for="nameteacher4">อาจารย์ที่ปรึกษาร่วม : </label>
+                    <label class="form-label" for="researchname">งานวิจัยเรื่อง : @result["researchNameT"]</label><br />
+                    <label class="form-label" for="studentid">รหัสนักศึกษา : @result["studentID"]</label><br />
+                    <label class="form-label" for="namestudent">ชื่อนักศึกษา : @result["studentName"]</label><br />
+                    <label class="form-label" for="examDateStart">วันที่สอบ : @result["examDateStart"]</label><br />
+                    <label class="form-label" for="nameteacher1">ประธานสอบ : @teacherC["teacherName"]</label><br />
+                    <label class="form-label" for="nameteacher2">อาจารย์ที่ปรึกษา : @teacherA["teacherName"]</label><br />
+                    <label class="form-label" for="nameteacher3">กรรมการสอบ : @teacherB["teacherName"]</label><br />
+                    <label class="form-label" for="nameteacher4">อาจารย์ที่ปรึกษาร่วม : - </label>
                     <div align="center" style="margin:5%;">
                         <table style="width:100%; max-width:350px;">
                             <tr>
@@ -205,27 +255,27 @@
                             </tr>
                             <tr>
                                 <td style="text-align:center">ประธานสอบ</td>
-                                <td style="text-align:center"></td>
+                                <td style="text-align:center">@result["score3"]</td>
                             </tr>
                             <tr>
                                 <td style="text-align:center">อาจารย์ที่ปรึกษา</td>
-                                <td style="text-align:center"></td>
+                                <td style="text-align:center">@result["score1"]</td>
                             </tr>
                             <tr>
                                 <td style="text-align:center">กรรมการสอบ</td>
-                                <td style="text-align:center"></td>
+                                <td style="text-align:center">@result["score2"]</td>
                             </tr>
                             <tr>
                                 <td style="text-align:center">อาจารย์ที่ปรึกษาร่วม</td>
                                 <td style="text-align:center"></td>
                             </tr>
                             <tr>
-                                <th style="text-align:center">รวม</th>
-                                <td style="text-align:center"> </td>
+                                <th style="text-align:center">คะแนนเฉลี่ย</th>
+                                <td style="text-align:center">@result["scoreTotal"]</td>
                             </tr>
                             <tr>
                                 <th style="text-align:center">เกรด</th>
-                                <td style="text-align:center"> </td>
+                                <td style="text-align:center">@result["grade"]</td>
                             </tr>
                         </table>
                     </div>
@@ -238,14 +288,14 @@
                     <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="note" style="height: 200px"></textarea>
                     <label for="floatingTextarea">หมายเหตุ</label>
                 </div>
-                <div class="form-check form-check-inline" style="padding-top:20px; font-size:25px">
+                @*<div class="form-check form-check-inline" style="padding-top:20px; font-size:25px">
                     <input class="form-check-input" type="radio" name="registrationStatus" id="inlineRadio1" value="A" required>
                     <label class="form-check-label" for="inlineRadio1">อนุมัติ</label>
                 </div>
                 <div class="form-check form-check-inline" style="padding-bottom:20px; font-size: 25px">
                     <input class="form-check-input" type="radio" name="registrationStatus" id="inlineRadio2" value="D" required>
                     <label class="form-check-label" for="inlineRadio2">ไม่อนุมัติ</label>
-                </div>
+                </div>*@
 
                 <div style="padding-top:5%; padding-bottom:5%;">
                     <span>

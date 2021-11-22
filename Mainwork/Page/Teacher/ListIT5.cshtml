@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+@using WebMatrix.Data;
+<html>
+<head>
+    @{
+        var userName = Session["userName"];
+        var db = Database.Open("ResearchBooking");
+
+        var selectstudent = " SELECT EE.examID, RR.studentID, SS.studentName, RR.teacherID1, EE.teacherID, EE.teacherID2, RR.researchNameT " +
+                " FROM research RR " +
+                " INNER JOIN exam EE ON RR.studentID = EE.studentID " +
+                " INNER JOIN students SS ON SS.studentID = RR.studentID " +
+                " INNER JOIN scoreExam SE ON SE.studentID = EE.studentID " +
+                " WHERE RR.teacherID1 = @0 OR EE.teacherID = @1 OR EE.teacherID2 = @2 AND SE.grade IS NULL";
+        var student = db.Query(selectstudent, userName, userName, userName);
+    }
+    <title>DateTimeExam</title>
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/js/main.js" />
+    <link rel="stylesheet" href="~/css/button.css" />
+    <link rel="stylesheet" href="~/css/page.css" />
+    <link rel="stylesheet" href="~/css/loginpage.css" />
+    <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/bootstrap-5.1.1-dist/js/bootstrap.min.js" />
+    <link rel="stylesheet" href="~/css/popuplogin.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Taviraj:wght600&display=swap"> <!--font หลัก-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<style>
+    body {
+        font-family: 'Taviraj', serif;
+    }
+
+    button {
+        width: 100%;
+        height: 20%;
+        border: none;
+        color: black;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 70%;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .buttonjs {
+        display: flex;
+        height: 50px;
+        padding: 0;
+        background: #009578;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        overflow: hidden;
+        font-family: "Quicksand", sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        background: #008168;
+    }
+
+    .button:active {
+        background: #006e58;
+    }
+
+    .button__icon,
+    .button__text {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 15px;
+        color: #fff;
+        height: 100%;
+    }
+
+    .button__icon {
+        font-size: 1.5em;
+        background: rgba(0, 0, 0, 0.08);
+    }
+
+    table, th, td {
+        font-size: 20px;
+        border: 3px solid;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    td {
+        text-align: left;
+    }
+
+    .reg {
+        height: 100%;
+        background-color: #83c750;
+        overflow-x: hidden;
+        padding-top: 20px;
+    }
+</style>
+<body>
+    <div class="navbar navbar-dark reg shadow-sm">
+        <div class=" navbar-brand d-flex align-items-center" style="width:100%;">
+
+            <div style="padding-left:7%;">
+                <img style="width:100px; height:100px;" src="~/Photo/logo it.png" />
+            </div>
+            <div style="padding-left:8%;">
+                <strong style="color:black;">ระบบข้อมูลสารสนเทศวิจัยทางเทคโนโลยีสารสนเทศและนวัตกรรมดิจิทัล</strong>
+            </div>
+            <div style="padding-left:5%">
+                <button type="button" class="buttonjs" onclick="location.href='https://localhost:44361/Page/Login.cshtml'">
+                    <span class="button__text">ออกจากระบบ</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <div align="center" style="padding-top: 50px;">
+        <table align="center" style="width:100%;background-color:#ffb08e; max-width:1500px">
+            <tr>
+                <th colspan="4">IT5</th>
+            </tr>
+            <tr>
+                <th style="width:10%;">รหัสนักศึกษา</th>
+                <th style="width:20%;">ชื่อ</th>
+                <th style="width:60%;">ชื่องานวิจัย</th>
+                <th style="width:10%;">สรุปคะแนน</th>
+            </tr>
+            @foreach (var list in student)
+            {
+                <tr>
+                    <td style="text-align:center;">@list["studentID"]</td>
+                    <td style="padding-left:5px;">@list["studentName"]</td>
+                    <td style="padding-left:5px;">@list["researchNameT"]</td>                    
+                    <td style="text-align:center;">
+                        <a href="~/Page/Teacher/IT5.cshtml?studentID=@list["studentID"]">ประเมินผล</a>
+                    </td>
+                </tr>
+            }
+        </table>
+
+    </div>
+
+</body>
+</html>

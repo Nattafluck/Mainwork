@@ -1,6 +1,93 @@
 ﻿<!DOCTYPE html>
+@using WebMatrix.Data;
 <html>
 <head>
+    @{
+        var userName = Session["userName"];
+        var studentID = Request.Params["studentID"];
+        var position = Request.Params["position"];
+        var db = Database.Open("ResearchBooking");
+        var selectteacher = " SELECT * FROM Researchbooking.teacher WHERE teacherID = @0 ";
+        var teacher = db.QuerySingle(selectteacher, userName);
+
+        var selectstudent = " SELECT EE.examID, RR.studentID, SS.studentName, RR.teacherID1, EE.teacherID, EE.teacherID2 " +
+                " FROM research RR INNER JOIN exam EE ON RR.studentID = EE.studentID INNER JOIN students SS ON SS.studentID = RR.studentID " +
+                " WHERE RR.teacherID1 = @0 OR EE.teacherID = @1 OR EE.teacherID2 = @2 ";
+        var student = db.Query(selectstudent, userName, userName, userName);
+
+        // สำหรับดึงคะแนนที่เคยกรอกไปแล้ว
+        var selectScore = " SELECT * FROM scoreExam WHERE studentID = @0 ";
+        var studentScore = db.QuerySingle(selectScore, studentID);
+
+
+        if (IsPost)
+        {
+            int programpoint = Convert.ToInt32(Request.Form["programpoint"]);
+            int processpoint = Convert.ToInt32(Request.Form["processpoint"]);
+            int documentpoint = Convert.ToInt32(Request.Form["documentpoint"]);
+            int presentpoint = Convert.ToInt32(Request.Form["presentpoint"]);
+            int total = programpoint + processpoint + documentpoint + presentpoint;
+            var note = Request.Form["note"];
+            // เช็คว่ามีข้อมูลคะแนนในระบบแล้วหรือยัง
+            var select = " SELECT * FROM scoreExam WHERE studentID = @0 ";
+            var result = db.QuerySingle(select, studentID);
+            int status = 0;
+            if (result != null)
+            {
+                if (position == "A")
+                {
+                    var update = " UPDATE scoreExam SET score1 = @0 ,noteExam1 = @1 WHERE studentID = @2 ";
+                    status = db.Execute(update, total, note, studentID);
+                }
+                else if (position == "B")
+                {
+                    var update = " UPDATE scoreExam SET score2 = @0 ,noteExam2 = @1 WHERE studentID = @2 ";
+                    status = db.Execute(update, total, note, studentID);
+                }
+                else if (position == "C")
+                {
+                    var update = " UPDATE scoreExam SET score3 = @0 ,noteExam3 = @1 WHERE studentID = @2 ";
+                    status = db.Execute(update, total, note, studentID);
+                }
+            }
+            else
+            {
+                if (position == "A")
+                {
+                    var insert = " INSERT INTO scoreExam(studentID,score1,noteExam1) values(@0,@1,@2) ";
+                    status = db.Execute(insert, studentID, total, note);
+                }
+                else if (position == "B")
+                {
+                    var insert = " INSERT INTO scoreExam(studentID,score2,noteExam2) values(@0,@1,@2) ";
+                    status = db.Execute(insert, studentID, total, note);
+                }
+                else if (position == "C")
+                {
+                    var insert = " INSERT INTO scoreExam(studentID,score3,noteExam3) values(@0,@1,@2) ";
+                    status = db.Execute(insert, studentID, total, note);
+                }
+            }
+            if (status > 0)
+            {
+                <script>
+                    alert("บันทึกคะแนนเรียบร้อยแล้ว");
+                    location.href = "https://localhost:44361/Page/Teacher/ListIT4.cshtml";
+                </script>
+            }
+        }
+    }
+    <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+    <script>
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+    </script>
     <title>IT4</title>
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/js/main.js" />
@@ -71,18 +158,21 @@
         font-size: 1.5em;
         background: rgba(0, 0, 0, 0.08);
     }
+
     div.t {
         border-radius: 20px;
         background-color: #f2f2f2;
         padding: 20px;
-        max-width:80%;
+        max-width: 80%;
     }
+
     div.tt {
         border-radius: 20px;
         background-color: #e3e3e3;
         padding-top: 20px;
         max-width: 80%;
     }
+
     .col-25 {
         float: left;
         width: 25%;
@@ -94,50 +184,53 @@
         width: 75%;
         margin-top: 6px;
     }
+
     .row:after {
         content: "";
         display: table;
         clear: both;
     }
+
     label {
         padding: 0px 0px 0px 0;
         display: inline-block;
     }
+
     .col-30 {
         float: left;
         width: 30%;
-        
     }
 
     .col-70 {
         float: left;
         width: 70%;
-        
     }
 
     .col-45 {
         float: left;
         width: 45%;
     }
+
     .col-55 {
         float: left;
         width: 55%;
     }
 
-    
+
     input {
         display: inline-block;
     }
+
     .reg {
         height: 100%;
         background-color: #83c750;
         overflow-x: hidden;
         padding-top: 20px;
     }
-    p {
-        margin-top:10px;
-    }
 
+    p {
+        margin-top: 10px;
+    }
 </style>
 <body>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -165,22 +258,28 @@
             <h4>IT4</h4>
         </div>
     </div>
-    <form>
+    <form method="post">
         <div align="center" style="padding-top:2%;">
             <div class="t">
                 <div class="row">
                     <div class="col-45" align="left">
-                        <label style="padding-left:10%;">(ชื่ออาจารย์)</label><br /><br />
+                        <label style="padding-left:10%;">(ชื่ออาจารย์) : @teacher["teacherName"]</label><br /><br />
 
                     </div>
                     <div class="col-55">
-                        <select class="select form-control-sm col-lg-7 mb-5" name="studentname" required>
-                            <option value="0">กรุณาเลือกนักศึกษา</option>
-                        </select>
+                        <label>ตำแหน่ง : </label> @if (position == "A")
+                        {
+                            <p>ที่ปรึกษา</p>
+                        }
+                        @if (position == "B")
+                        {
+                            <p>กรรมการ</p>
+                        }
+                        @if (position == "C")
+                        {
+                            <p>ประธาน</p>
+                        }
                     </div>
-                </div>
-                <div align="left" style="padding-left:25%;">
-                    <label>ตำแหน่ง : </label>
                 </div>
                 <hr />
                 <div class="container">
@@ -211,21 +310,21 @@
                         <div class="col-70">
                             <div align="center">
                                 <div style="padding-top:10px">
-                                    <input name="programpoint" class="form-control-sm col-2" placeholder="30 คะแนน" style="text-align:center; font-size:20px;" />
+                                    <input name="programpoint" type="text" maxlength="2" onkeypress="return isNumber(event)" class="form-control-sm col-2" placeholder="30 คะแนน" style="text-align:center; font-size:20px;" />
 
                                 </div>
                                 <div style="padding-top:25px">
-                                    <input name="processpoint" class="form-control-sm col-md-2" placeholder="30 คะแนน" style="text-align: center; font-size: 20px;" />
-
-
-                                </div>
-                                <div style="padding-top:25px">
-                                    <input name="documentpoint" class="form-control-sm col-md-2" placeholder="30 คะแนน" style="text-align: center; font-size: 20px;" />
+                                    <input name="processpoint" type="text" maxlength="2" onkeypress="return isNumber(event)" class="form-control-sm col-md-2" placeholder="30 คะแนน" style="text-align: center; font-size: 20px;" />
 
 
                                 </div>
                                 <div style="padding-top:25px">
-                                    <input name="presentpoint" class="form-control-sm col-md-2" placeholder="10 คะแนน" style="text-align: center; font-size: 20px;" />
+                                    <input name="documentpoint" type="text" maxlength="2" onkeypress="return isNumber(event)" class="form-control-sm col-md-2" placeholder="30 คะแนน" style="text-align: center; font-size: 20px;" />
+
+
+                                </div>
+                                <div style="padding-top:25px">
+                                    <input name="presentpoint" type="text" maxlength="2" onkeypress="return isNumber(event)" class="form-control-sm col-md-2" placeholder="10 คะแนน" style="text-align: center; font-size: 20px;" />
                                 </div>
                             </div>
                         </div>
@@ -233,7 +332,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div align="center">
 
             <div class="form-floating col-md-6 mb-4" style="padding-top:20px;">
@@ -242,7 +341,7 @@
             </div>
             <div style="padding-top:20px; padding-bottom:5%;">
                 <span>
-                    <button style="background:#abbdee; max-width:200px;" type="submit" onclick="" ;>ยืนยัน</button>
+                    <button style="background:#abbdee; max-width:200px;" type="submit">ยืนยัน</button>
                     <button style="background:#ffd1dc; max-width:200px;" type="reset">ยกเลิก</button>
                 </span>
             </div>
